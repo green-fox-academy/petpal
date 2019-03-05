@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Entity
@@ -16,6 +17,7 @@ public abstract class SuperUser {
   private Long id;
   private String username;
   private String password;
+  @Email
   private String email;
   private String phoneNumber;
   private String location;
