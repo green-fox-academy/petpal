@@ -1,4 +1,4 @@
-package com.greenfoxacademy.petpal.animal;
+package com.greenfoxacademy.petpal;
 
 public interface AbstractFactory<T, U extends Enum<U>> {
 
