@@ -30,8 +30,14 @@ dependencies {
             'org.projectlombok:lombok',
             'org.projectlombok:lombok',
            'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure',
+            'org.webjars:jquery:2.1.1',
+           // 'org.webjars:bootstrap:3.2.0',
+            'org.webjars:webjars-locator-core',
+
           //  'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '1.0.0.RELEASE',
             'io.jsonwebtoken:jjwt:0.9.0')
+    compile group: 'org.webjars', name: 'bootstrap', version: '4.0.0-alpha'
+
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.3.RELEASE'

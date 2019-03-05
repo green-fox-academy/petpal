@@ -14,6 +14,18 @@ import java.security.Principal;
 @RestController
 @EnableOAuth2Sso
 public class PetpalApplication extends WebSecurityConfigurerAdapter {
+
+  @RequestMapping("/user")
+  public Principal user(Principal principal) {
+    return principal;
+  }
+
+/*  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**", "/webjars/**", "/error**").permitAll().anyRequest()
+            .authenticated();
+  }*/
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
@@ -26,11 +38,13 @@ public class PetpalApplication extends WebSecurityConfigurerAdapter {
             .authenticated()
             .and().logout().logoutSuccessUrl("/").permitAll();
   }
-
+/*
   @RequestMapping("/user")
   public Principal user(Principal principal) {
     return principal;
   }
+  */
+
   public static void main(String[] args) {
     SpringApplication.run(PetpalApplication.class, args);
   }
