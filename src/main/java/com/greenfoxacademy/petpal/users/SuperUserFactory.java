@@ -1,8 +1,11 @@
 package com.greenfoxacademy.petpal.users;
 
-public class SuperUserFactory {
+import com.greenfoxacademy.petpal.animal.AbstractFactory;
 
-  public static SuperUser create(UserType userType) {
-    return userType.makeUser();
+public class SuperUserFactory implements AbstractFactory<SuperUser, UserType> {
+
+  @Override
+  public SuperUser create(UserType userType) {
+    return userType.createUser();
   }
 }
