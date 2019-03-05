@@ -3,18 +3,18 @@ package com.greenfoxacademy.petpal.users;
 public enum UserType {
 
   Private {
-    public SuperUser makeUser() {
+    public SuperUser createUser() {
       return new PrivateUser();
     }
   },
 
   Org {
-    public SuperUser makeUser() {
+    public SuperUser createUser() {
       return new Organisation();
     }
   };
 
-  public SuperUser makeUser() {
+  public SuperUser createUser() {
     return  null;
   }
 
