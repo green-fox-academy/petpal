@@ -5,8 +5,10 @@ import com.greenfoxacademy.petpal.security.config.WebSecurityConfig;
 import com.greenfoxacademy.petpal.security.JWT.extractor.TokenExtractor;
 import com.greenfoxacademy.petpal.security.JWT.TokenVerifier;
 import com.greenfoxacademy.petpal.security.model.*;
+import com.greenfoxacademy.petpal.users.MainUserService;
 import com.greenfoxacademy.petpal.users.PrivateUser;
 import com.greenfoxacademy.petpal.users.PrivateUserServiceImpl;
+import com.greenfoxacademy.petpal.users.SuperUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -23,13 +25,13 @@ import java.util.Collections;
 public class RefreshTokenEndpoint {
   
   private JwtTokenFactory tokenFactory;
-  private PrivateUserServiceImpl userService;
+  private MainUserService userService;
   private TokenVerifier tokenVerifier;
   @Qualifier("jwtHeaderTokenExtractor")
   private TokenExtractor tokenExtractor;
   
   @Autowired
-  public RefreshTokenEndpoint(JwtTokenFactory tokenFactory, PrivateUserServiceImpl userService, TokenVerifier tokenVerifier, TokenExtractor tokenExtractor) {
+  public RefreshTokenEndpoint(JwtTokenFactory tokenFactory, MainUserService userService, TokenVerifier tokenVerifier, TokenExtractor tokenExtractor) {
     this.tokenFactory = tokenFactory;
     this.userService = userService;
     this.tokenVerifier = tokenVerifier;
@@ -38,7 +40,7 @@ public class RefreshTokenEndpoint {
   
   @RequestMapping(value = "/refreshtoken", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
   public @ResponseBody
-  JwtToken refreshToken(HttpServletRequest request) {
+  JwtToken refreshToken(HttpServletRequest request) throws Throwable {
     String tokenPayload = tokenExtractor.extract(request.getHeader(WebSecurityConfig.AUTHENTICATION_HEADER_NAME));
     
     RawAccessJwtToken rawToken = new RawAccessJwtToken(tokenPayload);
@@ -50,7 +52,7 @@ public class RefreshTokenEndpoint {
     }
     
     String subject = refreshToken.getSubject();
-    PrivateUser user = userService.findByUsername(subject).orElseThrow(() -> new UsernameNotFoundException("No such user: " + subject));
+    SuperUser user = (SuperUser) userService.findByUsername(subject).orElseThrow(() -> new UsernameNotFoundException("No such user: " + subject));
     
     UserContext userContext = UserContext.create(user.getUsername(), Collections.emptyList());
     

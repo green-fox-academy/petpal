@@ -14,98 +14,94 @@ import java.util.Set;
 @Service
 public class PrivateUserServiceImpl implements PrivateUserService {
 
-  private PrivateUserRepository privateUserRepository;
-  private AnimalRepository animalRepository;
+  private MainUserRepository mainUserRepository;
+  private BCryptPasswordEncoder encoder;
 
   @Autowired
-  public PrivateUserServiceImpl(PrivateUserRepository privateUserRepository, AnimalRepository animalRepository) {
-    this.privateUserRepository = privateUserRepository;
-    this.animalRepository = animalRepository;
+  public PrivateUserServiceImpl(MainUserRepository mainUserRepository, BCryptPasswordEncoder encoder) {
+    this.mainUserRepository = mainUserRepository;
+    this.encoder = encoder;
+  }
+
+  @Override
+  public PrivateUser registerNewUser(PrivateUser privateUser) throws UsernameTakenException {
+    if (!mainUserRepository.existsByUsername(privateUser.getUsername())) {
+      return (PrivateUser) mainUserRepository.save(privateUser);
+    }
+    throw new UsernameTakenException("Username already taken, please choose an other one.");
+
   }
 
   @Override
   public Optional<PrivateUser> findByUsername(String username) {
-    return Optional.empty();
+    return mainUserRepository.findByUsername(username);
   }
 
   @Override
-  public void removeUser(PrivateUser privateUser) {
-
-  }
-
-  @Override
-  public PrivateUser findById(Long id) throws UserIdNotFoundException {
-    return null;
+  public PrivateUser findById(Long id) throws Throwable {
+    return (PrivateUser) mainUserRepository.findById(id)
+            .orElseThrow(() -> new UserIdNotFoundException(("There is no User with such ID")));
   }
 
   @Override
   public PrivateUser saveUser(PrivateUser privateUser) throws UserIsNullException {
-    return null;
+    privateUser.setPassword(encoder.encode(privateUser.getPassword()));
+    checkIfUserIsnull(privateUser);
+    return (PrivateUser) mainUserRepository.save(privateUser);
   }
 
   @Override
   public void removeUser(Long id) throws UserIdNotFoundException {
-
+    if (!mainUserRepository.existsById(id)) {
+      throw new UserIdNotFoundException("There is no User with such ID");
+    }
+    mainUserRepository.deleteById(id);
   }
 
   @Override
-  public Set<Animal> animalsLikedByUser(Long userId) throws UserIdNotFoundException {
-    return null;
+  public Set<Animal> animalsLikedByUser(Long userId) throws Throwable {
+    return findById(userId).getAnimalsLikedByUser();
   }
 
   @Override
-  public Set<Animal> animalsToAdoptByUser(Long userId) throws UserIdNotFoundException {
-    return null;
+  public Set<Animal> animalsToAdoptByUser(Long userId) throws Throwable {
+    return findById(userId).getAnimalsToAdoptByUser();
   }
 
   @Override
-  public List<Animal> ownedAnimalsByUser(Long userId) throws UserIdNotFoundException {
-    return null;
+  public Set<Animal> animalsOwnedByUser(Long userId) throws Throwable {
+    return findById(userId).getOwnedAnimalsByUser();
   }
 
   @Override
-  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) {
-
+  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    Set<Animal> animalsLikedByUser = animalsLikedByUser(privateUser.getId());
+    animalsLikedByUser.add(animal);
+    privateUser.setAnimalsLikedByUser(animalsLikedByUser);
+    saveUser(privateUser);
   }
 
   @Override
-  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) {
-
+  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    Set<Animal> animalsToAdoptByUser = animalsToAdoptByUser(privateUser.getId());
+    animalsToAdoptByUser.add(animal);
+    privateUser.setAnimalsToAdoptByUser(animalsToAdoptByUser);
+    saveUser(privateUser);
   }
 
   @Override
-  public List<Animal> likedAnimalsByUser(Long userId) {
-    return null;
-  }
-
-  @Override
-  public List<Animal> favouriteAnimalsByUser(Long userId) {
-    return null;
-  }
-
-  @Override
-  public void addAnimalToLikedAnimals(Animal animal, PrivateUser privateUser) {
-
-  }
-
-  @Override
-  public void addAnimalToFavouriteAnimals(Animal animal, PrivateUser privateUser) {
-
-  }
-
-  @Override
-  public void adoptAnimal(Animal animal, PrivateUser privateUser) {
-
-  }
-
-  @Override
-  public void addAnimalToOwnedAnimalsByUser(Animal animal, PrivateUser privateUser) {
-
+  public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    Set<Animal> animalsOwnedByUser = animalsOwnedByUser(privateUser.getId());
+    animalsOwnedByUser.add(animal);
+    privateUser.setOwnedAnimalsByUser(animalsOwnedByUser);
+    saveUser(privateUser);
   }
 
   @Override
   public void checkIfUserIsnull(PrivateUser privateUser) throws UserIsNullException {
-
+    if (privateUser == null) {
+      throw new UserIsNullException("User must not be null");
+    }
   }
-}
 
+}

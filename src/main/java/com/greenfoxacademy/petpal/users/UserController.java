@@ -1,8 +1,8 @@
 package com.greenfoxacademy.petpal.users;
 
-import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
-import com.greenfoxacademy.petpal.exception.UserNotFoundException;
+import com.greenfoxacademy.petpal.exception.UsernameTakenException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "https://petpalgf.herokuapp.com/", maxAge = 3600)
 public class UserController {
 
   private PrivateUserService privateUserService;
@@ -23,9 +24,10 @@ public class UserController {
   }
 
   @PostMapping("/register/user")
-  public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException {
-    privateUserService.saveUser(privateUser);
-    return ResponseEntity.ok().body(privateUser);
+  public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException, UsernameTakenException {
+    privateUserService.registerNewUser(privateUser);
+    ModelMapper modelMapper = new ModelMapper();
+    return ResponseEntity.ok().body(modelMapper.map(privateUser, UserDTO.class));
   }
 
   @PostMapping("/register/organization")
@@ -35,7 +37,7 @@ public class UserController {
   }
 
   @PutMapping("/privateuser/{id}")
-  public ResponseEntity changePrivateUser(@PathVariable Long id, PrivateUser privateUser) throws UserNotFoundException, UserIdNotFoundException, UserIsNullException {
+  public ResponseEntity changePrivateUser(@PathVariable Long id, PrivateUser privateUser) throws Throwable {
     PrivateUser privateUserToChange = privateUserService.findById(id);
     return ResponseEntity.ok(privateUserService.saveUser(privateUser));
   }
@@ -48,20 +50,21 @@ public class UserController {
   }*/
 
   @GetMapping("/pets/liked")
-  public ResponseEntity likedPets(@PathVariable Long id, Authentication authentication) throws UserIdNotFoundException {
+  public ResponseEntity likedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUserToChange = privateUserService.findById(id);
     return ResponseEntity.ok(privateUserToChange.getAnimalsLikedByUser());
   }
 
   @GetMapping("/pets/adopted")
-  public ResponseEntity adoptedPets(@PathVariable Long id, Authentication authentication) throws UserIdNotFoundException {
+  public ResponseEntity adoptedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUserToChange = privateUserService.findById(id);
     return ResponseEntity.ok(privateUserToChange.getAnimalsToAdoptByUser());
   }
 
   @GetMapping("/pets/owned")
-  public ResponseEntity ownedPets(@PathVariable Long id, Authentication authentication) throws UserIdNotFoundException {
+  public ResponseEntity ownedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUserToChange = privateUserService.findById(id);
-    return ResponseEntity.ok(privateUserToChange.getAnimalList());
+    return ResponseEntity.ok(privateUserToChange.getOwnedAnimalsByUser());
   }
+
 }
