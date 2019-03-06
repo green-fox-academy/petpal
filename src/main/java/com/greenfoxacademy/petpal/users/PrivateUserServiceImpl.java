@@ -60,7 +60,7 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
-  public Set<Animal> ownedAnimalsByUser(Long userId) throws Throwable {
+  public Set<Animal> animalsOwnedByUser(Long userId) throws Throwable {
     return findById(userId).getOwnedAnimalsByUser();
   }
 
@@ -73,13 +73,19 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
-  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) {
-
+  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    Set<Animal> animalsToAdoptByUser = animalsToAdoptByUser(privateUser.getId());
+    animalsToAdoptByUser.add(animal);
+    privateUser.setAnimalsToAdoptByUser(animalsToAdoptByUser);
+    saveUser(privateUser);
   }
 
   @Override
-  public void addAnimalToOwnedAnimalsByUser(Animal animal, PrivateUser privateUser) {
-
+  public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    Set<Animal> animalsOwnedByUser = animalsOwnedByUser(privateUser.getId());
+    animalsOwnedByUser.add(animal);
+    privateUser.setOwnedAnimalsByUser(animalsOwnedByUser);
+    saveUser(privateUser);
   }
 
   @Override
