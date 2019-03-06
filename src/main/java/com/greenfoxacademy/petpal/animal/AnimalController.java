@@ -5,6 +5,7 @@ import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import com.greenfoxacademy.petpal.users.PrivateUser;
 import com.greenfoxacademy.petpal.users.PrivateUserService;
 import com.greenfoxacademy.petpal.users.SuperUser;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -39,7 +40,6 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
 
   @GetMapping("/pet/{id}")
   public ResponseEntity pet(@PathVariable Long id) throws AnimalIdNotFoundException {
-    //TODO: if exists
     return ResponseEntity.ok(animalService.findById(id));
   }
 
@@ -55,7 +55,6 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
     privateUserService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), privateUser);
     return ResponseEntity.ok().build();
-    //TODO: if animal exists by id
   }
 
   //POST /pet -> új petet tölthesz fel
@@ -73,9 +72,24 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
   }
 
   @DeleteMapping("/pet/{id}")
-  public ResponseEntity delete(@PathVariable Long id, Authentication authentication) {
-    //TODO: delete animal from 3 all the 3 lists and from animal database as well
+  public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
     SuperUser superUser = (SuperUser) authentication.getPrincipal();
-    return ResponseEntity.ok(superUser.getOwnedAnimalsByUser().remove(id.intValue()));
+    Animal animal = animalService.findById(id);
+    return ResponseEntity.ok(superUser.getOwnedAnimalsByUser().remove(animal));
+  }
+
+  @DeleteMapping("/pet/{id}/like")
+  public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
+    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
+    Animal animal = animalService.findById(id);
+    return ResponseEntity.ok(privateUser.getAnimalsLikedByUser().remove(animal));
+  }
+
+  @DeleteMapping("pet/{id}/adopt")
+  public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
+    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
+    Animal animal = animalService.findById(id);
+    return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
   }
 }
+//TODO: reduce duplications
