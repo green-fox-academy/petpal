@@ -14,6 +14,7 @@ import java.security.Principal;
 @RestController
 @EnableOAuth2Sso
 public class PetpalApplication extends WebSecurityConfigurerAdapter {
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
@@ -31,6 +32,7 @@ public class PetpalApplication extends WebSecurityConfigurerAdapter {
   public Principal user(Principal principal) {
     return principal;
   }
+
   public static void main(String[] args) {
     SpringApplication.run(PetpalApplication.class, args);
   }

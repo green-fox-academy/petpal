@@ -24,11 +24,13 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-security',
             'org.springframework.boot:spring-boot-starter-thymeleaf',
             'org.springframework.boot:spring-boot-starter-web',
-          //  'org.flywaydb:flyway-core',
+            'org.flywaydb:flyway-core',
             'org.modelmapper:modelmapper:2.3.0',
             'com.google.guava:guava:27.0.1-jre',
             'org.projectlombok:lombok',
             'org.projectlombok:lombok',
+            'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure',
+            //  'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '1.0.0.RELEASE',
            'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure',
             'io.jsonwebtoken:jjwt:0.9.0')
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
