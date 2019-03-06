@@ -4,8 +4,6 @@ import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import com.greenfoxacademy.petpal.users.PrivateUser;
 import com.greenfoxacademy.petpal.users.PrivateUserService;
-import com.greenfoxacademy.petpal.users.SuperUser;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -50,8 +48,8 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
     return ResponseEntity.ok().build();
   }
 
-  @PostMapping("/pet/{id}/favourite")
-  public ResponseEntity favourite(@PathVariable Long id, Authentication authentication) throws Throwable {
+  @PostMapping("/pet/{id}/toAdopt")
+  public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
     privateUserService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), privateUser);
     return ResponseEntity.ok().build();
@@ -71,11 +69,11 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
     return ResponseEntity.ok().body(animalService.save(animal));
   }
 
-  @DeleteMapping("/pet/{id}")
+  @DeleteMapping("/pet/{id}/owned")
   public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
-    SuperUser superUser = (SuperUser) authentication.getPrincipal();
+    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
     Animal animal = animalService.findById(id);
-    return ResponseEntity.ok(superUser.getOwnedAnimalsByUser().remove(animal));
+    return ResponseEntity.ok(privateUser.getOwnedAnimalsByUser().remove(animal));
   }
 
   @DeleteMapping("/pet/{id}/like")
