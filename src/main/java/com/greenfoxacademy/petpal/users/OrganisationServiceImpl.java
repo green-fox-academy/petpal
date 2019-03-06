@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrganisationServiceImpl implements OrganisationService {
 
-  private OrganisationRepository organisationRepository;
+  private MainUserRepository mainUserRepository;
 
   @Autowired
-  public OrganisationServiceImpl(OrganisationRepository organisationRepository) {
-    this.organisationRepository = organisationRepository;
+  public OrganisationServiceImpl(MainUserRepository mainUserRepository) {
+    this.mainUserRepository = mainUserRepository;
   }
 }
