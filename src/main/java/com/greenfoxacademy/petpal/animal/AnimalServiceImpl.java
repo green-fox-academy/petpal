@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AnimalServiceImpl implements AnimalService {
+public class AnimalService implements AnimalService {
+
   private AnimalRepository animalRepository;
 
   @Autowired

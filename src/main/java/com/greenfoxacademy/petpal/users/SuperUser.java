@@ -1,10 +1,15 @@
 package com.greenfoxacademy.petpal.users;
 
+import com.greenfoxacademy.petpal.animal.Animal;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -15,16 +20,19 @@ public abstract class SuperUser {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @NotBlank
   private String username;
+  @NotBlank
   private String password;
   @Email
   private String email;
   private String phoneNumber;
-  private String location;
+  private Double locationLong;
+  private Double locationLat;
 
-//@OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
-  //  private List<Animal> animalList;
+  //@OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
+  private List<Animal> animalList;
 
-  public abstract void giveAnimal();
+  public abstract void markAnimalForAdoption(); //TODO ez ide vagy service logicba?
 
 }
