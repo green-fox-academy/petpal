@@ -1,7 +1,9 @@
 package com.greenfoxacademy.petpal.users;
 
 import com.greenfoxacademy.petpal.animal.Animal;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +15,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class SuperUser {
 
   @Id
@@ -32,5 +36,8 @@ public abstract class SuperUser {
   @OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
   private Set<Animal> ownedAnimalsByUser;
 
-
+  public SuperUser(@NotBlank String username, @NotBlank String password) {
+    this.username = username;
+    this.password = password;
+  }
 }
