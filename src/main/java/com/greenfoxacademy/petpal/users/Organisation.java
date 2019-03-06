@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Organisation extends SuperUser {
 
   @Override
