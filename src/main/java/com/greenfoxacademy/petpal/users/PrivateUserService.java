@@ -1,14 +1,14 @@
 package com.greenfoxacademy.petpal.users;
 
 import com.greenfoxacademy.petpal.animal.Animal;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PrivateUserService {
 
   void findById(Long id);
+  Optional<PrivateUser> findByUsername(String username);
   void saveUser(PrivateUser privateUser);
   void removeUser(PrivateUser privateUser);
 
