@@ -19,7 +19,7 @@ public interface PrivateUserService {
   void addAnimalToFavouriteAnimals(Animal animal);
   void adoptAnimal(Animal animal);
 
-//  void markMyAnimalForAdoption(Animal animal);
+  void markMyAnimalForAdoption(Animal animal);
 
 
 }
