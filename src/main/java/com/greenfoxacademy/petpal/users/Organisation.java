@@ -11,8 +11,5 @@ import javax.persistence.Entity;
 @Setter
 public class Organisation extends SuperUser {
 
-  @Override
-  public void markAnimalForAdoption() {
 
-  }
 }

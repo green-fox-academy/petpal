@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petpal.users;
 
+import com.greenfoxacademy.petpal.animal.Animal;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,10 +27,10 @@ public abstract class SuperUser {
   private String phoneNumber;
   private Double locationLong;
   private Double locationLat;
+//  TODO address fields
 
-//@OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
-  //  private List<Animal> animalList;
+  @OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
+  private List<Animal> ownedAnimalsByUser;
 
-  public abstract void markAnimalForAdoption(); //TODO ez ide vagy service logicba?
 
 }
