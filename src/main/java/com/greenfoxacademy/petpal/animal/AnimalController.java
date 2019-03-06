@@ -61,20 +61,19 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
 
   //POST /pet -> új petet tölthesz fel
   @PostMapping("/pet")
-  public ResponseEntity upload(Animal animal) throws AnimalIsNullException {
-    if (animal != null) {
-      //TODO: set the user's animal
-      return ResponseEntity.ok().body(animalService.save(animal));
-    }
-    return null;
+  public ResponseEntity upload(Animal animal, Authentication authentication) throws AnimalIsNullException {
+    //TODO: set the user's animal
+    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
+    privateUserService.addAnimalToOwnedAnimalsByUser(animal, privateUser);
+    return ResponseEntity.ok().body(animalService.save(animal));
   }
 
   //PUT /pet/{id} -> ha elcseszted, javíthatod az állat adatait (edited)
   @PutMapping("/pet/{id}")
-  public ResponseEntity change(@PathVariable Long id, Animal animal) throws AnimalIdNotFoundException {
+  public ResponseEntity change(@PathVariable Long id, Animal animal) throws AnimalIdNotFoundException, AnimalIsNullException {
     Animal animalToChange = animalService.findById(id);
     animalToChange = animal;
-    return ResponseEntity.ok().body(animal);
+    return ResponseEntity.ok().body(animalService.save(animal));
   }
 
   @DeleteMapping("/pet/{id}")

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -29,10 +30,15 @@ public abstract class SuperUser {
   private String phoneNumber;
   private Double locationLong;
   private Double locationLat;
+//  TODO address fields
 
+<<<<<<< HEAD
   //@OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
   private List<Animal> animalList;
+=======
+  @OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
+  private List<Animal> ownedAnimalsByUser;
+>>>>>>> 836653d6c3307dc452205255b13a511ac0298a42
 
-  public abstract void markAnimalForAdoption(); //TODO ez ide vagy service logicba?
 
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AnimalService implements AnimalService {
+public class AnimalServiceImpl implements AnimalService {
 
   private AnimalRepository animalRepository;
 
@@ -43,9 +43,8 @@ public class AnimalService implements AnimalService {
   }
 
   private void checkIfAnimalIsNull(Animal animal) throws AnimalIsNullException {
-    if (animal != null) {
-      return;
+    if (animal == null) {
+      throw new AnimalIsNullException("Animal must not be null");
     }
-    throw new AnimalIsNullException("Animal must not be null");
   }
 }

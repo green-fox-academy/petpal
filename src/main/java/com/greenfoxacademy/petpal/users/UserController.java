@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petpal.users;
 
+import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,14 @@ public class UserController {
   }
 
   @PostMapping("/register/user")
-  public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) {
+  public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException {
+    privateUserService.saveUser(privateUser);
     return ResponseEntity.ok().body(privateUser);
   }
 
   @PostMapping("/register/organization")
   public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) {
+    
     return ResponseEntity.ok().body(organisation);
   }
 
