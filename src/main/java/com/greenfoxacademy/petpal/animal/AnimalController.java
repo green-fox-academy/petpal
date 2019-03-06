@@ -44,25 +44,25 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
   }
 
   @PostMapping("/pet/{id}/like")
-  public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
+  public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
-    privateUserService.addAnimalToLikedAnimals(animalService.findById(id), privateUser);
+    privateUserService.addAnimalToAnimalsLikedByUser(animalService.findById(id), privateUser);
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/pet/{id}/favourite")
-  public ResponseEntity favourite(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException, AnimalIsNullException {
+  public ResponseEntity favourite(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
-    privateUserService.addAnimalToFavouriteAnimals(animalService.findById(id), privateUser);
+    privateUserService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), privateUser);
     return ResponseEntity.ok().build();
     //TODO: if animal exists by id
   }
 
   //POST /pet -> új petet tölthesz fel
   @PostMapping("/pet")
-  public ResponseEntity upload(Animal animal, Authentication authentication) throws AnimalIsNullException {
+  public ResponseEntity upload(Animal animal, Authentication authentication) throws Throwable {
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
-    privateUserService.addAnimalToOwnedAnimalsByUser(animal, privateUser);
+    privateUserService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
     return ResponseEntity.ok().body(animalService.save(animal));
   }
 
@@ -76,6 +76,6 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
   public ResponseEntity delete(@PathVariable Long id, Authentication authentication) {
     //TODO: delete animal from 3 all the 3 lists and from animal database as well
     SuperUser superUser = (SuperUser) authentication.getPrincipal();
-    return ResponseEntity.ok(superUser.getAnimalList().remove(id.intValue()));
+    return ResponseEntity.ok(superUser.getOwnedAnimalsByUser().remove(id.intValue()));
   }
 }
