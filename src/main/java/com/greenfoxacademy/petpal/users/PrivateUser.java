@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 public class PrivateUser extends SuperUser {
 
   public void adoptAnimal() {

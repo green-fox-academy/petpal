@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public abstract class Animal {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
