@@ -15,12 +15,12 @@ import javax.validation.Valid;
 public class UserController {
 
   private PrivateUserService privateUserService;
-  OrganisationService organisationService;
+//  OrganisationService organisationService;
 
   @Autowired
-  public UserController(PrivateUserService privateUserService, OrganisationService organisationService) {
+  public UserController(PrivateUserService privateUserService) {
     this.privateUserService = privateUserService;
-    this.organisationService = organisationService;
+//    this.organisationService = organisationService;
   }
 
   @PostMapping("/register/user")
