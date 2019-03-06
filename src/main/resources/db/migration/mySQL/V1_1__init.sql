@@ -27,6 +27,6 @@ CREATE TABLE `animal`
   `birth_date`          timestamp(6),
   `type`                varchar(255) DEFAULT NULL,
   `gender`              varchar(255) DEFAULT NULL,
-  `from_when_available` timestamp(6) DEFAULT NULL,
+  `from_when_available` timestamp(6),
   PRIMARY KEY (`id`)
 );
