@@ -5,7 +5,6 @@ import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +25,8 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 
   @Override
   public PrivateUser registerNewUser(PrivateUser privateUser) throws UsernameTakenException {
-    if(!mainUserRepository.existsByUsername(privateUser.getUsername())){
-     return (PrivateUser) mainUserRepository.save(privateUser);
+    if (!mainUserRepository.existsByUsername(privateUser.getUsername())) {
+      return (PrivateUser) mainUserRepository.save(privateUser);
     }
     throw new UsernameTakenException("Username already taken, please choose an other one.");
 
