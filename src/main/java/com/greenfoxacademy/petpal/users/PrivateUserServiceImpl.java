@@ -3,6 +3,7 @@ package com.greenfoxacademy.petpal.users;
 import com.greenfoxacademy.petpal.animal.Animal;
 import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
+import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +22,15 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   public PrivateUserServiceImpl(MainUserRepository mainUserRepository, BCryptPasswordEncoder encoder) {
     this.mainUserRepository = mainUserRepository;
     this.encoder = encoder;
+  }
+
+  @Override
+  public PrivateUser registerNewUser(PrivateUser privateUser) throws UsernameTakenException {
+    if(!mainUserRepository.existsByUsername(privateUser.getUsername())){
+     return (PrivateUser) mainUserRepository.save(privateUser);
+    }
+    throw new UsernameTakenException("Username already taken, please choose an other one.");
+
   }
 
   @Override
