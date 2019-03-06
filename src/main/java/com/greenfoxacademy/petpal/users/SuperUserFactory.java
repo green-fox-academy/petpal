@@ -1,6 +1,6 @@
 package com.greenfoxacademy.petpal.users;
 
-import com.greenfoxacademy.petpal.animal.AbstractFactory;
+import com.greenfoxacademy.petpal.AbstractFactory;
 
 public class SuperUserFactory implements AbstractFactory<SuperUser, UserType> {
 
