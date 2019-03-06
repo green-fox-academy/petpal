@@ -56,8 +56,8 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 
   }
 
-//  @Override
-//  public void markMyAnimalForAdoption(Animal animal) {
-//
-//  }
+  @Override
+  public void markMyAnimalForAdoption(Animal animal) {
+
+  }
 }
