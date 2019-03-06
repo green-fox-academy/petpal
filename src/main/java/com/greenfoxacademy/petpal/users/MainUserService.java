@@ -12,13 +12,11 @@ public interface MainUserService <T extends SuperUser>{
 
   Optional<T> findByUsername(String username);
   T findById(Long id) throws Throwable;
-
   T saveUser(T t) throws UserIsNullException;
-
   void removeUser(Long id) throws UserIdNotFoundException;
   void checkIfUserIsnull(T t) throws UserIsNullException;
-
   Set<Animal> animalsOwnedByUser(Long userId) throws Throwable;
+  void addAnimalToAnimalsOwnedByUser(Animal animal, T t) throws Throwable;
   T registerNewUser(T t) throws UsernameTakenException;
 
 }
