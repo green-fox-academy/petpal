@@ -1,10 +1,14 @@
 package com.greenfoxacademy.petpal.users;
 
+import com.greenfoxacademy.petpal.animal.Animal;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -12,12 +16,9 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class PrivateUser extends SuperUser {
 
-  public void adoptAnimal() {
+  @ManyToMany(mappedBy = "privateUser")
+  private Set<Animal> animalsLikedByUser;
 
-  }
-
-  @Override
-  public void markAnimalForAdoption() {
-
-  }
+  @OneToMany(mappedBy = "privateUserAdopt")
+  private Set<Animal> animalsToAdoptByUser;
 }

@@ -12,8 +12,5 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Organisation extends SuperUser {
 
-  @Override
-  public void markAnimalForAdoption() {
 
-  }
 }

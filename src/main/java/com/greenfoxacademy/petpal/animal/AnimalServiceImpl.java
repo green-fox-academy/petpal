@@ -42,9 +42,8 @@ public class AnimalServiceImpl implements AnimalService {
   }
 
   private void checkIfAnimalIsNull(Animal animal) throws AnimalIsNullException {
-    if (animal != null) {
-      return;
+    if (animal == null) {
+      throw new AnimalIsNullException("Animal must not be null");
     }
-    throw new AnimalIsNullException("Animal must not be null");
   }
 }
