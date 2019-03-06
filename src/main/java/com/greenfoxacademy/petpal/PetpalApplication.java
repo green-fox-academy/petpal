@@ -27,63 +27,17 @@ import java.security.Principal;
 
 @SpringBootApplication
 @RestController
-@EnableOAuth2Client
-public class PetpalApplication extends WebSecurityConfigurerAdapter {
-
-  @Autowired
-  OAuth2ClientContext oauth2ClientContext;
+//@EnableOAuth2Client
+public class PetpalApplication{
 
   @RequestMapping("/user")
   public Principal user(Principal principal) {
     return principal;
   }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    // @formatter:off
-    http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**", "/webjars/**", "/error**").permitAll().anyRequest()
-            .authenticated().and().exceptionHandling()
-            .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and().logout()
-            .logoutSuccessUrl("/").permitAll().and().csrf()
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
-            .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
-    // @formatter:on
-  }
-
-  @Bean
-  public FilterRegistrationBean<OAuth2ClientContextFilter> oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
-    FilterRegistrationBean<OAuth2ClientContextFilter> registration = new FilterRegistrationBean<OAuth2ClientContextFilter>();
-    registration.setFilter(filter);
-    registration.setOrder(-100);
-    return registration;
-  }
-
-  private Filter ssoFilter() {
-    OAuth2ClientAuthenticationProcessingFilter facebookFilter = new OAuth2ClientAuthenticationProcessingFilter(
-            "/login/facebook");
-    OAuth2RestTemplate facebookTemplate = new OAuth2RestTemplate(facebook(), oauth2ClientContext);
-    facebookFilter.setRestTemplate(facebookTemplate);
-    UserInfoTokenServices tokenServices = new UserInfoTokenServices(facebookResource().getUserInfoUri(),
-            facebook().getClientId());
-    tokenServices.setRestTemplate(facebookTemplate);
-    facebookFilter.setTokenServices(tokenServices);
-    return facebookFilter;
-  }
-
-  @Bean
-  @ConfigurationProperties("facebook.client")
-  public AuthorizationCodeResourceDetails facebook() {
-    return new AuthorizationCodeResourceDetails();
-  }
-
-  @Bean
-  @ConfigurationProperties("facebook.resource")
-  public ResourceServerProperties facebookResource() {
-    return new ResourceServerProperties();
-  }
-
   public static void main(String[] args) {
     SpringApplication.run(PetpalApplication.class, args);
   }
+
 
 }
