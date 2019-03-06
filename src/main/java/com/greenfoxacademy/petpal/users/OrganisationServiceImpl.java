@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 import java.util.Set;
+import org.springframework.stereotype.Service;
 
 public class OrganisationServiceImpl implements OrganisationService {
 

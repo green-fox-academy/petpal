@@ -22,7 +22,9 @@ public abstract class Animal {
   private String type;
   private String gender;
   private Timestamp fromWhenAvailable;
-  //TODO Oltások? Ivartalanítva van vagy sem? Fotó?
+  private String photoPath;
+  private Boolean spayed;
+  private Boolean vaccinated;
 
   @ManyToMany
   @JoinTable(
