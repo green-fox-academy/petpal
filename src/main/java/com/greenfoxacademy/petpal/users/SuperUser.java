@@ -30,7 +30,7 @@ public abstract class SuperUser {
 //  TODO address fields
 
   @OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
-  private List<Animal> ownedAnimalsByUser;
+  private Set<Animal> ownedAnimalsByUser;
 
 
 }

@@ -7,9 +7,8 @@ import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class PrivateUserServiceImpl implements PrivateUserService {
@@ -24,10 +23,16 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
+  public Optional<PrivateUser> findByUsername(String username) {
+    return privateUserRepository.findByUsername(username);
+  }
+
+  @Override
   public PrivateUser findById(Long id) throws UserIdNotFoundException {
     return privateUserRepository.findById(id)
             .orElseThrow(() -> new UserIdNotFoundException(("There is no User with such ID")));
   }
+
 
   @Override
   public PrivateUser saveUser(PrivateUser privateUser) throws UserIsNullException {
@@ -55,7 +60,7 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
-  public List<Animal> ownedAnimalsByUser(Long userId) throws UserIdNotFoundException {
+  public Set<Animal> ownedAnimalsByUser(Long userId) throws UserIdNotFoundException {
     return findById(userId).getOwnedAnimalsByUser();
   }
 
@@ -83,4 +88,5 @@ public class PrivateUserServiceImpl implements PrivateUserService {
       throw new UserIsNullException("User must not be null");
     }
   }
+
 }
