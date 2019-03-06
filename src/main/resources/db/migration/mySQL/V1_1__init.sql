@@ -1,13 +1,12 @@
-CREATE TABLE `private_user`
+CREATE TABLE `super_user`
 (
   `id`            bigint(20)   AUTO_INCREMENT,
   `username`      varchar(255) DEFAULT NULL,
   `password`      varchar(255),
   `email`         varchar(255) DEFAULT NULL,
   `phone_number`  bigint(20)   DEFAULT NULL,
-  `location_long` float DEFAULT NULL,
-  `location_lat` float DEFAULT NULL,
-
+  `location_long` float        DEFAULT NULL,
+  `location_lat`  float        DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
