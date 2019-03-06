@@ -5,13 +5,12 @@ jdk:
   - oraclejdk8
   
 before_cache:
-  - rm -f  petpal/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr petpal/.gradle/caches/*/plugin-resolution/
-
+  - rm -f  ~/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr ~/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - petpal/.gradle/caches/
-    - petpal/.gradle/wrapper/
+    - ~/.gradle/caches/
+    - ~/.gradle/wrapper/
 
 script:
   - ./gradlew build

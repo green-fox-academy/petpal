@@ -13,7 +13,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 public class PrivateUser extends SuperUser {
 
   @ManyToMany(mappedBy = "privateUser")
