@@ -5,6 +5,7 @@ import com.greenfoxacademy.petpal.animal.AnimalRepository;
 import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +18,13 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 
   private PrivateUserRepository privateUserRepository;
   private AnimalRepository animalRepository;
+  private BCryptPasswordEncoder encoder;
 
   @Autowired
-  public PrivateUserServiceImpl(PrivateUserRepository privateUserRepository, AnimalRepository animalRepository) {
+  public PrivateUserServiceImpl(PrivateUserRepository privateUserRepository, AnimalRepository animalRepository, BCryptPasswordEncoder encoder) {
     this.privateUserRepository = privateUserRepository;
     this.animalRepository = animalRepository;
+    this.encoder = encoder;
   }
 
   @Override
@@ -35,13 +38,14 @@ public class PrivateUserServiceImpl implements PrivateUserService {
     return privateUserRepository.findByUsername(username);
   }
 
-    @Override
-    public void removeUser(PrivateUser privateUser) {
+  @Override
+  public void removeUser(PrivateUser privateUser) {
 
-    }
+  }
 
-    @Override
+  @Override
   public PrivateUser saveUser(PrivateUser privateUser) throws UserIsNullException {
+    privateUser.setPassword(encoder.encode(privateUser.getPassword()));
     checkIfUserIsnull(privateUser);
     return privateUserRepository.save(privateUser);
   }
@@ -90,8 +94,6 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 //    return fullList.stream()
 //            .filter(i -> i.getPrivateUser().getId().equals(userId))
 //            .collect(Collectors.toList());
-
-
 
 
   @Override
