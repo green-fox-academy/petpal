@@ -11,6 +11,6 @@ public interface PrivateUserService extends MainUserService<PrivateUser>{
   Set<Animal> animalsToAdoptByUser(Long userId) throws Throwable;
 
   void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) throws Throwable;
-  void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser); //ugzanay mint adopt
-  void addAnimalToOwnedAnimalsByUser(Animal animal, PrivateUser privateUser);
+  void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable; //ugzanay mint adopt
+  void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) throws Throwable;
 }

@@ -18,7 +18,7 @@ public interface MainUserService <T extends SuperUser>{
   void removeUser(Long id) throws UserIdNotFoundException;
   void checkIfUserIsnull(T t) throws UserIsNullException;
 
-  Set<Animal> ownedAnimalsByUser(Long userId) throws Throwable;
+  Set<Animal> animalsOwnedByUser(Long userId) throws Throwable;
   T registerNewUser(T t) throws UsernameTakenException;
 
 }
