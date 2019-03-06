@@ -1,3 +1,4 @@
+/*
 package com.greenfoxacademy.petpal.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,3 +79,4 @@ public class OAuth2Config extends WebSecurityConfigurerAdapter{
 
 
 }
+*/

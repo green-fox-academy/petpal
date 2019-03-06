@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,16 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
+  public Optional<PrivateUser> findByUsername(String username) {
+    return privateUserRepository.findByUsername(username);
+  }
+
+    @Override
+    public void removeUser(PrivateUser privateUser) {
+
+    }
+
+    @Override
   public PrivateUser saveUser(PrivateUser privateUser) throws UserIsNullException {
     checkIfUserIsnull(privateUser);
     return privateUserRepository.save(privateUser);

@@ -1,10 +1,9 @@
 package com.greenfoxacademy.petpal.users;
 
-import com.greenfoxacademy.petpal.animal.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface PrivateUserRepository extends JpaRepository<PrivateUser, Long> {
-
+  Optional<PrivateUser> findByUsername(String username);
 }
