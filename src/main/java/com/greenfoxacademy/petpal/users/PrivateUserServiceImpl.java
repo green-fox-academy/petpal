@@ -60,8 +60,11 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
-  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) {
-
+  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) throws UserIdNotFoundException, UserIsNullException {
+    Set<Animal> animalsLikedByUser = animalsLikedByUser(privateUser.getId());
+    animalsLikedByUser.add(animal);
+    privateUser.setAnimalsLikedByUser(animalsLikedByUser);
+    saveUser(privateUser);
   }
 
   @Override
@@ -73,15 +76,6 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   public void addAnimalToOwnedAnimalsByUser(Animal animal, PrivateUser privateUser) {
 
   }
-
-
-//    List<Animal> fullList = animalRepository.findAll();
-//    return fullList.stream()
-//            .filter(i -> i.getPrivateUser().getId().equals(userId))
-//            .collect(Collectors.toList());
-
-
-
 
   @Override
   public void checkIfUserIsnull(PrivateUser privateUser) throws UserIsNullException {
