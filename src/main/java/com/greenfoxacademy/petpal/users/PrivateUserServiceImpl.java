@@ -5,6 +5,7 @@ import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,12 +15,13 @@ import java.util.Set;
 public class PrivateUserServiceImpl implements PrivateUserService {
 
   private MainUserRepository mainUserRepository;
+  private BCryptPasswordEncoder encoder;
 
   @Autowired
-  public PrivateUserServiceImpl(MainUserRepository mainUserRepository) {
+  public PrivateUserServiceImpl(MainUserRepository mainUserRepository, BCryptPasswordEncoder encoder) {
     this.mainUserRepository = mainUserRepository;
+    this.encoder = encoder;
   }
-
 
   @Override
   public Optional<PrivateUser> findByUsername(String username) {
@@ -34,6 +36,7 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 
   @Override
   public PrivateUser saveUser(PrivateUser privateUser) throws UserIsNullException {
+    privateUser.setPassword(encoder.encode(privateUser.getPassword()));
     checkIfUserIsnull(privateUser);
     return (PrivateUser) mainUserRepository.save(privateUser);
   }
@@ -44,7 +47,6 @@ public class PrivateUserServiceImpl implements PrivateUserService {
       throw new UserIdNotFoundException("There is no User with such ID");
     }
     mainUserRepository.deleteById(id);
-
   }
 
   @Override
