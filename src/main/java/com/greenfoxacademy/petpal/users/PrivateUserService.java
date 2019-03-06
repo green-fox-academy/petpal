@@ -9,7 +9,7 @@ public interface PrivateUserService {
 
   PrivateUser findById(Long id) throws UserNotFoundException;
 
-  void saveUser(PrivateUser privateUser);
+  PrivateUser saveUser(PrivateUser privateUser);
 
   void removeUser(PrivateUser privateUser);
 

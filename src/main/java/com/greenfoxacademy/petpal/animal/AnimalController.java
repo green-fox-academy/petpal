@@ -15,12 +15,19 @@ public class AnimalController {
   private PrivateUserService privateUserService;
 
   @Autowired
-  public AnimalController(AnimalService animalServiceImpl, PrivateUserService privateUserServiceImpl) {
+  public AnimalController(AnimalService animalService, PrivateUserService privateUserService) {
     this.animalService = animalService;
-    this.privateUserService = privateUserServiceImpl;
+    this.privateUserService = privateUserService;
   }
 
   /*
+POST /register (itt lehet 2 féle endpoint lesz attól függően, hogy userként vagy szervezetként regizel)
+POST /login
+POST /logout
+GET /pets -> listázza a peteket (itt lehet mobilon tinderszerűen, gépen akár paginálva több oldalon a petek)
+GET /pet/{id} -> adott pet adatait lehet megnézni
+POST /pet/{id}/like -> jelzed, hogy érdeklődsz az állat iránt
+POST/pet/{id}/save -> elmented a kedvencek közé
 DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
 
   @GetMapping("/pets")
@@ -39,33 +46,32 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
     return null;
   }
 
-  @PostMapping("/pet/{id}/save")
-  public ResponseEntity save(@PathVariable Long id) throws AnimalIdNotFoundException, AnimalIsNullException {
-    if (animalService.findById(id) != null) {
-      return ResponseEntity.ok(animalService.save(animalService.findById(id)));
-    } else {
-      /*
-      //TODO: create new Animal + save?
-       */
-      return null;
-    }
+  //TODO: like this?
+  @PostMapping("user/{userid}/pet/{id}/favourite")
+  public ResponseEntity favourite(@PathVariable Long id, @PathVariable Long userid) throws AnimalIdNotFoundException, AnimalIsNullException {
+//TODO: if animal exists by id, save to the user's favourite list
   }
 
   //POST /pet -> új petet tölthesz fel
   @PostMapping("/pet")
-  public ResponseEntity upload() {
-    return ResponseEntity.ok().body("a");
+  public ResponseEntity upload(Animal animal) throws AnimalIsNullException {
+    if (animal != null) {
+      //TODO: set the user's animal
+      return ResponseEntity.ok().body(animalService.save(animal));
+    }
+    return null;
   }
 
   //PUT /pet/{id} -> ha elcseszted, javíthatod az állat adatait (edited)
-  @PutMapping("/pet")
-  public ResponseEntity change(Animal animal) {
-    return null;
+  @PutMapping("/pet/{id}")
+  public ResponseEntity change(@PathVariable Long id, Animal animal) throws AnimalIdNotFoundException {
+    Animal animalToChange = animalService.findById(id);
+    animalToChange = animal;
+    return ResponseEntity.ok().body(animal);
   }
 
-  @DeleteMapping("/pet")
-  public ResponseEntity delete(Animal animal) {
+  @DeleteMapping("/pet/{id}")
+  public ResponseEntity delete(@PathVariable Long id) {
     return null;
   }
-
 }

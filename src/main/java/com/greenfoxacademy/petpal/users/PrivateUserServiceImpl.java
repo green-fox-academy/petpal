@@ -23,7 +23,7 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
-  public void saveUser(PrivateUser privateUser) {
+  public PrivateUser saveUser(PrivateUser privateUser) {
 
   }
 
