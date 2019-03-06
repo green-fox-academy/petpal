@@ -47,22 +47,20 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
   public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
     privateUserService.addAnimalToLikedAnimals(animalService.findById(id), privateUser);
-    return null;
+    return ResponseEntity.ok().build();
   }
 
-  //TODO: like this?
   @PostMapping("/pet/{id}/favourite")
   public ResponseEntity favourite(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException, AnimalIsNullException {
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
     privateUserService.addAnimalToFavouriteAnimals(animalService.findById(id), privateUser);
+    return ResponseEntity.ok().build();
     //TODO: if animal exists by id
-    return null;
   }
 
   //POST /pet -> új petet tölthesz fel
   @PostMapping("/pet")
   public ResponseEntity upload(Animal animal, Authentication authentication) throws AnimalIsNullException {
-    //TODO: set the user's animal
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
     privateUserService.addAnimalToOwnedAnimalsByUser(animal, privateUser);
     return ResponseEntity.ok().body(animalService.save(animal));
@@ -70,9 +68,7 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
 
   //PUT /pet/{id} -> ha elcseszted, javíthatod az állat adatait (edited)
   @PutMapping("/pet/{id}")
-  public ResponseEntity change(@PathVariable Long id, Animal animal) throws AnimalIdNotFoundException, AnimalIsNullException {
-    Animal animalToChange = animalService.findById(id);
-    animalToChange = animal;
+  public ResponseEntity change(@PathVariable Long id, Authentication authentication, Animal animal) throws AnimalIdNotFoundException, AnimalIsNullException {
     return ResponseEntity.ok().body(animalService.save(animal));
   }
 

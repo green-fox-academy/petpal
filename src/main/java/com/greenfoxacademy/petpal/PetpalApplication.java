@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.security.Principal;
 
 @SpringBootApplication
@@ -13,7 +14,8 @@ import java.security.Principal;
 //@EnableOAuth2Client
 @EnableConfigurationProperties({
         FileStorageProperties.class
-})
+}
+)
 public class PetpalApplication {
 
   @RequestMapping("/user")
