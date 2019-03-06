@@ -1,6 +1,7 @@
 package com.greenfoxacademy.petpal.users;
 
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,9 @@ public class UserController {
 
   @PostMapping("/register/user")
   public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException {
-    privateUserService.saveUser(privateUser);
-    return ResponseEntity.ok().body(privateUser);
+    privateUserService.registerNewUser(privateUser);
+    ModelMapper modelMapper = new ModelMapper();
+    return ResponseEntity.ok().body(modelMapper.map(privateUser, UserDTO.class));
   }
 
 }

@@ -4,6 +4,7 @@ import com.greenfoxacademy.petpal.animal.Animal;
 import com.greenfoxacademy.petpal.animal.AnimalRepository;
 import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
+import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,36 @@ public class PrivateUserServiceImpl implements PrivateUserService {
     this.privateUserRepository = privateUserRepository;
     this.animalRepository = animalRepository;
     this.encoder = encoder;
+  }
+
+  @Override
+  public PrivateUser registerNewUser(PrivateUser privateUser) {
+    if(privateUser.existsByUsername(privateUser.getUsername()))){
+
+    }
+  }
+
+  public ApplicationUser registerNewUser(ApplicationUserDTO applicationUserDTO) throws UsernameTakenException {
+    String userName = applicationUserDTO.getUsername();
+
+    if (!applicationUserRepository.existsByUsername(userName)) {
+      String kingdomName = applicationUserDTO.getKingdomName();
+
+      ApplicationUser userToBeSaved = createUserFromDTO(applicationUserDTO);
+      userToBeSaved.setPassword(encoder.encode(applicationUserDTO.getPassword()));
+
+      Kingdom kingdom = createKingdom(kingdomName, userName);
+      kingdom.setApplicationUser(userToBeSaved);
+
+      userToBeSaved.setKingdom(kingdom);
+
+      kingdomService.setStarterBuildings(kingdom);
+      kingdomService.setStarterResource(kingdom);
+      kingdomService.setStarterTroops(kingdom);
+
+      return applicationUserRepository.save(userToBeSaved);
+    }
+    throw new UsernameTakenException("Username already taken, please choose an other one.");
   }
 
   @Override

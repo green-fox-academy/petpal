@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface MainUserService <T extends SuperUser>{
-
   Optional<T> findByUsername(String username);
   T findById(Long id) throws UserIdNotFoundException;
 
@@ -18,5 +17,6 @@ public interface MainUserService <T extends SuperUser>{
   void checkIfUserIsnull(T t) throws UserIsNullException;
 
   Set<Animal> ownedAnimalsByUser(Long userId) throws UserIdNotFoundException;
+  T registerNewUser(T t);
 
 }
