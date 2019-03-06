@@ -4,8 +4,10 @@ import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import com.greenfoxacademy.petpal.users.PrivateUser;
 import com.greenfoxacademy.petpal.users.PrivateUserService;
+import com.greenfoxacademy.petpal.users.SuperUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,21 +37,26 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
     return ResponseEntity.ok(animalService.findAll());
   }
 
-  @GetMapping("pet/{id}")
+  @GetMapping("/pet/{id}")
   public ResponseEntity pet(@PathVariable Long id) throws AnimalIdNotFoundException {
+    //TODO: if exists
     return ResponseEntity.ok(animalService.findById(id));
   }
 
   @PostMapping("/pet/{id}/like")
-  public ResponseEntity like(@PathVariable Long id, PrivateUser privateUser) throws AnimalIdNotFoundException {
+  public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
+    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
     privateUserService.addAnimalToLikedAnimals(animalService.findById(id), privateUser);
     return null;
   }
 
   //TODO: like this?
-  @PostMapping("user/{userid}/pet/{id}/favourite")
-  public ResponseEntity favourite(@PathVariable Long id, @PathVariable Long userid) throws AnimalIdNotFoundException, AnimalIsNullException {
-//TODO: if animal exists by id, save to the user's favourite list
+  @PostMapping("/pet/{id}/favourite")
+  public ResponseEntity favourite(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException, AnimalIsNullException {
+    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
+    privateUserService.addAnimalToFavouriteAnimals(animalService.findById(id), privateUser);
+    //TODO: if animal exists by id
+    return null;
   }
 
   //POST /pet -> új petet tölthesz fel
@@ -71,7 +78,9 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
   }
 
   @DeleteMapping("/pet/{id}")
-  public ResponseEntity delete(@PathVariable Long id) {
-    return null;
+  public ResponseEntity delete(@PathVariable Long id, Authentication authentication) {
+    //TODO: delete animal from 3 all the 3 lists and from animal database as well
+    SuperUser superUser = (SuperUser) authentication.getPrincipal();
+    return ResponseEntity.ok(superUser.getAnimalList().remove(id.intValue()));
   }
 }
