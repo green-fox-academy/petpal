@@ -1,12 +1,17 @@
 package com.greenfoxacademy.petpal.users.services;
 
+import com.greenfoxacademy.petpal.animal.AnimalFactory;
+import com.greenfoxacademy.petpal.animal.AnimalType;
 import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
+import com.greenfoxacademy.petpal.security.model.UserContext;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -92,9 +97,10 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
-  public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+  public void addAnimalToAnimalsOwnedByUser(AnimalDTO animalDTO, PrivateUser privateUser) throws Throwable {
     Set<Animal> animalsOwnedByUser = animalsOwnedByUser(privateUser.getId());
-    animalsOwnedByUser.add(animal);
+    AnimalFactory animalFactory = new AnimalFactory();
+    animalsOwnedByUser.add(animalFactory.create(AnimalType.valueOf(animalDTO.getType())));
     privateUser.setOwnedAnimalsByUser(animalsOwnedByUser);
     saveUser(privateUser);
   }
@@ -104,6 +110,12 @@ public class PrivateUserServiceImpl implements PrivateUserService {
     if (privateUser == null) {
       throw new UserIsNullException("User must not be null");
     }
+  }
+
+  @Override
+  public Optional<PrivateUser> getUserFromAuth(Authentication authentication) {
+    UserContext userContext = (UserContext) authentication.getPrincipal();
+    return findByUsername(userContext.getUsername());
   }
 
 }
