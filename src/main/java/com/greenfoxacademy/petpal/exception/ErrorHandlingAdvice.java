@@ -32,4 +32,11 @@ public class ErrorHandlingAdvice {
     return new ErrorMsg("error", ex.getMessage());
   }
 
+  @ResponseBody
+  @ExceptionHandler(AnimalAlreadyAdoptedException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  ErrorMsg animalAlreadyAdopted(AnimalAlreadyAdoptedException ex) {
+    return new ErrorMsg("error", ex.getMessage());
+  }
+
 }

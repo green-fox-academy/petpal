@@ -1,6 +1,7 @@
 package com.greenfoxacademy.petpal.users.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.exception.AnimalAlreadyAdoptedException;
 import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
@@ -77,6 +78,9 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 
   @Override
   public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    if (animal.getAdopted()) {
+      throw new AnimalAlreadyAdoptedException("This pet has been already adopted.");
+    }
     Set<Animal> animalsLikedByUser = animalsLikedByUser(privateUser.getId());
     animalsLikedByUser.add(animal);
     privateUser.setAnimalsLikedByUser(animalsLikedByUser);
@@ -85,7 +89,11 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 
   @Override
   public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    if (animal.getAdopted()) {
+      throw new AnimalAlreadyAdoptedException("This pet has been already adopted.");
+    }
     Set<Animal> animalsToAdoptByUser = animalsToAdoptByUser(privateUser.getId());
+    animal.setAdopted(true);
     animalsToAdoptByUser.add(animal);
     privateUser.setAnimalsToAdoptByUser(animalsToAdoptByUser);
     saveUser(privateUser);
