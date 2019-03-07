@@ -1,19 +1,20 @@
-package com.greenfoxacademy.petpal.users;
+package com.greenfoxacademy.petpal.users.controllers;
 
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
+import com.greenfoxacademy.petpal.users.models.Organisation;
+import com.greenfoxacademy.petpal.users.models.PrivateUser;
+import com.greenfoxacademy.petpal.users.models.UserDTO;
+import com.greenfoxacademy.petpal.users.services.PrivateUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.validation.Valid;
 
-@Controller
-@EnableWebMvc
+@RestController
 @CrossOrigin(origins = "https://petpalgf.herokuapp.com/", maxAge = 3600)
 public class UserController {
 
@@ -26,13 +27,7 @@ public class UserController {
 //    this.organisationService = organisationService;
   }
 
-  @GetMapping("/")
-  public String home(){
-    return "index";
-  }
-
   @PostMapping("/register/user")
-  @ResponseBody
   public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException, UsernameTakenException {
     privateUserService.registerNewUser(privateUser);
     ModelMapper modelMapper = new ModelMapper();
@@ -40,14 +35,12 @@ public class UserController {
   }
 
   @PostMapping("/register/organization")
-  @ResponseBody
   public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) {
     //organisationService.save(organisation);
     return ResponseEntity.ok().body(organisation);
   }
 
-  @PutMapping("/privateuser/{id}")
-  @ResponseBody
+  @PutMapping("/user/{id}")
   public ResponseEntity changePrivateUser(@PathVariable Long id, PrivateUser privateUser) throws Throwable {
     PrivateUser privateUserToChange = privateUserService.findById(id);
     return ResponseEntity.ok(privateUserService.saveUser(privateUser));
@@ -60,25 +53,23 @@ public class UserController {
     return null;
   }*/
 
-  @GetMapping("/pets/liked")
-  @ResponseBody
+  @GetMapping("/user/pets/liked")
   public ResponseEntity likedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUserToChange = privateUserService.findById(id);
     return ResponseEntity.ok(privateUserToChange.getAnimalsLikedByUser());
   }
 
-  @GetMapping("/pets/adopted")
-  @ResponseBody
+  @GetMapping("/user/pets/adopted")
   public ResponseEntity adoptedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUserToChange = privateUserService.findById(id);
     return ResponseEntity.ok(privateUserToChange.getAnimalsToAdoptByUser());
   }
 
-  @GetMapping("/pets/owned")
-  @ResponseBody
+  @GetMapping("/user/pets/owned")
   public ResponseEntity ownedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUserToChange = privateUserService.findById(id);
     return ResponseEntity.ok(privateUserToChange.getOwnedAnimalsByUser());
   }
 
 }
+

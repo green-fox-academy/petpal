@@ -1,9 +1,11 @@
-package com.greenfoxacademy.petpal.users;
+package com.greenfoxacademy.petpal.users.services;
 
-import com.greenfoxacademy.petpal.animal.Animal;
+import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
+import com.greenfoxacademy.petpal.users.models.PrivateUser;
+import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,11 @@
-package com.greenfoxacademy.petpal.animal;
+package com.greenfoxacademy.petpal.animal.controllers;
 
+import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
-import com.greenfoxacademy.petpal.users.PrivateUser;
-import com.greenfoxacademy.petpal.users.PrivateUserService;
+import com.greenfoxacademy.petpal.users.models.PrivateUser;
+import com.greenfoxacademy.petpal.users.services.PrivateUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,16 +22,6 @@ public class AnimalController {
     this.animalService = animalService;
     this.privateUserService = privateUserService;
   }
-
-  /*
-POST /register (itt lehet 2 féle endpoint lesz attól függően, hogy userként vagy szervezetként regizel)
-POST /login
-POST /logout
-GET /pets -> listázza a peteket (itt lehet mobilon tinderszerűen, gépen akár paginálva több oldalon a petek)
-GET /pet/{id} -> adott pet adatait lehet megnézni
-POST /pet/{id}/like -> jelzed, hogy érdeklődsz az állat iránt
-POST/pet/{id}/save -> elmented a kedvencek közé
-DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
 
   @GetMapping("/pets")
   public ResponseEntity pets() {
@@ -57,7 +49,7 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
 
   //POST /pet -> új petet tölthesz fel
   @PostMapping("/pet")
-  public ResponseEntity upload(Animal animal, Authentication authentication) throws Throwable {
+  public ResponseEntity upload(@RequestBody Animal animal, Authentication authentication) throws Throwable {
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
     privateUserService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
     return ResponseEntity.ok().body(animalService.save(animal));
@@ -66,6 +58,8 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
   //PUT /pet/{id} -> ha elcseszted, javíthatod az állat adatait (edited)
   @PutMapping("/pet/{id}")
   public ResponseEntity change(@PathVariable Long id, Authentication authentication, Animal animal) throws AnimalIdNotFoundException, AnimalIsNullException {
+    //TODO: modify an animal's details
+    //Get animal from frontend WITH ID
     return ResponseEntity.ok().body(animalService.save(animal));
   }
 
@@ -89,5 +83,6 @@ DELETE /pet/{id} -> törölheted az "elkelt" állatot*/
     Animal animal = animalService.findById(id);
     return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
   }
+
 }
 //TODO: reduce duplications

@@ -1,5 +1,7 @@
-package com.greenfoxacademy.petpal.animal;
+package com.greenfoxacademy.petpal.animal.services;
 
+import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.animal.repositories.AnimalRepository;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -14,10 +14,10 @@ CREATE TABLE `animal`
 (
   `id`                  bigint(20)   AUTO_INCREMENT,
   `name`                varchar(255) DEFAULT NULL,
-  `birth_date`          timestamp(6),
+  `birth_date`          datetime(6),
   `type`                varchar(255) DEFAULT NULL,
   `gender`              varchar(255) DEFAULT NULL,
-  `from_when_available` timestamp(6),
+  `from_when_available` datetime(6),
   `spayed`              bit          DEFAULT 0,
   `vaccinated`          bit          DEFAULT 0,
   `photo_path`          varchar(255) DEFAULT NULL,
