@@ -34,6 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String HOME_URL = "/";
   private static final String REGISTRATION_URL = "/register/user";
   private static final String REFRESH_TOKEN_URL = "/refreshtoken";
+  private static final String BUNDLE = "/bundle.js";
+  private static final String FAVICON = "/favicon.ico";
+
   private static final String API_ROOT_URL = "/**";
 
   @Autowired
@@ -85,6 +88,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             AUTHENTICATION_URL,
             REFRESH_TOKEN_URL,
             REGISTRATION_URL,
+            BUNDLE,
+            FAVICON,
             HOME_URL
     );
     http.cors().and().csrf().disable()
@@ -94,7 +99,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers(AUTHENTICATION_URL, REFRESH_TOKEN_URL, REGISTRATION_URL, HOME_URL).permitAll()
+            .antMatchers(AUTHENTICATION_URL, REFRESH_TOKEN_URL, REGISTRATION_URL, HOME_URL, FAVICON, BUNDLE).permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
