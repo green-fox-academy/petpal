@@ -13,6 +13,8 @@ export default (url, method, token, data) => {
   if (token) options.headers.authorization = `Bearer ${token}`;
   if (data && method !== 'GET') options.headers.body = JSON.stringify(data);
 
+  console.log(data)
+  console.log(`${host}${url}`)
   return fetch(`${host}${url}`, options)
     .then(data => data.json());
 };

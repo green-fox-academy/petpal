@@ -7,9 +7,9 @@ const Login = ({ requestLogin, loginErrorMsg, setLoginError }) => {
 
   const handlesubmit = (event) => {
     event.preventDefault();
-    const { loginname, loginpass, logintarget } = event.target;
-    if (loginname.value.trim().length > 0 && loginpass.value.trim().length > 0 && logintarget.value.length > 0) {
-      requestLogin({ username: loginname.value, password: loginpass.value, target: logintarget.value });
+    const { loginname, loginpass } = event.target;
+    if (loginname.value.trim().length > 0 && loginpass.value.trim().length > 0) {
+      requestLogin({ username: loginname.value, password: loginpass.value });
       event.target.reset();
       setLoginError('');
     } else {
@@ -29,12 +29,12 @@ const Login = ({ requestLogin, loginErrorMsg, setLoginError }) => {
         <input name="loginpass" type="password" id="loginpass" />
         <label htmlFor="loginpass">password</label>
       </div>
-      <p>
+      {/* <p>
         <input type="radio" name="logintarget" value="member" id="loginmember" defaultChecked />
         <label htmlFor="loginmember">member</label>
         <input type="radio" name="logintarget" value="shelter" id="loginshelter" />
         <label htmlFor="loginshelter">shelter</label>
-      </p>
+      </p> */}
       <button className="button" type="submit"><span>sign me in</span></button>
     </form>
   );

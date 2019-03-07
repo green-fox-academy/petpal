@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addAnimalRequest } from '../../actions/addanimal';
+import { addAnimalRequest } from '../../actions/animal';
 import { setAddAnimalError } from '../../actions/errors';
+import '../../stylesheets/addanimal.scss';
 
 const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
   const handleSubmit = event => {
@@ -14,7 +15,7 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
       animgender.value.length > 0 &&
       spayed.value.length > 0 &&
       vaccinated.value.length > 0 &&
-      animfile.value.length > 0
+      animfile.files.length > 0
     ) {
       console.log(animname.value);
       console.log(animbirth.value);
@@ -22,7 +23,16 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
       console.log(animgender.value);
       console.log(spayed.value);
       console.log(vaccinated.value);
-      console.log(animfile);
+      console.log(animfile.files);
+      addAnimalRequest({
+        name: animname.value,
+        birth: animbirth.value,
+        type: animtype.value,
+        gender: animgender.value,
+        spayed: spayed.value,
+        vaccinated: vaccinated.value,
+        photo: animfile.files[0],
+      });
       setAddAnimalError('');
     } else {
       setAddAnimalError('Fill out all fields please!');
@@ -48,22 +58,22 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
         <div>
           <p>spayed?</p>
           <label htmlFor="spayedyes">
-            <input type="radio" name="spayed" value="spayed" id="spayedyes" />
+            <input type="radio" name="spayed" value="true" id="spayedyes" />
             yes
           </label>
           <label htmlFor="spayedno">
-            <input type="radio" name="spayed" value="notspayed" id="spayedno" />
+            <input type="radio" name="spayed" value="false" id="spayedno" />
             no
           </label>
         </div>
         <div>
           <p>vaccinated?</p>
           <label htmlFor="vaccinatedyes">
-            <input type="radio" name="vaccinated" value="vaccinated" id="vaccinatedyes" />
+            <input type="radio" name="vaccinated" value="true" id="vaccinatedyes" />
             yes
           </label>
           <label htmlFor="vaccinatedno">
-            <input type="radio" name="vaccinated" value="notvaccinated" id="vaccinatedno" />
+            <input type="radio" name="vaccinated" value="false" id="vaccinatedno" />
             no
           </label>
         </div>

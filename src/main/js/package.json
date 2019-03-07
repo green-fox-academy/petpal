@@ -5,7 +5,7 @@
   "description": "petpal FedEx project",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.config.dev.js",
-    "build": "rimraf dist && node src/tools/build.js",
+    "build": "node src/tools/build.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
   },

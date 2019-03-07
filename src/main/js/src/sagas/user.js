@@ -26,7 +26,7 @@ export function* loginRequest(action) {
 export function* registerRequest(action) {
   try {
     const response = yield call(API.registerRequest, action.payload);
-    if (response) {
+    if (response.username) {
       yield put({
         type: actions.REGISTER_SUCCEDED,
       });
