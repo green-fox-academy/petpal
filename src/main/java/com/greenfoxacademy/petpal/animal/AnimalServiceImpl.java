@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
+
   private AnimalRepository animalRepository;
 
   @Autowired

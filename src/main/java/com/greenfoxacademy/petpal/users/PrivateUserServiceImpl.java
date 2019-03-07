@@ -1,100 +1,101 @@
 package com.greenfoxacademy.petpal.users;
 
 import com.greenfoxacademy.petpal.animal.Animal;
-import com.greenfoxacademy.petpal.animal.AnimalRepository;
 import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
+import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class PrivateUserServiceImpl implements PrivateUserService {
 
-  private PrivateUserRepository privateUserRepository;
-  private AnimalRepository animalRepository;
+  private MainUserRepository mainUserRepository;
   private BCryptPasswordEncoder encoder;
 
   @Autowired
-  public PrivateUserServiceImpl(PrivateUserRepository privateUserRepository, AnimalRepository animalRepository, BCryptPasswordEncoder encoder) {
-    this.privateUserRepository = privateUserRepository;
-    this.animalRepository = animalRepository;
+  public PrivateUserServiceImpl(MainUserRepository mainUserRepository, BCryptPasswordEncoder encoder) {
+    this.mainUserRepository = mainUserRepository;
     this.encoder = encoder;
   }
 
   @Override
-  public PrivateUser findById(Long id) throws UserIdNotFoundException {
-    return privateUserRepository.findById(id)
-            .orElseThrow(() -> new UserIdNotFoundException(("There is no User with such ID")));
+  public PrivateUser registerNewUser(PrivateUser privateUser) throws UsernameTakenException, UserIsNullException {
+    if (!mainUserRepository.existsByUsername(privateUser.getUsername())) {
+      return saveUser(privateUser);
+    }
+    throw new UsernameTakenException("Username already taken, please choose an other one.");
+
   }
 
   @Override
   public Optional<PrivateUser> findByUsername(String username) {
-    return privateUserRepository.findByUsername(username);
+    return mainUserRepository.findByUsername(username);
   }
 
   @Override
-  public void removeUser(PrivateUser privateUser) {
-
+  public PrivateUser findById(Long id) throws Throwable {
+    return (PrivateUser) mainUserRepository.findById(id)
+            .orElseThrow(() -> new UserIdNotFoundException(("There is no User with such ID")));
   }
 
   @Override
   public PrivateUser saveUser(PrivateUser privateUser) throws UserIsNullException {
     privateUser.setPassword(encoder.encode(privateUser.getPassword()));
     checkIfUserIsnull(privateUser);
-    return privateUserRepository.save(privateUser);
+    return (PrivateUser) mainUserRepository.save(privateUser);
   }
 
   @Override
   public void removeUser(Long id) throws UserIdNotFoundException {
-    if (!privateUserRepository.existsById(id)) {
+    if (!mainUserRepository.existsById(id)) {
       throw new UserIdNotFoundException("There is no User with such ID");
     }
-    privateUserRepository.deleteById(id);
-
+    mainUserRepository.deleteById(id);
   }
 
   @Override
-  public Set<Animal> animalsLikedByUser(Long userId) throws UserIdNotFoundException {
+  public Set<Animal> animalsLikedByUser(Long userId) throws Throwable {
     return findById(userId).getAnimalsLikedByUser();
   }
 
   @Override
-  public Set<Animal> animalsToAdoptByUser(Long userId) throws UserIdNotFoundException {
+  public Set<Animal> animalsToAdoptByUser(Long userId) throws Throwable {
     return findById(userId).getAnimalsToAdoptByUser();
   }
 
   @Override
-  public List<Animal> ownedAnimalsByUser(Long userId) throws UserIdNotFoundException {
+  public Set<Animal> animalsOwnedByUser(Long userId) throws Throwable {
     return findById(userId).getOwnedAnimalsByUser();
   }
 
   @Override
-  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) {
-
+  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    Set<Animal> animalsLikedByUser = animalsLikedByUser(privateUser.getId());
+    animalsLikedByUser.add(animal);
+    privateUser.setAnimalsLikedByUser(animalsLikedByUser);
+    saveUser(privateUser);
   }
 
   @Override
-  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) {
-
+  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    Set<Animal> animalsToAdoptByUser = animalsToAdoptByUser(privateUser.getId());
+    animalsToAdoptByUser.add(animal);
+    privateUser.setAnimalsToAdoptByUser(animalsToAdoptByUser);
+    saveUser(privateUser);
   }
 
   @Override
-  public void addAnimalToOwnedAnimalsByUser(Animal animal, PrivateUser privateUser) {
-
+  public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
+    Set<Animal> animalsOwnedByUser = animalsOwnedByUser(privateUser.getId());
+    animalsOwnedByUser.add(animal);
+    privateUser.setOwnedAnimalsByUser(animalsOwnedByUser);
+    saveUser(privateUser);
   }
-
-
-//    List<Animal> fullList = animalRepository.findAll();
-//    return fullList.stream()
-//            .filter(i -> i.getPrivateUser().getId().equals(userId))
-//            .collect(Collectors.toList());
-
 
   @Override
   public void checkIfUserIsnull(PrivateUser privateUser) throws UserIsNullException {
@@ -102,4 +103,5 @@ public class PrivateUserServiceImpl implements PrivateUserService {
       throw new UserIsNullException("User must not be null");
     }
   }
+
 }

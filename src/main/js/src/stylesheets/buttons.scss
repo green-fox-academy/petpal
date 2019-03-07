@@ -1,0 +1,85 @@
+$bcColor: #643A94;
+
+.button {
+  border:2px solid $bcColor;
+  outline: none;
+  background-color: transparent;
+  color:$bcColor;
+  font-size: 5vw;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  font-family: inherit;
+  transition: 0.2s;
+  text-transform: lowercase;
+
+  span {
+    position: relative;
+    width: 100%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:active {
+    // background-color: $bcColor;
+    // color:white;
+    transform: scale(0.8);
+  }
+
+  // &:focus {
+  //   border:3px solid rgb(24, 160, 170);
+  // }
+
+  // &:hover{
+  //   transition: 0.5s;
+  //   color:white;
+  //   transition-delay: 0.3s;
+  // }
+
+  // &::after, &::before, span::before, span::after {
+  //   position: absolute;
+  //   content: '';
+  //   width: 50%;
+  //   height: 100%;
+  //   top:0;
+  //   left:100%;
+  //   background-color: $bcColor;
+  //   transition: 0.8s ease-out;
+  //   z-index:-1;
+  // }
+
+  // span::before, span::after {
+  //   width:100%;
+  //   height:50%;
+  //   left:0;
+  //   top:-50%;
+  // }
+
+  // span::after {
+  //   top:100%;
+  // }
+
+  // &::before {
+  //   left:-50%;
+  // }
+
+  // &:hover::after, &:hover::before {
+  //   transition: 0.8s ease-out;
+  //   left:50%;
+  // }
+
+  // &:hover span::before {
+  //   top:0;
+  // }
+
+  // &:hover::before {
+  //   left:0;
+  // }
+
+  // &:hover span::after {
+  //   top:50%;
+  // }
+}

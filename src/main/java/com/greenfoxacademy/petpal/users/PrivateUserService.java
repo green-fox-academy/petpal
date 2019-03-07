@@ -1,37 +1,18 @@
 package com.greenfoxacademy.petpal.users;
 
 import com.greenfoxacademy.petpal.animal.Animal;
-import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
-import com.greenfoxacademy.petpal.exception.UserIsNullException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
-public interface PrivateUserService {
+public interface PrivateUserService extends MainUserService<PrivateUser> {
 
+  Set<Animal> animalsLikedByUser(Long userId) throws Throwable; //all list set
 
-  Optional<PrivateUser> findByUsername(String username);
-  void removeUser(PrivateUser privateUser);
-  PrivateUser findById(Long id) throws UserIdNotFoundException;
-  PrivateUser saveUser(PrivateUser privateUser) throws UserIsNullException;
-  void removeUser(Long id) throws UserIdNotFoundException; //return user
+  Set<Animal> animalsToAdoptByUser(Long userId) throws Throwable;
 
-  Set<Animal> animalsLikedByUser(Long userId) throws UserIdNotFoundException; //all list set
-  Set<Animal> animalsToAdoptByUser(Long userId) throws UserIdNotFoundException;
-  List<Animal> ownedAnimalsByUser(Long userId) throws UserIdNotFoundException;
-  //+owned
+  void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) throws Throwable;
 
-  void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser);
-  void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser); //ugzanay mint adopt
+  void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable; //ugzanay mint adopt
 
-  void addAnimalToOwnedAnimalsByUser(Animal animal, PrivateUser privateUser);
-
-//  void markMyAnimalForAdoption(Animal animal, PrivateUser privateUser);
-
-  void checkIfUserIsnull(PrivateUser privateUser) throws UserIsNullException;
-
-
+  void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) throws Throwable;
 }

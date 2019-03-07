@@ -1,12 +1,6 @@
 package com.greenfoxacademy.petpal.users;
 
-import com.greenfoxacademy.petpal.animal.Animal;
 
-public interface OrganisationService {
+public interface OrganisationService extends MainUserService<Organisation>{
 
-//  void findById(Long id);
-//  void saveOrganisation(PrivateUser privateUser);
-//  void removeOrganisation(PrivateUser privateUser);
-//
-//  void markMyAnimalForAdoption(Animal animal, PrivateUser privateUser);
 }
