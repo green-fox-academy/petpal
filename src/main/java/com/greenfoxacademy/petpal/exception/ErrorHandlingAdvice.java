@@ -33,6 +33,26 @@ public class ErrorHandlingAdvice {
   }
 
   @ResponseBody
+  @ExceptionHandler(AnimalIdNotFoundException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  ErrorMsg animalNotFound(UsernameTakenException ex) {
+    return new ErrorMsg("error", ex.getMessage());
+  }
+
+  @ResponseBody
+  @ExceptionHandler(UserNotFoundException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  ErrorMsg userIdNotFound(UsernameTakenException ex) {
+    return new ErrorMsg("error", ex.getMessage());
+  }
+
+  @ResponseBody
+  @ExceptionHandler(UserIsNullException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  ErrorMsg userIsNull(UsernameTakenException ex) {
+    return new ErrorMsg("error", ex.getMessage());
+  }
+  @ResponseBody
   @ExceptionHandler(AnimalAlreadyAdoptedException.class)
   @ResponseStatus(HttpStatus.CONFLICT)
   ErrorMsg animalAlreadyAdopted(AnimalAlreadyAdoptedException ex) {

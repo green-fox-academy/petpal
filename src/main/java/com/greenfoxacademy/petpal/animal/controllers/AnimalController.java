@@ -1,11 +1,15 @@
 package com.greenfoxacademy.petpal.animal.controllers;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
+import com.greenfoxacademy.petpal.animal.models.Cat;
+import com.greenfoxacademy.petpal.animal.models.Dog;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.services.PrivateUserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -47,11 +51,21 @@ public class AnimalController {
     return ResponseEntity.ok().build();
   }
 
-  //POST /pet -> új petet tölthesz fel
   @PostMapping("/pet")
-  public ResponseEntity upload(@RequestBody Animal animal, Authentication authentication) throws Throwable {
-    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
-    privateUserService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
+  public ResponseEntity upload(@RequestBody AnimalDTO animalDTO, Authentication authentication) throws Throwable {
+    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
+    privateUserService.addAnimalToAnimalsOwnedByUser(animalDTO, privateUser);
+    ModelMapper modelMapper = new ModelMapper();
+    Animal animal;
+    if (animalDTO.getType().equals("dog")) {
+      animal = new Dog();
+      modelMapper.map(animal, AnimalDTO.class);
+    }
+    if (animalDTO.getType().equals("cat")) {
+      animal = new Cat();
+      modelMapper.map(animal, AnimalDTO.class);
+    }
+    animal = new Dog();
     return ResponseEntity.ok().body(animalService.save(animal));
   }
 

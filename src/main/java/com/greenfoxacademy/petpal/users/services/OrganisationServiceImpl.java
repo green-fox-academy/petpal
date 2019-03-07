@@ -1,12 +1,16 @@
 package com.greenfoxacademy.petpal.users.services;
 
+import com.greenfoxacademy.petpal.animal.AnimalFactory;
+import com.greenfoxacademy.petpal.animal.AnimalType;
 import com.greenfoxacademy.petpal.animal.models.Animal;
-import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
+import com.greenfoxacademy.petpal.exception.UserNotFoundException;
+import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import com.greenfoxacademy.petpal.users.models.Organisation;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
@@ -31,7 +35,7 @@ public class OrganisationServiceImpl implements OrganisationService {
   @Override
   public Organisation findById(Long id) throws Throwable {
     return (Organisation) mainUserRepository.findById(id)
-            .orElseThrow(() -> new UserIdNotFoundException(("There is no User with such ID")));
+            .orElseThrow(() -> new UserNotFoundException(("There is no User with such ID")));
   }
 
   @Override
@@ -42,9 +46,9 @@ public class OrganisationServiceImpl implements OrganisationService {
   }
 
   @Override
-  public void removeUser(Long id) throws UserIdNotFoundException {
+  public void removeUser(Long id) throws UserNotFoundException {
     if (!mainUserRepository.existsById(id)) {
-      throw new UserIdNotFoundException("There is no User with such ID");
+      throw new UserNotFoundException("There is no User with such ID");
     }
     mainUserRepository.deleteById(id);
   }
@@ -62,9 +66,10 @@ public class OrganisationServiceImpl implements OrganisationService {
   }
 
   @Override
-  public void addAnimalToAnimalsOwnedByUser(Animal animal, Organisation organisation) throws Throwable {
+  public void addAnimalToAnimalsOwnedByUser(AnimalDTO animalDTO, Organisation organisation) throws Throwable {
     Set<Animal> animalsOwnedByUser = animalsOwnedByUser(organisation.getId());
-    animalsOwnedByUser.add(animal);
+    AnimalFactory animalFactory = new AnimalFactory();
+    animalsOwnedByUser.add(animalFactory.create(AnimalType.valueOf(animalDTO.getType())));
     organisation.setOwnedAnimalsByUser(animalsOwnedByUser);
     saveUser(organisation);
   }
@@ -75,5 +80,10 @@ public class OrganisationServiceImpl implements OrganisationService {
       return (Organisation) mainUserRepository.save(organisation);
     }
     throw new UsernameTakenException("Username already taken, please choose an other one.");
+  }
+
+  @Override
+  public Optional<Organisation> getUserFromAuth(Authentication authenticationn) {
+    return Optional.empty();
   }
 }

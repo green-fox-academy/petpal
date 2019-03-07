@@ -1,6 +1,6 @@
 package com.greenfoxacademy.petpal;
 
-import com.greenfoxacademy.petpal.filestorage.FileStorageProperties;
+import com.greenfoxacademy.petpal.imagestorage.ImageStorageProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,7 +13,7 @@ import java.security.Principal;
 @RestController
 //@EnableOAuth2Client
 @EnableConfigurationProperties({
-        FileStorageProperties.class
+        ImageStorageProperties.class
 }
 )
 public class PetpalApplication {
