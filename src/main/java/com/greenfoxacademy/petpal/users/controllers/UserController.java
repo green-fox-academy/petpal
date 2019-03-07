@@ -28,6 +28,7 @@ public class UserController {
 //    this.organisationService = organisationService;
   }
 
+  @CrossOrigin
   @PostMapping("/register/user")
   public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException, UsernameTakenException, UnirestException {
     privateUserService.registerNewUser(privateUser);
