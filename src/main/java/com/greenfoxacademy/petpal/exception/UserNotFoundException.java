@@ -1,7 +1,7 @@
 package com.greenfoxacademy.petpal.exception;
 
-public class UserIdNotFoundException extends Exception {
-  public UserIdNotFoundException(String message) {
+public class UserNotFoundException extends Exception {
+  public UserNotFoundException(String message) {
     super(message);
   }
 }
