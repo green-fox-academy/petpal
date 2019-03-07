@@ -1,9 +1,9 @@
-package com.greenfoxacademy.petpal.filestorage;
+package com.greenfoxacademy.petpal.imagestorage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "file")
-public class FileStorageProperties {
+@ConfigurationProperties(prefix = "image")
+public class ImageStorageProperties {
   private String uploadDir;
 
   public String getUploadDir() {
