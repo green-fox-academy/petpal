@@ -7,6 +7,9 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../resources/static')
   },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
   ],
@@ -31,6 +34,9 @@ module.exports = {
             options: {
               name: '[name].[ext]',
             },
+          },
+          {
+            loader: 'image-webpack-loader',
           },
         ],
       },
