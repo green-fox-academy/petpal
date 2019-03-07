@@ -24,9 +24,9 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
-  public PrivateUser registerNewUser(PrivateUser privateUser) throws UsernameTakenException {
+  public PrivateUser registerNewUser(PrivateUser privateUser) throws UsernameTakenException, UserIsNullException {
     if (!mainUserRepository.existsByUsername(privateUser.getUsername())) {
-      return (PrivateUser) mainUserRepository.save(privateUser);
+      return saveUser(privateUser);
     }
     throw new UsernameTakenException("Username already taken, please choose an other one.");
 

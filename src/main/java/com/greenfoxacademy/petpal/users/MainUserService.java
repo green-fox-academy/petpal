@@ -17,6 +17,6 @@ public interface MainUserService <T extends SuperUser>{
   void checkIfUserIsnull(T t) throws UserIsNullException;
   Set<Animal> animalsOwnedByUser(Long userId) throws Throwable;
   void addAnimalToAnimalsOwnedByUser(Animal animal, T t) throws Throwable;
-  T registerNewUser(T t) throws UsernameTakenException;
+  T registerNewUser(T t) throws UsernameTakenException, UserIsNullException;
 
 }
