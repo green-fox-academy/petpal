@@ -1,10 +1,8 @@
 package com.greenfoxacademy.petpal.security.ajax;
 
 import com.greenfoxacademy.petpal.security.model.UserContext;
-import com.greenfoxacademy.petpal.users.MainUserService;
-import com.greenfoxacademy.petpal.users.PrivateUser;
-import com.greenfoxacademy.petpal.users.PrivateUserServiceImpl;
-import com.greenfoxacademy.petpal.users.SuperUser;
+import com.greenfoxacademy.petpal.users.models.SuperUser;
+import com.greenfoxacademy.petpal.users.services.MainUserService;
 import io.jsonwebtoken.lang.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -15,6 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+
 import static java.util.Collections.emptyList;
 
 @Component

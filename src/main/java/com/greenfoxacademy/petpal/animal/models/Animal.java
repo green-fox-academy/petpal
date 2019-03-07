@@ -1,7 +1,7 @@
-package com.greenfoxacademy.petpal.animal;
+package com.greenfoxacademy.petpal.animal.models;
 
-import com.greenfoxacademy.petpal.users.PrivateUser;
-import com.greenfoxacademy.petpal.users.SuperUser;
+import com.greenfoxacademy.petpal.users.models.PrivateUser;
+import com.greenfoxacademy.petpal.users.models.SuperUser;
 import lombok.Getter;
 import lombok.Setter;
 

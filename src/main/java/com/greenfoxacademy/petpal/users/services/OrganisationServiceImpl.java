@@ -1,15 +1,16 @@
-package com.greenfoxacademy.petpal.users;
+package com.greenfoxacademy.petpal.users.services;
 
-import com.greenfoxacademy.petpal.animal.Animal;
+import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
+import com.greenfoxacademy.petpal.users.models.Organisation;
+import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 import java.util.Set;
-import org.springframework.stereotype.Service;
 
 public class OrganisationServiceImpl implements OrganisationService {
 
@@ -70,7 +71,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 
   @Override
   public Organisation registerNewUser(Organisation organisation) throws UsernameTakenException {
-    if(!mainUserRepository.existsByUsername(organisation.getUsername())){
+    if (!mainUserRepository.existsByUsername(organisation.getUsername())) {
       return (Organisation) mainUserRepository.save(organisation);
     }
     throw new UsernameTakenException("Username already taken, please choose an other one.");

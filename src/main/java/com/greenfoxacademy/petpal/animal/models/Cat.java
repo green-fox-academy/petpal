@@ -1,4 +1,4 @@
-package com.greenfoxacademy.petpal.animal;
+package com.greenfoxacademy.petpal.animal.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +10,6 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Dog extends Animal {
+public class Cat extends Animal {
 
 }

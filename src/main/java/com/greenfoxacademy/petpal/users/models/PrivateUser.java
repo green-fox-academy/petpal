@@ -1,6 +1,6 @@
-package com.greenfoxacademy.petpal.users;
+package com.greenfoxacademy.petpal.users.models;
 
-import com.greenfoxacademy.petpal.animal.Animal;
+import com.greenfoxacademy.petpal.animal.models.Animal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

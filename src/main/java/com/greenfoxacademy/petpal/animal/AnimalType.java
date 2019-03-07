@@ -1,5 +1,9 @@
 package com.greenfoxacademy.petpal.animal;
 
+import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.animal.models.Cat;
+import com.greenfoxacademy.petpal.animal.models.Dog;
+
 public enum AnimalType {
 
   dog {
