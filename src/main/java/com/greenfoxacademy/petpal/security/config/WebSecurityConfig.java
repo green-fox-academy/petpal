@@ -34,8 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String HOME_URL = "/";
   private static final String REGISTRATION_URL = "/register/**";
   private static final String REFRESH_TOKEN_URL = "/refreshtoken";
-  private static final String BUNDLE = "/bundle.js";
-  private static final String FAVICON = "/favicon.png";
+  private static final String RESOURCES = "/resources/**";
   private static final String DATABASE = "/db/migration/mySql";
 
   private static final String API_ROOT_URL = "/**";
@@ -89,8 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             AUTHENTICATION_URL,
             REFRESH_TOKEN_URL,
             REGISTRATION_URL,
-            BUNDLE,
-            FAVICON,
+            RESOURCES,
             HOME_URL,
             DATABASE
     );
@@ -101,7 +99,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers(AUTHENTICATION_URL, REFRESH_TOKEN_URL, REGISTRATION_URL, HOME_URL, FAVICON, BUNDLE, DATABASE).permitAll()
+            .antMatchers(AUTHENTICATION_URL, REFRESH_TOKEN_URL, REGISTRATION_URL, HOME_URL, RESOURCES, DATABASE).permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
