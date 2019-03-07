@@ -18,8 +18,9 @@ CREATE TABLE `animal`
   `type`                varchar(255) DEFAULT NULL,
   `gender`              varchar(255) DEFAULT NULL,
   `from_when_available` datetime(6),
+  `photo_path`          varchar(255) DEFAULT NULL,
   `spayed`              bit          DEFAULT 0,
   `vaccinated`          bit          DEFAULT 0,
-  `photo_path`          varchar(255) DEFAULT NULL,
+  `adopted`             bit          DEFAULT 0,
   PRIMARY KEY (`id`)
 );
