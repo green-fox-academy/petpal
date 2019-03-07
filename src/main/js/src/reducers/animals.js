@@ -1,4 +1,4 @@
-import { LIST_ANIMALS_SUCCEEDED } from '../actions/types';
+import { LIST_ANIMALS_SUCCEEDED, LIST_NEXT_ANIMAL } from '../actions/types';
 
 const initState = {
   animals: [
@@ -17,13 +17,15 @@ const initState = {
       vaccinated: true,
       spayed: false,
       photo: 'cica.jpg',
-    }
+    },
   ],
+  queuedAnimal: [],
 };
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case LIST_ANIMALS_SUCCEEDED: return { ...state, animals: state.animals };
+    case LIST_ANIMALS_SUCCEEDED: return { ...state, animals: state.animals, queuedAnimal: state.animals[0] };
+    case LIST_NEXT_ANIMAL: return { ...state, queuedAnimal: state.animals[1] };
     default: return state;
   }
 };

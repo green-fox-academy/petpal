@@ -5,7 +5,7 @@ import { requestLogout, toggleHamburgerIcon } from '../../actions/user';
 import '../../stylesheets/sidebar.scss';
 
 const Sidebar = ({
-  isToggled, requestLogout, history, match, toggleHamburgerIcon
+  isToggled, requestLogout, history, match, toggleHamburgerIcon,
 }) => {
   const handleClick = (event) => {
     const { dataset } = event.target;
@@ -17,10 +17,22 @@ const Sidebar = ({
 
   return (
     <div className="sidebar" style={isToggled ? { left: '0px' } : { left: '-100vw' }}>
-      <button type="button" data-menuitem="find" onClick={handleClick}><i className="fas fa-map-pin"></i>finder</button>
-      <button type="button" data-menuitem="add" onClick={handleClick}><i className="fas fa-plus"></i>add pet</button>
-      <button type="button" data-menuitem="settings" onClick={handleClick}><i className="fas fa-cog"></i>settings</button>
-      <button type="button" data-menuitem="logout" onClick={handleClick}><i className="fas fa-sign-out-alt"></i>logout</button>
+      <button type="button" data-menuitem="find" onClick={handleClick}>
+        <i className="fas fa-map-pin" />
+finder
+      </button>
+      <button type="button" data-menuitem="add" onClick={handleClick}>
+        <i className="fas fa-plus" />
+add pet
+      </button>
+      <button type="button" data-menuitem="settings" onClick={handleClick}>
+        <i className="fas fa-cog" />
+settings
+      </button>
+      <button type="button" data-menuitem="logout" onClick={handleClick}>
+        <i className="fas fa-sign-out-alt" />
+logout
+      </button>
     </div>
   );
 };
@@ -31,7 +43,7 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = {
   requestLogout,
-  toggleHamburgerIcon
+  toggleHamburgerIcon,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Sidebar));

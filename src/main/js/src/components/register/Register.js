@@ -7,7 +7,7 @@ const Register = ({ requestRegister, setRegisterError, registerErrorMsg }) => {
 
   const handlesubmit = (event) => {
     event.preventDefault();
-    const { registername, registerpass, regtarget } = event.target;
+    const { registername, registerpass } = event.target;
     if (registername.value.trim().length > 0 && registerpass.value.trim().length > 0) {
       requestRegister({ username: registername.value, password: registerpass.value });
       setRegisterError('');

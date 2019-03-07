@@ -1,4 +1,4 @@
-import { ADD_ANIMAL_REQUEST, LIST_ANIMALS_REQUEST } from './types';
+import { ADD_ANIMAL_REQUEST, LIST_ANIMALS_REQUEST, LIST_NEXT_ANIMAL } from './types';
 
 export const addAnimalRequest = payload => ({
   type: ADD_ANIMAL_REQUEST,
@@ -7,4 +7,8 @@ export const addAnimalRequest = payload => ({
 
 export const listAnimalsRequest = () => ({
   type: LIST_ANIMALS_REQUEST,
+});
+
+export const listNextAnimalFromRedux = () => ({
+  type: LIST_NEXT_ANIMAL,
 });

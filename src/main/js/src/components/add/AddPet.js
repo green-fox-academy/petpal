@@ -5,25 +5,20 @@ import { setAddAnimalError } from '../../actions/errors';
 import '../../stylesheets/addanimal.scss';
 
 const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { animname, animbirth, animtype, animgender, spayed, vaccinated, animfile } = event.target;
+    const {
+      animname, animbirth, animtype, animgender, spayed, vaccinated, animfile,
+    } = event.target;
     if (
-      animname.value.trim().length > 0 &&
-      animbirth.value.trim().length > 0 &&
-      animtype.value.length > 0 &&
-      animgender.value.length > 0 &&
-      spayed.value.length > 0 &&
-      vaccinated.value.length > 0 &&
-      animfile.files.length > 0
+      animname.value.trim().length > 0
+      && animbirth.value.trim().length > 0
+      && animtype.value.length > 0
+      && animgender.value.length > 0
+      && spayed.value.length > 0
+      && vaccinated.value.length > 0
+      && animfile.files.length > 0
     ) {
-      console.log(animname.value);
-      console.log(animbirth.value);
-      console.log(animtype.value);
-      console.log(animgender.value);
-      console.log(spayed.value);
-      console.log(vaccinated.value);
-      console.log(animfile.files);
       addAnimalRequest({
         name: animname.value,
         birth: animbirth.value,
@@ -59,10 +54,14 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
           <p>spayed?</p>
           <label htmlFor="spayedyes">
             <input type="radio" name="spayed" value="true" id="spayedyes" />
+
+
             yes
           </label>
           <label htmlFor="spayedno">
             <input type="radio" name="spayed" value="false" id="spayedno" />
+
+
             no
           </label>
         </div>
@@ -70,14 +69,20 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
           <p>vaccinated?</p>
           <label htmlFor="vaccinatedyes">
             <input type="radio" name="vaccinated" value="true" id="vaccinatedyes" />
+
+
             yes
           </label>
           <label htmlFor="vaccinatedno">
             <input type="radio" name="vaccinated" value="false" id="vaccinatedno" />
+
+
             no
           </label>
         </div>
         <label htmlFor="animfile">
+
+
           select a photo...
           <input type="file" name="animfile" id="animfile" />
         </label>
