@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private static final String REGISTRATION_URL = "/register/user";
   private static final String REFRESH_TOKEN_URL = "/refreshtoken";
   private static final String BUNDLE = "/bundle.js";
-  private static final String FAVICON = "/favicon.ico";
+  private static final String FAVICON = "/favicon.png";
 
   private static final String API_ROOT_URL = "/**";
 
