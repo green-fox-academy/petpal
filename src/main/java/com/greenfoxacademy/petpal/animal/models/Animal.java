@@ -46,5 +46,4 @@ public abstract class Animal {
   protected Long getAge() {
     return 0L;
   }
-
 }

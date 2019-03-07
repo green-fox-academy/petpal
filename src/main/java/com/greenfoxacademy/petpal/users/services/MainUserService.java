@@ -1,10 +1,11 @@
 package com.greenfoxacademy.petpal.users.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
-import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
+import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import com.greenfoxacademy.petpal.users.models.SuperUser;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.Optional;
 import java.util.Set;
@@ -17,7 +18,7 @@ public interface MainUserService<T extends SuperUser> {
 
   T saveUser(T t) throws UserIsNullException;
 
-  void removeUser(Long id) throws UserIdNotFoundException;
+  void removeUser(Long id) throws UserNotFoundException;
 
   void checkIfUserIsnull(T t) throws UserIsNullException;
 
@@ -25,6 +26,6 @@ public interface MainUserService<T extends SuperUser> {
 
   void addAnimalToAnimalsOwnedByUser(Animal animal, T t) throws Throwable;
 
-  T registerNewUser(T t) throws UsernameTakenException, UserIsNullException;
+  T registerNewUser(T t) throws UsernameTakenException, UserIsNullException, UnirestException;
 
 }

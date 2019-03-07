@@ -1,11 +1,14 @@
 package com.greenfoxacademy.petpal.users.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
-import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
+import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
+import com.greenfoxacademy.petpal.geocode.GeoCode;
+import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,16 +21,20 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 
   private MainUserRepository mainUserRepository;
   private BCryptPasswordEncoder encoder;
+  private GeoCodeService locationService;
 
   @Autowired
-  public PrivateUserServiceImpl(MainUserRepository mainUserRepository, BCryptPasswordEncoder encoder) {
+  public PrivateUserServiceImpl(MainUserRepository mainUserRepository, BCryptPasswordEncoder encoder, GeoCodeService locationService) {
     this.mainUserRepository = mainUserRepository;
     this.encoder = encoder;
+    this.locationService = locationService;
   }
 
   @Override
-  public PrivateUser registerNewUser(PrivateUser privateUser) throws UsernameTakenException, UserIsNullException {
+  public PrivateUser registerNewUser(PrivateUser privateUser) throws UsernameTakenException, UserIsNullException, UnirestException {
     if (!mainUserRepository.existsByUsername(privateUser.getUsername())) {
+      GeoCode geoCode = locationService.generateUserLocationFromAddress(privateUser);
+      privateUser.setGeoCode(geoCode);
       return saveUser(privateUser);
     }
     throw new UsernameTakenException("Username already taken, please choose an other one.");
@@ -42,7 +49,7 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   @Override
   public PrivateUser findById(Long id) throws Throwable {
     return (PrivateUser) mainUserRepository.findById(id)
-            .orElseThrow(() -> new UserIdNotFoundException(("There is no User with such ID")));
+            .orElseThrow(() -> new UserNotFoundException(("There is no User with such ID")));
   }
 
   @Override
@@ -53,9 +60,9 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   }
 
   @Override
-  public void removeUser(Long id) throws UserIdNotFoundException {
+  public void removeUser(Long id) throws UserNotFoundException {
     if (!mainUserRepository.existsById(id)) {
-      throw new UserIdNotFoundException("There is no User with such ID");
+      throw new UserNotFoundException("There is no User with such ID");
     }
     mainUserRepository.deleteById(id);
   }

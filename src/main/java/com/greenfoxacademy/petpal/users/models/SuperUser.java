@@ -1,6 +1,7 @@
 package com.greenfoxacademy.petpal.users.models;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.geocode.GeoCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,8 +31,11 @@ public abstract class SuperUser {
   @Email
   private String email;
   private String phoneNumber;
-  private Double locationLong;
-  private Double locationLat;
+
+  @OneToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "geo_code_id")
+  private GeoCode geoCode;
+  private String address;
 //  TODO address fields
 
   @OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
