@@ -25,6 +25,7 @@ public abstract class Animal {
   private String photoPath;
   private Boolean spayed;
   private Boolean vaccinated;
+  private Boolean adopted;
 
   @ManyToMany
   @JoinTable(

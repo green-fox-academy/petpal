@@ -52,4 +52,11 @@ public class ErrorHandlingAdvice {
   ErrorMsg userIsNull(UsernameTakenException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
+  @ResponseBody
+  @ExceptionHandler(AnimalAlreadyAdoptedException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  ErrorMsg animalAlreadyAdopted(AnimalAlreadyAdoptedException ex) {
+    return new ErrorMsg("error", ex.getMessage());
+  }
+
 }
