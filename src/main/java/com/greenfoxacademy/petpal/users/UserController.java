@@ -28,7 +28,7 @@ public class UserController {
   public String home(){
     return "index";
   }
-  
+
   @PostMapping("/register/user")
   @ResponseBody
   public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException, UsernameTakenException {

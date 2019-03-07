@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
   private static final String AUTHENTICATION_URL = "/login";
+  private static final String HOME_URL = "/";
   private static final String REGISTRATION_URL = "/register/user";
   private static final String REFRESH_TOKEN_URL = "/refreshtoken";
   private static final String API_ROOT_URL = "/**";
@@ -83,7 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     List<String> permitAllEndpointList = Arrays.asList(
             AUTHENTICATION_URL,
             REFRESH_TOKEN_URL,
-            REGISTRATION_URL
+            REGISTRATION_URL,
+            HOME_URL
     );
     http.cors().and().csrf().disable()
             .exceptionHandling().authenticationEntryPoint(this.authenticationEntryPoint)
