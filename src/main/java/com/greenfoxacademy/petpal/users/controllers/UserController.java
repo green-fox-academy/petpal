@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "https://petpalgf.herokuapp.com/", maxAge = 3600)
+//@CrossOrigin(origins = "https://petpalgf.herokuapp.com/", maxAge = 3600)
 public class UserController {
 
   private PrivateUserService privateUserService;
@@ -32,7 +32,12 @@ public class UserController {
   public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException, UsernameTakenException, UnirestException {
     privateUserService.registerNewUser(privateUser);
     ModelMapper modelMapper = new ModelMapper();
-    return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*").body(modelMapper.map(privateUser, UserDTO.class));
+    return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Headers",
+                    "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Methods",
+                    "GET, POST, PUT, DELETE, OPTIONS, HEAD").body(modelMapper.map(privateUser, UserDTO.class));
   }
 
   @PostMapping("/register/organization")
