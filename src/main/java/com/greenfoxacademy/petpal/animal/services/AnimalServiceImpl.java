@@ -1,6 +1,7 @@
 package com.greenfoxacademy.petpal.animal.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.filters.AnimalFilter;
 import com.greenfoxacademy.petpal.animal.repositories.AnimalRepository;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;

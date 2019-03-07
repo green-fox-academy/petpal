@@ -3,8 +3,8 @@ package com.greenfoxacademy.petpal.users.services;
 import com.greenfoxacademy.petpal.animal.AnimalFactory;
 import com.greenfoxacademy.petpal.animal.AnimalType;
 import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
-import com.greenfoxacademy.petpal.exception.UserIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import com.greenfoxacademy.petpal.users.models.Organisation;
@@ -35,7 +35,7 @@ public class OrganisationServiceImpl implements OrganisationService {
   @Override
   public Organisation findById(Long id) throws Throwable {
     return (Organisation) mainUserRepository.findById(id)
-            .orElseThrow(() -> new UserIdNotFoundException(("There is no User with such ID")));
+            .orElseThrow(() -> new UserNotFoundException(("There is no User with such ID")));
   }
 
   @Override
@@ -46,9 +46,9 @@ public class OrganisationServiceImpl implements OrganisationService {
   }
 
   @Override
-  public void removeUser(Long id) throws UserIdNotFoundException {
+  public void removeUser(Long id) throws UserNotFoundException {
     if (!mainUserRepository.existsById(id)) {
-      throw new UserIdNotFoundException("There is no User with such ID");
+      throw new UserNotFoundException("There is no User with such ID");
     }
     mainUserRepository.deleteById(id);
   }
