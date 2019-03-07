@@ -29,29 +29,38 @@ CREATE TABLE `super_user`
 -- testUser1 password: pass1
 -- testUser2 password: pass2
 -- testUser3 password: pass3
-INSERT INTO super_user (id, username, password, email, phone_number, address, geo_code_id)
+INSERT INTO super_user (id, username, password, email, phone_number, address, geo_code_id, user_type)
 VALUES (1,
         'test1',
         '$2a$10$3A7YK9hDUpHN4plBoCphYOzk426CebJwnaFMk0kN4qEXoWUTiwejC',
         'test1@test.test',
         '5353',
         'Budapest, Szép u. 2, 1053',
-        1),
+        1,
+        'PrivateUser'),
        (2,
         'test2',
         '$2a$10$y1WkKt52SH8eDm6zvy63v.B0EstAaevqAgfo7plk8v9UuigsMcqxi',
         'test2@test.test',
         '5555',
         'Gitega, Burundi',
-        2),
-       (3, 'test3', '$2a$10$N.4V.83hs.5X2bI0qY0Tme2PYceHtDf2Suzh0QHEcYVZxeS0YhJL6', 'test3@test.test', null, '1042', 3);
+        2,
+        'PrivateUser'),
+       (3,
+        'test3',
+        '$2a$10$N.4V.83hs.5X2bI0qY0Tme2PYceHtDf2Suzh0QHEcYVZxeS0YhJL6',
+        'test3@test.test',
+        null,
+        '1042',
+        3,
+        'PrivateUser');
 
 
 CREATE TABLE `animal`
 (
   `id`                  bigint(20)   AUTO_INCREMENT,
   `super_user_id`       bigint(20),
-  `dtype`               varchar(255),
+  `animal_type`         varchar(255),
   `name`                varchar(255) DEFAULT NULL,
   `birth_date`          datetime(6),
   `type`                varchar(255) DEFAULT NULL,
@@ -65,16 +74,28 @@ CREATE TABLE `animal`
   PRIMARY KEY (`id`)
 );
 
-INSERT INTO animal (id, name, birth_date, type, gender, from_when_available, spayed, vaccinated, photo_path)
+INSERT INTO animal (id,
+                    name,
+                    birth_date,
+                    type,
+                    gender,
+                    from_when_available,
+                    spayed,
+                    vaccinated,
+                    photo_path,
+                    super_user_id,
+                    animal_type)
 VALUES (1,
         'Pinguee',
         '2010-02-04 03:00:00',
-        'penguin',
+        'dog',
         'female',
         '2019-02-04 03:00:00',
         true,
         true,
-        '$HOME/assets/images/penguee.jpg'),
+        '$HOME/assets/images/penguee.jpg',
+        1,
+        'Dog'),
        (2,
         'Doggo',
         '2012-10-04 03:00:00',
@@ -83,7 +104,9 @@ VALUES (1,
         '2019-05-04 03:00:00',
         false,
         true,
-        '$HOME/assets/images/doggo.jpg'),
+        '$HOME/assets/images/doggo.jpg',
+        1,
+        'Dog'),
        (3,
         'Grumpy',
         '2015-10-04 03:00:00',
@@ -92,14 +115,15 @@ VALUES (1,
         '2050-05-04 03:00:00',
         false,
         false,
-        '$HOME/assets/images/grumpycat.jpg');
+        '$HOME/assets/images/grumpycat.jpg',
+        1,
+        'Cat');
 
 
 CREATE TABLE private_users_liked_animals
 (
   animal_id       BIGINT NOT NULL,
   private_user_id BIGINT NOT NULL,
-  PRIMARY KEY (animal_id, private_user_id),
   CONSTRAINT private_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
   CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id)
 );

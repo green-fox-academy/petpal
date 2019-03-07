@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "animal_type")
 @Getter
 @Setter
 public abstract class Animal {

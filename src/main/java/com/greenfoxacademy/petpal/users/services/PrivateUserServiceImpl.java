@@ -36,6 +36,7 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   @Override
   public PrivateUser registerNewUser(PrivateUser privateUser) throws UsernameTakenException, UserIsNullException, UnirestException {
     if (!mainUserRepository.existsByUsername(privateUser.getUsername())) {
+      privateUser.setPassword(encoder.encode(privateUser.getPassword()));
       GeoCode geoCode = locationService.generateUserLocationFromAddress(privateUser);
       privateUser.setGeoCode(geoCode);
       return saveUser(privateUser);
@@ -57,7 +58,6 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 
   @Override
   public PrivateUser saveUser(PrivateUser privateUser) throws UserIsNullException {
-    privateUser.setPassword(encoder.encode(privateUser.getPassword()));
     checkIfUserIsnull(privateUser);
     return (PrivateUser) mainUserRepository.save(privateUser);
   }
@@ -94,6 +94,10 @@ public class PrivateUserServiceImpl implements PrivateUserService {
     Set<Animal> animalsLikedByUser = animalsLikedByUser(privateUser.getId());
     animalsLikedByUser.add(animal);
     privateUser.setAnimalsLikedByUser(animalsLikedByUser);
+    System.out.println(animalsLikedByUser);
+    Set<PrivateUser> privateUsers = animal.getPrivateUser();
+    privateUsers.add(privateUser);
+    animal.setPrivateUser(privateUsers);
     saveUser(privateUser);
   }
 
