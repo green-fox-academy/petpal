@@ -1,4 +1,4 @@
-package com.greenfoxacademy.petpal.geolocation;
+package com.greenfoxacademy.petpal.geocode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

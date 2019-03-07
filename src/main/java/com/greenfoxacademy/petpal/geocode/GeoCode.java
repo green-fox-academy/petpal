@@ -1,4 +1,4 @@
-package com.greenfoxacademy.petpal.geolocation;
+package com.greenfoxacademy.petpal.geocode;
 
 import com.greenfoxacademy.petpal.users.models.SuperUser;
 import lombok.*;
