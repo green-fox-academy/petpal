@@ -2,7 +2,7 @@ import { SET_SETTINGS_MESSAGE, SET_CURRENT_DISTANCE } from '../actions/types';
 
 const initState = {
   distanceMessage: '',
-  currentDistance: null,
+  currentDistance: 10,
 };
 
 export default (state = initState, action) => {
