@@ -1,14 +1,11 @@
 package com.greenfoxacademy.petpal.users.services;
 
-import com.greenfoxacademy.petpal.animal.AnimalFactory;
-import com.greenfoxacademy.petpal.animal.AnimalType;
 import com.greenfoxacademy.petpal.animal.models.Animal;
-import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
+import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import com.greenfoxacademy.petpal.geocode.GeoCode;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
-import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.security.model.UserContext;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
@@ -79,7 +76,8 @@ public class PrivateUserServiceImpl implements PrivateUserService {
 
   @Override
   public Set<Animal> animalsToAdoptByUser(Long userId) throws Throwable {
-    return findById(userId).getAnimalsToAdoptByUser();
+    //return findById(userId).getAnimalsToAdoptByUser();
+    return null;
   }
 
   @Override
@@ -99,15 +97,14 @@ public class PrivateUserServiceImpl implements PrivateUserService {
   public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable {
     Set<Animal> animalsToAdoptByUser = animalsToAdoptByUser(privateUser.getId());
     animalsToAdoptByUser.add(animal);
-    privateUser.setAnimalsToAdoptByUser(animalsToAdoptByUser);
+    //privateUser.setAnimalsToAdoptByUser(animalsToAdoptByUser);
     saveUser(privateUser);
   }
 
   @Override
-  public void addAnimalToAnimalsOwnedByUser(AnimalDTO animalDTO, PrivateUser privateUser) throws Throwable {
+  public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
     Set<Animal> animalsOwnedByUser = animalsOwnedByUser(privateUser.getId());
-    AnimalFactory animalFactory = new AnimalFactory();
-    animalsOwnedByUser.add(animalFactory.create(AnimalType.valueOf(animalDTO.getType())));
+    animalsOwnedByUser.add(animal);
     privateUser.setOwnedAnimalsByUser(animalsOwnedByUser);
     saveUser(privateUser);
   }
@@ -124,5 +121,4 @@ public class PrivateUserServiceImpl implements PrivateUserService {
     UserContext userContext = (UserContext) authentication.getPrincipal();
     return findByUsername(userContext.getUsername());
   }
-
 }

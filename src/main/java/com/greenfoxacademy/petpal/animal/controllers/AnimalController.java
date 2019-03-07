@@ -7,6 +7,7 @@ import com.greenfoxacademy.petpal.animal.models.Dog;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
+import com.greenfoxacademy.petpal.exception.InvalidTypeException;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.services.PrivateUserService;
 import org.modelmapper.ModelMapper;
@@ -54,19 +55,17 @@ public class AnimalController {
   @PostMapping("/pet")
   public ResponseEntity upload(@RequestBody AnimalDTO animalDTO, Authentication authentication) throws Throwable {
     PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
-    privateUserService.addAnimalToAnimalsOwnedByUser(animalDTO, privateUser);
     ModelMapper modelMapper = new ModelMapper();
     Animal animal;
     if (animalDTO.getType().equals("dog")) {
-      animal = new Dog();
-      modelMapper.map(animal, AnimalDTO.class);
+      animal = modelMapper.map(animalDTO, Dog.class);
+    } else if (animalDTO.getType().equals("cat")) {
+      animal = modelMapper.map(animalDTO, Cat.class);
+    } else {
+      throw new InvalidTypeException("Invalid type");
     }
-    if (animalDTO.getType().equals("cat")) {
-      animal = new Cat();
-      modelMapper.map(animal, AnimalDTO.class);
-    }
-    animal = new Dog();
-    return ResponseEntity.ok().body(animalService.save(animal));
+    privateUserService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
+    return ResponseEntity.ok().build();
   }
 
   //PUT /pet/{id} -> ha elcseszted, javíthatod az állat adatait (edited)
@@ -95,8 +94,8 @@ public class AnimalController {
   public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
     PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
     Animal animal = animalService.findById(id);
-    return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
+    //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
+    return null;
   }
-
 }
 //TODO: reduce duplications

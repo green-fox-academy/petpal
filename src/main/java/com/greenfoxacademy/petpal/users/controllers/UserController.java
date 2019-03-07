@@ -63,7 +63,8 @@ public class UserController {
   @GetMapping("/user/pets/adopted")
   public ResponseEntity adoptedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
     PrivateUser privateUserToChange = privateUserService.findById(id);
-    return ResponseEntity.ok(privateUserToChange.getAnimalsToAdoptByUser());
+    //return ResponseEntity.ok(privateUserToChange.getAnimalsToAdoptByUser());
+    return null;
   }
 
   @GetMapping("/user/pets/owned")
