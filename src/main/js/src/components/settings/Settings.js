@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setDistance, setDistanceMessage } from '../../actions/settings';
+import '../../stylesheets/settings.scss';
 
-const Settings = ({ setDistanceMessage, setDistance, distanceMessage }) => {
+const Settings = ({ setDistanceMessage, setDistance, currentDistance }) => {
   useEffect(() => {
     return () => {
       setDistanceMessage('');
@@ -15,10 +16,14 @@ const Settings = ({ setDistanceMessage, setDistance, distanceMessage }) => {
   };
 
   return (
-    <Fragment>
-      <input type="range" name="" min="1" max="80" onInput={handleInput} />
-      {distanceMessage !== '' ? <h3>{distanceMessage}</h3> : null}
-    </Fragment>
+    <div className="settings">
+      <div>
+        <span>0km</span>
+        <input type="range" name="" min="1" max="80" value={currentDistance} onChange={handleInput} />
+        <span>80km</span>
+      </div>
+      {currentDistance ? <h3>You are searcing between 0 and {currentDistance}km!</h3> : null}
+    </div>
   );
 };
 
