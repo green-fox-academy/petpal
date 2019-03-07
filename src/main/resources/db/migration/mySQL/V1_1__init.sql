@@ -59,6 +59,7 @@ VALUES (1,
 CREATE TABLE `animal`
 (
   `id`                  bigint(20)   AUTO_INCREMENT,
+  `private_user_id`     bigint(20),
   `super_user_id`       bigint(20),
   `animal_type`         varchar(255),
   `name`                varchar(255) DEFAULT NULL,
@@ -83,7 +84,7 @@ INSERT INTO animal (id,
                     spayed,
                     vaccinated,
                     photo_path,
-                    super_user_id,
+                    owner_id,
                     animal_type)
 VALUES (1,
         'Pinguee',
@@ -127,3 +128,13 @@ CREATE TABLE private_users_liked_animals
   CONSTRAINT private_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
   CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id)
 );
+
+CREATE TABLE private_users_adopted_animals
+(
+  animal_id BIGINT NOT NULL,
+  owner_id  BIGINT NOT NULL,
+  CONSTRAINT private_users_adopted_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
+
+  CONSTRAINT private_users_adopted_animals_private_user_id FOREIGN KEY (owner_id) REFERENCES super_user (id)
+)
+

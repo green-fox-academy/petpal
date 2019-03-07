@@ -1,6 +1,5 @@
 package com.greenfoxacademy.petpal.users.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.geocode.GeoCode;
 import lombok.AllArgsConstructor;
@@ -40,7 +39,7 @@ public abstract class SuperUser {
 //  TODO address fields
 
   @OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
-  @JsonIgnore
+  @JoinColumn(name = "owner_id", referencedColumnName = "id")
   private Set<Animal> ownedAnimalsByUser;
 
   public SuperUser(@NotBlank String username, @NotBlank String password) {

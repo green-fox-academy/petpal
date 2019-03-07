@@ -43,8 +43,7 @@ public abstract class Animal {
   private PrivateUser privateUserAdopt;*/
 
   @ManyToOne
-  @JoinColumn(name = "super_user_id", referencedColumnName = "id")
-  private SuperUser superUser;
+  private SuperUser owner;
 
   protected Long getAge() {
     return 0L;

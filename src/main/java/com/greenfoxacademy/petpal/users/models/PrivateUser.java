@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "PrivateUser")
@@ -25,6 +22,7 @@ public class PrivateUser extends SuperUser {
   @JsonIgnore
   private Set<Animal> animalsLikedByUser;
 
-  /*@OneToMany(mappedBy = "privateUserAdopt")
-  private Set<Animal> animalsToAdoptByUser;*/
+  @OneToMany(mappedBy = "privateUser")
+  @JsonIgnore
+  private Set<Animal> animalsToAdoptByUser;
 }
