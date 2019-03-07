@@ -124,7 +124,6 @@ CREATE TABLE private_users_liked_animals
 (
   animal_id       BIGINT NOT NULL,
   private_user_id BIGINT NOT NULL,
-  PRIMARY KEY (animal_id, private_user_id),
   CONSTRAINT private_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
   CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id)
 );

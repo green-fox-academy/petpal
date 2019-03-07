@@ -40,14 +40,14 @@ public class AnimalController {
 
   @PostMapping("/pet/{id}/like")
   public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws Throwable {
-    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
+    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
     privateUserService.addAnimalToAnimalsLikedByUser(animalService.findById(id), privateUser);
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
-    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
+    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
     privateUserService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), privateUser);
     return ResponseEntity.ok().build();
   }
@@ -77,22 +77,22 @@ public class AnimalController {
   }
 
   @DeleteMapping("/pet/{id}/owned")
-  public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
-    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
+  public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Exception {
+    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
     Animal animal = animalService.findById(id);
     return ResponseEntity.ok(privateUser.getOwnedAnimalsByUser().remove(animal));
   }
 
   @DeleteMapping("/pet/{id}/like")
-  public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
-    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
+  public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws Exception {
+    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
     Animal animal = animalService.findById(id);
     return ResponseEntity.ok(privateUser.getAnimalsLikedByUser().remove(animal));
   }
 
   @DeleteMapping("pet/{id}/adopt")
-  public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws AnimalIdNotFoundException {
-    PrivateUser privateUser = (PrivateUser) authentication.getPrincipal();
+  public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws Exception {
+    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
     Animal animal = animalService.findById(id);
     //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
     return null;
