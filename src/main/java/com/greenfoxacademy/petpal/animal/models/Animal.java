@@ -36,9 +36,9 @@ public abstract class Animal {
                   name = "private_user_id", referencedColumnName = "id"))
   private Set<PrivateUser> privateUser;
 
-  @ManyToOne
+  /*@ManyToOne
   @JoinColumn(name = "private_user_id", referencedColumnName = "id")
-  private PrivateUser privateUserAdopt;
+  private PrivateUser privateUserAdopt;*/
 
   @ManyToOne
   @JoinColumn(name = "super_user_id", referencedColumnName = "id")

@@ -3,9 +3,8 @@ package com.greenfoxacademy.petpal.users.services;
 import com.greenfoxacademy.petpal.animal.AnimalFactory;
 import com.greenfoxacademy.petpal.animal.AnimalType;
 import com.greenfoxacademy.petpal.animal.models.Animal;
-import com.greenfoxacademy.petpal.exception.UserNotFoundException;
-import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
+import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import com.greenfoxacademy.petpal.users.models.Organisation;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
@@ -66,10 +65,10 @@ public class OrganisationServiceImpl implements OrganisationService {
   }
 
   @Override
-  public void addAnimalToAnimalsOwnedByUser(AnimalDTO animalDTO, Organisation organisation) throws Throwable {
+  public void addAnimalToAnimalsOwnedByUser(Animal animal, Organisation organisation) throws Throwable {
     Set<Animal> animalsOwnedByUser = animalsOwnedByUser(organisation.getId());
     AnimalFactory animalFactory = new AnimalFactory();
-    animalsOwnedByUser.add(animalFactory.create(AnimalType.valueOf(animalDTO.getType())));
+    animalsOwnedByUser.add(animalFactory.create(AnimalType.valueOf(animal.getType())));
     organisation.setOwnedAnimalsByUser(animalsOwnedByUser);
     saveUser(organisation);
   }
