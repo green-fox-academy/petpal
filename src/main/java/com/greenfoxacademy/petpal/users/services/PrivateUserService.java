@@ -1,7 +1,6 @@
 package com.greenfoxacademy.petpal.users.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
-import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 
 import java.util.Set;
@@ -16,6 +15,4 @@ public interface PrivateUserService extends MainUserService<PrivateUser> {
 
   void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable; //ugzanay mint adopt
 
-  @Override
-  void addAnimalToAnimalsOwnedByUser(AnimalDTO animalDTO, PrivateUser privateUser) throws Throwable;
 }
