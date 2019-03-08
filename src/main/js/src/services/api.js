@@ -23,18 +23,35 @@ export const setGeoLocation = data => ({ distance: data.distance });
 export const listAnimals = () => ({
   animals: [{
     type: 'cat',
-    name: 'cica',
-    birth: '2019.01.01',
-    vaccinated: true,
-    spayed: false,
-    photo: 'cica.jpg',
+    name: 'Rozi',
+    birth: '2019.01.09',
+    gender: male,
+    vaccinated: false,
+    spayed: true,
   },
   {
     type: 'dog',
-    name: 'kutya',
+    name: 'Puki',
+    gender: female,
     birth: '2019.01.01',
     vaccinated: true,
     spayed: false,
-    photo: 'cica.jpg',
-  },]
+  },
+  {
+    type: 'dog',
+    name: 'Puki',
+    gender: female,
+    birth: '2019.01.01',
+    vaccinated: true,
+    spayed: false,
+  },
+  {
+    type: 'dog',
+    name: 'Puki',
+    gender: female,
+    birth: '2019.01.01',
+    vaccinated: true,
+    spayed: false,
+  }
+  ],
 });

@@ -1,3 +1,5 @@
+$bcColor: #643A94;
+
 .finder {
   width: 100%;
   height: 100%;
@@ -7,8 +9,39 @@
 
   .animalcard {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding:5vh;
+
+    // h2 {
+    //   font-size: 6vw;
+    //   font-weight: bold;
+    //   color: $bcColor;
+    // }
+
+    // div {
+    //   width:100%;
+    //   display: flex;
+    //   justify-content: space-evenly;
+    //   align-items: center;
+
+    //   button {
+    //     transition: 0.2;
+    //     background-color: pink;
+    //     border-radius: 50%;
+    //     height:8vh;
+    //     width:8vh;
+    //     border:none;
+    //     outline:none;
+    //     font-family:inherit;
+
+    //     &:active {
+    //       transform: scale(0.9);
+    //     }
+    //   }
+    // }
   }
 }
