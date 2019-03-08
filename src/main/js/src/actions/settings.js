@@ -1,11 +1,11 @@
-import { SET_SETTINGS_MESSAGE, SET_CURRENT_DISTANCE } from './types';
-
-export const setDistanceMessage = message => ({
-  type: SET_SETTINGS_MESSAGE,
-  message,
-});
+import { SET_GEO_DISTANCE_REQUESTED, SET_GEO_DISTANCE_REDUX } from './types';
 
 export const setDistance = distance => ({
-  type: SET_CURRENT_DISTANCE,
+  type: SET_GEO_DISTANCE_REQUESTED,
+  distance,
+});
+
+export const setDistanceREDUX = distance => ({
+  type: SET_GEO_DISTANCE_REDUX,
   distance,
 });

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { listAnimalsRequest, listNextAnimalFromRedux } from '../../actions/animal';
-// import AnimalCard from '../find/AnimalCard';
 import '../../stylesheets/finder.scss';
 
 const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux }) => {
@@ -17,7 +16,6 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux }) =
     queuedAnimal
       ? (
         <div className="finder">
-          {/* {queuedAnimals ? <AnimalCard /> : null} */}
           <div className="animalcard">
             <h2>{queuedAnimal.name}</h2>
             <h2>{queuedAnimal.type}</h2>

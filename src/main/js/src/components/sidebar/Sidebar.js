@@ -19,18 +19,22 @@ const Sidebar = ({
     <div className="sidebar" style={isToggled ? { left: '0px' } : { left: '-100vw' }}>
       <button type="button" data-menuitem="find" onClick={handleClick}>
         <i className="fas fa-map-pin" />
+
 finder
       </button>
       <button type="button" data-menuitem="add" onClick={handleClick}>
         <i className="fas fa-plus" />
+
 add pet
       </button>
       <button type="button" data-menuitem="settings" onClick={handleClick}>
         <i className="fas fa-cog" />
+
 settings
       </button>
       <button type="button" data-menuitem="logout" onClick={handleClick}>
         <i className="fas fa-sign-out-alt" />
+
 logout
       </button>
     </div>

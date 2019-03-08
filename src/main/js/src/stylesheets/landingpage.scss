@@ -10,11 +10,17 @@ $bcColor: #643A94;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    border-top: 2px solid $bcColor;
 
     button {
-     width:30%;
-     height:60%;
+      width:50%;
+      height:100%;
+      border:none;
+      border-bottom: 5px solid transparent;
+      outline:none;
+      background-color: transparent;
+      font-size: 6vw;
+      font-weight: bold;
+      color:$bcColor;
     }
   }
 

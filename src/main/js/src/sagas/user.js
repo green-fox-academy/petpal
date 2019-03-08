@@ -28,7 +28,8 @@ export function* registerRequest(action) {
     const response = yield call(API.registerRequest, action.payload);
     if (response.username) {
       yield put({
-        type: actions.REGISTER_SUCCEDED,
+        type: actions.SELECT_CURRENT_FORM,
+        payload: 'login',
       });
     } else {
       yield put({
