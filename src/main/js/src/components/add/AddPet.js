@@ -11,7 +11,7 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
 
   useEffect(() => () => {
     setAddAnimalError('');
-  });
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
