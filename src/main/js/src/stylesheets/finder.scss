@@ -82,3 +82,61 @@ $adoptBtnColor: rgb(41, 194, 35);
     }
   }
 }
+
+@media screen and (min-width:1024px){
+  .finder {
+    .animalcard {
+      width: 25%;
+      height:80%;
+      box-shadow: 0 0 15px 3px $bcColor;
+      border-radius: 60px;
+
+      figure {
+        width: 70%;
+        height: 45%;
+        border-radius: 30px;
+        border: none;
+        box-shadow: 0 0 12px 2px #643A94;
+      }
+
+      h2 {
+        font-size: 1.2vw;
+        width:70%;
+      }
+  
+      h2:first-of-type {
+        font-size: 1.6vw;
+      }
+
+      div {
+        button {
+          width: 10vh;
+          height: 10vh;
+          font-size: 2.5vw;
+          cursor: pointer;
+        }
+
+        button:nth-of-type(1) {
+          &:hover {
+            color: white;
+            background-color: $swipeForwardBtnColor;
+          }
+        }
+  
+        button:nth-of-type(2) {
+          &:hover {
+            color: white;
+            background-color: $bcColor;
+          }
+        }
+  
+        button:nth-of-type(3) {
+          &:hover {
+            color: white;
+            background-color: $adoptBtnColor;
+          }
+        }
+      }
+    }
+  }
+}

@@ -36,8 +36,7 @@ const initState = {
     vaccinated: true,
     spayed: true,
     photo: 'hamster.jpg',
-  }
-  ],
+  }],
   queuedAnimal: [],
 };
 

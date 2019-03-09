@@ -52,6 +52,5 @@ export const listAnimals = () => ({
     birth: '2019.01.18',
     vaccinated: true,
     spayed: true,
-  }
-  ],
+  }],
 });

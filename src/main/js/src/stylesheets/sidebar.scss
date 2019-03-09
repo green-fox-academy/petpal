@@ -25,7 +25,7 @@ $bcColor: #643A94;
     font-family: inherit;
     font-weight: bold;
     font-size: 7vw;
-    transition: 0.2s;
+    transition: transform 0.2s;
 
     .fas {
       margin-right: 3vw;
@@ -33,6 +33,26 @@ $bcColor: #643A94;
 
     &:active {
       transform: scale(0.8);
+    }
+  }
+}
+
+@media screen and (min-width:1024px){
+  .sidebar {
+    width:20vw;
+
+    button {
+      font-size: 2vw;
+      cursor: pointer;
+
+      &:hover {
+        background-color: white;
+        color:$bcColor;
+      }
+
+      .fas {
+        margin-right: 1vw;
+      }
     }
   }
 }

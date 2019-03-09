@@ -26,19 +26,28 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux }) =
       ? (
         <div className="finder">
           <div className="animalcard">
-            <figure><img src={`images/${queuedAnimal.photo}`} alt="animal picture" /></figure>
-            <h2>{queuedAnimal.name} - {queuedAnimal.type}</h2>
+            <figure>
+              {/* <img src={`images/${queuedAnimal.photo}`} alt="animal picture" /> */}
+            </figure>
+            <h2>
+              {queuedAnimal.name}
+              {' - '}
+              {queuedAnimal.type}
+            </h2>
             <h2>{queuedAnimal.gender}</h2>
             <h2>
               {queuedAnimal.vaccinated ? 'vaccinated' : 'not vaccinated'}
               {' - '}
               {queuedAnimal.spayed ? 'spayed' : 'not spayed'}
             </h2>
-            <h2>birthday: {queuedAnimal.birth}</h2>
+            <h2>
+              {'birthday: '}
+              {queuedAnimal.birth}
+            </h2>
             <div>
-              <button type="button" onClick={listNext}><i className="fas fa-angle-double-right"></i></button>
-              <button type="button"><i className="fas fa-thumbs-up"></i></button>
-              <button type="button"><i className="fas fa-heart"></i></button>
+              <button type="button" onClick={listNext}><i className="fas fa-angle-double-right" /></button>
+              <button type="button"><i className="fas fa-thumbs-up" /></button>
+              <button type="button"><i className="fas fa-heart" /></button>
             </div>
           </div>
         </div>

@@ -29,14 +29,14 @@ const Landingpage = ({ selectedForm, setSelectedForm }) => {
             <button
               data-action="login"
               type="button"
-              style={selectedForm === 'login' ? { borderBottom: '5px solid #3a0577c9' } : null}
+              style={selectedForm === 'login' ? { borderBottomColor: '#3a0577c9' } : null}
             >
               <span data-action="login">sign in</span>
             </button>
             <button
               data-action="register"
               type="button"
-              style={selectedForm === 'register' ? { borderBottom: '5px solid #3a0577c9' } : null}
+              style={selectedForm === 'register' ? { borderBottomColor: '#3a0577c9' } : null}
             >
               <span data-action="register">register</span>
             </button>

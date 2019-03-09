@@ -2,7 +2,16 @@ import React from 'react';
 import '../stylesheets/spinner.scss';
 
 const Spinner = () => (
-  <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  <div className="lds-roller">
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
 );
 
 export default Spinner;

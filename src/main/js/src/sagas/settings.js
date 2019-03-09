@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import * as actions from '../actions/types';
 import * as API from '../services/api';
 
-export function* setGeoLocation(action) {
+export default function* setGeoLocation(action) {
   const token = localStorage.getItem('token');
   try {
     const response = yield call(API.setGeoLocation, { distance: action.distance, token });

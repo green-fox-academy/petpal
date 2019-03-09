@@ -8,7 +8,7 @@ $bcColor: #643A94;
   height:100%;
   flex-direction: column;
 
-  > div {
+  & > div {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
@@ -24,6 +24,39 @@ $bcColor: #643A94;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+
+      input[type=range] {
+        -webkit-appearance: none;
+        width: 100%;
+        height:2.5vh;
+        margin:0 3vw;
+      }
+      input[type=range]:focus {
+        outline: none;
+      }
+      input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 0.4vh;
+        cursor: pointer;
+        box-shadow: 1px 1px 1px $bcColor;
+        background: $bcColor;
+        border-radius: 14px;
+        border: 0px solid #000000;
+      }
+      input[type=range]::-webkit-slider-thumb {
+        box-shadow: 0px 0px 0px #000000;
+        border: 0px solid #000000;
+        height: 3vh;
+        width: 3vh;
+        border-radius: 50%;
+        background: $bcColor;
+        margin-top: -1.1vh;
+        cursor: pointer;
+        -webkit-appearance: none;
+      }
+      input[type=range]:focus::-webkit-slider-runnable-track {
+        background: $bcColor;
+      }
 
       p {
         margin-top: 2vh;
@@ -41,44 +74,41 @@ $bcColor: #643A94;
         }
       }
     }
-
-    input[type=range] {
-      -webkit-appearance: none;
-      width: 100%;
-      height:2.5vh;
-      margin:0 3vw;
-    }
-    input[type=range]:focus {
-      outline: none;
-    }
-    input[type=range]::-webkit-slider-runnable-track {
-      width: 100%;
-      height: 0.4vh;
-      cursor: pointer;
-      box-shadow: 1px 1px 1px $bcColor;
-      background: $bcColor;
-      border-radius: 14px;
-      border: 0px solid #000000;
-    }
-    input[type=range]::-webkit-slider-thumb {
-      box-shadow: 0px 0px 0px #000000;
-      border: 0px solid #000000;
-      height: 3vh;
-      width: 3vh;
-      border-radius: 50%;
-      background: $bcColor;
-      margin-top: -1.1vh;
-      cursor: pointer;
-      -webkit-appearance: none;
-    }
-    input[type=range]:focus::-webkit-slider-runnable-track {
-      background: $bcColor;
-    }
   }
 
   h3 {
     font-weight: bold;
     color: $bcColor;
     font-size: 5.3vw;
+  }
+}
+
+@media screen and (min-width:1024px) {
+  .settings {
+    width:40%;
+
+    & > div {
+      font-size: 2vw;
+
+      form {
+        input[type=range]{
+          height:5.1vh;
+        }
+
+        button {
+          font-size: 2.3vw;
+          height:7vh;
+
+          &:hover {
+            color:white;
+            background-color: $bcColor;
+          }
+        }
+      }
+    }
+
+    h3 {
+      font-size: 2vw;
+    }
   }
 }

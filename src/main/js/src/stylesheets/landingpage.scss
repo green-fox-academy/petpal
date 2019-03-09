@@ -36,3 +36,19 @@ $bcColor: #643A94;
     transition: 0.5s;
   }
 }
+
+@media screen and (min-width:1024px) {
+  .landingpage {
+    .formscont {
+      padding: 0;
+    }
+
+    .chooseform {
+      button {
+        font-size: 2vw;
+        cursor: pointer;
+        border-bottom: 8px solid transparent;
+      }
+    }
+  }
+}
