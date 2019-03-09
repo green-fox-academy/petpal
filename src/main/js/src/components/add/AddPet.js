@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addAnimalRequest } from '../../actions/animal';
 import { setAddAnimalError } from '../../actions/errors';
@@ -8,6 +8,10 @@ import '../../stylesheets/addanimaldesktop.scss';
 
 const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
   const [currentPhoto, setCurrentPhoto] = useState(null);
+
+  useEffect(() => () => {
+    setAddAnimalError('');
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
