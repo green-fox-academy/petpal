@@ -9,6 +9,7 @@ export const listAnimalsRequest = () => ({
   type: LIST_ANIMALS_REQUEST,
 });
 
-export const listNextAnimalFromRedux = () => ({
+export const listNextAnimalFromRedux = payload => ({
   type: LIST_NEXT_ANIMAL,
+  payload,
 });

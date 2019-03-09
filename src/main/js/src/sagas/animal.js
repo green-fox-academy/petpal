@@ -26,12 +26,10 @@ export function* listAnimalsRequest() {
   const token = localStorage.getItem('token');
   try {
     const response = yield call(API.listAnimals, token);
-    console.log(response);
-    
     if (response.animals) {
       yield put({
         type: actions.LIST_ANIMALS_SUCCEEDED,
-        payload: response.animals,
+        // payload: response.animals,
       });
     } else {
       yield put({

@@ -1,4 +1,6 @@
 $bcColor: #643A94;
+$swipeForwardBtnColor: rgb(150, 51, 51);
+$adoptBtnColor: rgb(41, 194, 35);
 
 .finder {
   width: 100%;
@@ -14,34 +16,69 @@ $bcColor: #643A94;
     flex-direction: column;
     width: 100%;
     height: 100%;
-    padding:5vh;
 
-    // h2 {
-    //   font-size: 6vw;
-    //   font-weight: bold;
-    //   color: $bcColor;
-    // }
+    figure {
+      width: 80%;
+      height:40%;
+      border:5px solid $bcColor;
 
-    // div {
-    //   width:100%;
-    //   display: flex;
-    //   justify-content: space-evenly;
-    //   align-items: center;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
 
-    //   button {
-    //     transition: 0.2;
-    //     background-color: pink;
-    //     border-radius: 50%;
-    //     height:8vh;
-    //     width:8vh;
-    //     border:none;
-    //     outline:none;
-    //     font-family:inherit;
+    h2 {
+      font-size: 6vw;
+      font-weight: bold;
+      color: $bcColor;
+      width:80%;
+      text-align: center;
+    }
 
-    //     &:active {
-    //       transform: scale(0.9);
-    //     }
-    //   }
-    // }
+    h2:first-of-type {
+      font-size: 8vw;
+    }
+
+    div {
+      width:80%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      button {
+        border-radius: 50%;
+        height:12vh;
+        width:12vh;
+        border:none;
+        outline:none;
+        color:white;
+        font-size: 10vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        transition: 0.2s;
+        
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+
+      button:nth-of-type(1) {
+        color: $swipeForwardBtnColor;
+        border:5px solid $swipeForwardBtnColor;
+      }
+
+      button:nth-of-type(2) {
+        color: $bcColor;
+        border:5px solid $bcColor;
+      }
+
+      button:nth-of-type(3) {
+        color: $adoptBtnColor;
+        border:5px solid $adoptBtnColor;
+      }
+    }
   }
 }

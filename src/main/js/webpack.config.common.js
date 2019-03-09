@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -12,6 +13,9 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([
+      { from: 'src/images', to: '/' }
+    ]),
   ],
   module: {
     rules: [
@@ -30,14 +34,13 @@ module.exports = {
         test: /\.(jpe?g|png|gif|ico)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
             options: {
+              limit: 8000,
               name: '[name].[ext]',
             },
           },
-          {
-            loader: 'image-webpack-loader',
-          },
+          { loader: 'file-loader' },
         ],
       },
       {
