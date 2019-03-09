@@ -29,6 +29,7 @@ export function* listAnimalsRequest() {
     if (response.animals) {
       yield put({
         type: actions.LIST_ANIMALS_SUCCEEDED,
+        // payload: response.animals,
       });
     } else {
       yield put({

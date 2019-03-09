@@ -1,37 +1,58 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { listAnimalsRequest, listNextAnimalFromRedux } from '../../actions/animal';
-// import AnimalCard from '../find/AnimalCard';
+import Spinner from '../Spinner';
 import '../../stylesheets/finder.scss';
 
 const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux }) => {
+  const [counter, setCounter] = useState(0);
+
   useEffect(() => {
     listAnimalsRequest();
   }, []);
 
   const listNext = () => {
-    listNextAnimalFromRedux();
+    if (counter > 2) {
+      listNextAnimalFromRedux(0);
+      setCounter(0);
+    } else {
+      listNextAnimalFromRedux(counter + 1);
+      setCounter(counter + 1);
+    }
   };
 
   return (
-    queuedAnimal
+    queuedAnimal.name
       ? (
         <div className="finder">
-          {/* {queuedAnimals ? <AnimalCard /> : null} */}
           <div className="animalcard">
-            <h2>{queuedAnimal.name}</h2>
-            <h2>{queuedAnimal.type}</h2>
+            <figure>
+              {/* <img src={`images/${queuedAnimal.photo}`} alt="animal picture" /> */}
+            </figure>
+            <h2>
+              {queuedAnimal.name}
+              {' - '}
+              {queuedAnimal.type}
+            </h2>
             <h2>{queuedAnimal.gender}</h2>
-            <h2>{queuedAnimal.vaccinated ? 'vaccinated' : 'not vaccinated'}</h2>
-            <h2>{queuedAnimal.spayed ? 'spayed' : 'not spayed'}</h2>
-            <h2>{queuedAnimal.birth}</h2>
-            <button type="button" onClick={listNext}>swipe further</button>
-            <button type="button">like</button>
-            <button type="button">adopt</button>
+            <h2>
+              {queuedAnimal.vaccinated ? 'vaccinated' : 'not vaccinated'}
+              {' - '}
+              {queuedAnimal.spayed ? 'spayed' : 'not spayed'}
+            </h2>
+            <h2>
+              {'birthday: '}
+              {queuedAnimal.birth}
+            </h2>
+            <div>
+              <button type="button" onClick={listNext}><i className="fas fa-angle-double-right" /></button>
+              <button type="button"><i className="fas fa-thumbs-up" /></button>
+              <button type="button"><i className="fas fa-heart" /></button>
+            </div>
           </div>
         </div>
       )
-      : <h2>couldnt load</h2>
+      : <Spinner />
   );
 };
 

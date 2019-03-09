@@ -29,12 +29,6 @@ const Register = ({ requestRegister, setRegisterError, registerErrorMsg }) => {
         <input name="registerpass" type="password" id="registerpass" />
         <label htmlFor="registerpass">password</label>
       </div>
-      {/* <p>
-        <input type="radio" name="regtarget" id="regmember" value="member" defaultChecked />
-        <label htmlFor="regmember">member</label>
-        <input type="radio" name="regtarget" id="regshelter" value="shelter" />
-        <label htmlFor="regshelter">shelter</label>
-      </p> */}
       <button className="button" type="submit"><span>register</span></button>
     </form>
   );
