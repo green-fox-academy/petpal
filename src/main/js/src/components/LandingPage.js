@@ -9,7 +9,7 @@ import '../stylesheets/landingpage.scss';
 import '../stylesheets/forms.scss';
 
 const Landingpage = ({ selectedForm, setSelectedForm }) => {
-  const handleClick = (event) => {
+  const handleClick = event => {
     const { dataset } = event.target;
     if (dataset.action) {
       setSelectedForm(dataset.action);
@@ -26,18 +26,10 @@ const Landingpage = ({ selectedForm, setSelectedForm }) => {
             <RegisterCont />
           </div>
           <nav className="chooseform" onClick={handleClick} role="presentation">
-            <button
-              data-action="login"
-              type="button"
-              style={selectedForm === 'login' ? { borderBottomColor: '#3a0577c9' } : null}
-            >
+            <button data-action="login" type="button" style={selectedForm === 'login' ? { borderBottomColor: '#3a0577c9' } : null}>
               <span data-action="login">sign in</span>
             </button>
-            <button
-              data-action="register"
-              type="button"
-              style={selectedForm === 'register' ? { borderBottomColor: '#3a0577c9' } : null}
-            >
+            <button data-action="register" type="button" style={selectedForm === 'register' ? { borderBottomColor: '#3a0577c9' } : null}>
               <span data-action="register">register</span>
             </button>
           </nav>
@@ -55,4 +47,7 @@ const mapDispatchToProps = {
   setSelectedForm,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Landingpage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Landingpage);

@@ -1,12 +1,12 @@
-$bcColor: #643A94;
+$bcColor: #643a94;
 
 .sidebar {
   position: fixed;
-  top:8vh;
-  width:100vw;
+  top: 8vh;
+  width: 100vw;
   background-color: $bcColor;
   z-index: 100;
-  height:calc(100vh - 8vh);
+  height: calc(100vh - 8vh);
   transition: 0.5s;
   display: flex;
   justify-content: flex-start;
@@ -15,13 +15,13 @@ $bcColor: #643A94;
   padding-top: 5vh;
 
   button {
-    width:80%;
+    width: 80%;
     margin-bottom: 5vh;
-    height:10%;
-    border:3px solid white;
-    outline:none;
+    height: 10%;
+    border: 3px solid white;
+    outline: none;
     background-color: transparent;
-    color:white;
+    color: white;
     font-family: inherit;
     font-weight: bold;
     font-size: 7vw;
@@ -37,9 +37,9 @@ $bcColor: #643A94;
   }
 }
 
-@media screen and (min-width:1024px){
+@media screen and (min-width: 1024px) {
   .sidebar {
-    width:20vw;
+    width: 20vw;
 
     button {
       font-size: 2vw;
@@ -47,7 +47,7 @@ $bcColor: #643A94;
 
       &:hover {
         background-color: white;
-        color:$bcColor;
+        color: $bcColor;
       }
 
       .fas {

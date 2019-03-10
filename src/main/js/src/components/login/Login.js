@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 
 const Login = ({ requestLogin, loginErrorMsg, setLoginError }) => {
-  useEffect(() => () => {
-    setLoginError('');
-  }, []);
+  useEffect(
+    () => () => {
+      setLoginError('');
+    },
+    [],
+  );
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     const { loginname, loginpass } = event.target;
     if (loginname.value.trim().length > 0 && loginpass.value.trim().length > 0) {
@@ -29,7 +32,9 @@ const Login = ({ requestLogin, loginErrorMsg, setLoginError }) => {
         <input name="loginpass" type="password" id="loginpass" />
         <label htmlFor="loginpass">password</label>
       </div>
-      <button className="button" type="submit"><span>sign me in</span></button>
+      <button className="button" type="submit">
+        <span>sign me in</span>
+      </button>
     </form>
   );
 };

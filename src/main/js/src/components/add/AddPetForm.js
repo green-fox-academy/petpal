@@ -1,8 +1,6 @@
 import React from 'react';
 
-const AddPetForm = ({
-  onSubmit, onChange, currentPhoto, animMessage,
-}) => (
+const AddPetForm = ({ onSubmit, onChange, currentPhoto, animMessage }) => (
   <div className="addme">
     <form onSubmit={onSubmit}>
       {animMessage !== '' ? <h3>{animMessage}</h3> : null}
@@ -40,14 +38,13 @@ const AddPetForm = ({
           <span>no</span>
         </label>
       </div>
-      <label
-        style={currentPhoto ? { backgroundColor: '#643A94', color: 'white' } : null}
-        htmlFor="animfile"
-      >
+      <label style={currentPhoto ? { backgroundColor: '#643A94', color: 'white' } : null} htmlFor="animfile">
         {currentPhoto ? currentPhoto.name : 'select a photo...'}
       </label>
       <input type="file" name="animfile" id="animfile" onChange={onChange} />
-      <button className="button" type="submit">submit</button>
+      <button className="button" type="submit">
+        submit
+      </button>
     </form>
   </div>
 );

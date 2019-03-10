@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 
 const Register = ({ requestRegister, setRegisterError, registerErrorMsg }) => {
-  useEffect(() => () => {
-    setRegisterError('');
-  }, []);
+  useEffect(
+    () => () => {
+      setRegisterError('');
+    },
+    [],
+  );
 
-  const handlesubmit = (event) => {
+  const handlesubmit = event => {
     event.preventDefault();
     const { registername, registerpass } = event.target;
     if (registername.value.trim().length > 0 && registerpass.value.trim().length > 0) {
@@ -29,7 +32,9 @@ const Register = ({ requestRegister, setRegisterError, registerErrorMsg }) => {
         <input name="registerpass" type="password" id="registerpass" />
         <label htmlFor="registerpass">password</label>
       </div>
-      <button className="button" type="submit"><span>register</span></button>
+      <button className="button" type="submit">
+        <span>register</span>
+      </button>
     </form>
   );
 };
