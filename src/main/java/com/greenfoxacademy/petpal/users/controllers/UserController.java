@@ -67,9 +67,9 @@ public class UserController {
   }
 
   @GetMapping("/user/pets/owned")
-  public ResponseEntity ownedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
+  public ResponseEntity ownedPets(Authentication authentication) throws Throwable {
     PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
-    //return ResponseEntity.ok(privateUserService..getOwnedAnimalsByUser());
-    return null;
+    return ResponseEntity.ok(privateUserService.animalsOwnedByUser(privateUser.getId()));
   }
+  //TODO: delete pet from all of the lists AND delete pet for good (4 endpoints)
 }
