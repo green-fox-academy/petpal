@@ -1,79 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addAnimalRequest } from '../../actions/addanimal';
+import { addAnimalRequest } from '../../actions/animal';
 import { setAddAnimalError } from '../../actions/errors';
+import AddPetForm from './AddPetForm';
+import '../../stylesheets/addanimal.scss';
+import '../../stylesheets/addanimaldesktop.scss';
 
 const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
-  const handleSubmit = event => {
+  const [currentPhoto, setCurrentPhoto] = useState(null);
+
+  useEffect(() => () => {
+    setAddAnimalError('');
+  }, []);
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { animname, animbirth, animtype, animgender, spayed, vaccinated, animfile } = event.target;
+    const {
+      animname, animbirth, animtype, animgender, spayed, vaccinated, animfile,
+    } = event.target;
     if (
-      animname.value.trim().length > 0 &&
-      animbirth.value.trim().length > 0 &&
-      animtype.value.length > 0 &&
-      animgender.value.length > 0 &&
-      spayed.value.length > 0 &&
-      vaccinated.value.length > 0 &&
-      animfile.value.length > 0
+      animname.value.trim().length > 0
+      && animbirth.value.trim().length > 0
+      && animtype.value.length > 0
+      && animgender.value.length > 0
+      && spayed.value.length > 0
+      && vaccinated.value.length > 0
+      && animfile.files.length > 0
     ) {
-      console.log(animname.value);
-      console.log(animbirth.value);
-      console.log(animtype.value);
-      console.log(animgender.value);
-      console.log(spayed.value);
-      console.log(vaccinated.value);
-      console.log(animfile);
+      const formData = new FormData();
+      formData.append('name', animname.value);
+      formData.append('birth', animbirth.value);
+      formData.append('type', animtype.value);
+      formData.append('gender', animgender.value);
+      formData.append('spayed', spayed.value);
+      formData.append('vaccinated', vaccinated.value);
+      formData.append('photo', currentPhoto);
+      addAnimalRequest(formData);
       setAddAnimalError('');
     } else {
       setAddAnimalError('Fill out all fields please!');
     }
   };
 
+  const handleFile = (event) => {
+    setCurrentPhoto(event.target.files[0]);
+  };
+
   return (
-    <div className="addme">
-      {animMessage !== '' ? <h3>{animMessage}</h3> : null}
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="animname" placeholder="your animal's name..." />
-        <input type="text" name="animbirth" placeholder="birth date... e.g.:2018.10.24" />
-        <select name="animtype">
-          <option value="dog">dog</option>
-          <option value="cat">cat</option>
-          <option value="hamster">hamster</option>
-          <option value="pingvin">pinguin</option>
-        </select>
-        <select name="animgender">
-          <option value="male">male</option>
-          <option value="female">female</option>
-        </select>
-        <div>
-          <p>spayed?</p>
-          <label htmlFor="spayedyes">
-            <input type="radio" name="spayed" value="spayed" id="spayedyes" />
-            yes
-          </label>
-          <label htmlFor="spayedno">
-            <input type="radio" name="spayed" value="notspayed" id="spayedno" />
-            no
-          </label>
-        </div>
-        <div>
-          <p>vaccinated?</p>
-          <label htmlFor="vaccinatedyes">
-            <input type="radio" name="vaccinated" value="vaccinated" id="vaccinatedyes" />
-            yes
-          </label>
-          <label htmlFor="vaccinatedno">
-            <input type="radio" name="vaccinated" value="notvaccinated" id="vaccinatedno" />
-            no
-          </label>
-        </div>
-        <label htmlFor="animfile">
-          select a photo...
-          <input type="file" name="animfile" id="animfile" />
-        </label>
-        <button className="button" type="submit">submit</button>
-      </form>
-    </div>
+    <AddPetForm onChange={handleFile} onSubmit={handleSubmit} animMessage={animMessage} currentPhoto={currentPhoto} />
   );
 };
 

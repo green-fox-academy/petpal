@@ -1,4 +1,4 @@
-const host = 'https://petpalgf.herokuapp.com';
+const host = 'https://petpalgf.herokuapp.com/';
 
 export default (url, method, token, data) => {
   const options = {
@@ -9,9 +9,10 @@ export default (url, method, token, data) => {
     method,
   };
 
-  if (method !== 'GET') options.headers['content-type'] = 'application/json';
+  if (method !== 'GET' && url !== '/pets') options.headers['content-type'] = 'application/json';
   if (token) options.headers.authorization = `Bearer ${token}`;
-  if (data && method !== 'GET') options.headers.body = JSON.stringify(data);
+  if (data && method !== 'GET' && url !== '/pets') options.body = JSON.stringify(data);
+  if (data && url === '/pets' && method === 'POST') options.body = data;
 
   return fetch(`${host}${url}`, options)
     .then(data => data.json());

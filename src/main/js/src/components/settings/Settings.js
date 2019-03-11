@@ -1,40 +1,51 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { setDistance, setDistanceMessage } from '../../actions/settings';
+import { setDistance, setDistanceREDUX } from '../../actions/settings';
 import '../../stylesheets/settings.scss';
 
-const Settings = ({ setDistanceMessage, setDistance, currentDistance }) => {
-  useEffect(() => {
-    return () => {
-      setDistanceMessage('');
-    };
-  }, []);
+const Settings = ({
+  setDistance, currentDistance, inputDistance, setDistanceREDUX,
+}) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setDistance(event.target.geolocation.value);
+  };
 
-  const handleInput = event => {
-    console.log(event.target.value);
-    setDistance(event.target.value);
+  const handleChange = (event) => {
+    setDistanceREDUX(event.target.value);
   };
 
   return (
     <div className="settings">
       <div>
         <span>0km</span>
-        <input type="range" name="" min="1" max="80" value={currentDistance} onChange={handleInput} />
+        <form onSubmit={handleSubmit}>
+          <input type="range" name="geolocation" min="1" max="80" value={inputDistance} onChange={handleChange} />
+          <p style={{ left: `calc(${inputDistance}% - 40%)` }}>
+            {inputDistance}
+            {'km'}
+          </p>
+          <button className="button" type="submit">set distance</button>
+        </form>
         <span>80km</span>
       </div>
-      {currentDistance ? <h3>You are searcing between 0 and {currentDistance}km!</h3> : null}
+      <h3>
+        {'You are searcing between 0 and '}
+        {currentDistance}
+        {' km!'}
+      </h3>
     </div>
   );
 };
 
 const mapStateToProps = store => ({
   currentDistance: store.settings.currentDistance,
-  distanceMessage: store.settings.distanceMessage,
+  inputDistance: store.settings.inputDistance,
 });
 
 const mapDispatchToProps = {
   setDistance,
-  setDistanceMessage,
+  setDistanceREDUX,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
