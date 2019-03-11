@@ -38,8 +38,7 @@ public abstract class SuperUser {
   private String address;
 //  TODO address fields
 
-  @OneToMany(mappedBy = "superUser", cascade = CascadeType.PERSIST)
-  @JoinColumn(name = "owner_id", referencedColumnName = "id")
+  @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
   private Set<Animal> ownedAnimalsByUser;
 
   public SuperUser(@NotBlank String username, @NotBlank String password) {

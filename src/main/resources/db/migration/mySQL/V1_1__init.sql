@@ -59,8 +59,8 @@ VALUES (1,
 CREATE TABLE `animal`
 (
   `id`                  bigint(20)   AUTO_INCREMENT,
-  `private_user_id`     bigint(20),
-  `super_user_id`       bigint(20),
+  `owner_id`            bigint(20),
+  `adopter_id`          bigint(20),
   `animal_type`         varchar(255),
   `name`                varchar(255) DEFAULT NULL,
   `birth_date`          datetime(6),
@@ -76,6 +76,8 @@ CREATE TABLE `animal`
 );
 
 INSERT INTO animal (id,
+                    owner_id,
+                    adopter_id,
                     name,
                     birth_date,
                     type,
@@ -84,9 +86,10 @@ INSERT INTO animal (id,
                     spayed,
                     vaccinated,
                     photo_path,
-                    owner_id,
                     animal_type)
 VALUES (1,
+        1,
+        1,
         'Pinguee',
         '2010-02-04 03:00:00',
         'dog',
@@ -95,9 +98,10 @@ VALUES (1,
         true,
         true,
         '$HOME/assets/images/penguee.jpg',
-        1,
         'Dog'),
        (2,
+        1,
+        1,
         'Doggo',
         '2012-10-04 03:00:00',
         'dog',
@@ -106,9 +110,10 @@ VALUES (1,
         false,
         true,
         '$HOME/assets/images/doggo.jpg',
-        1,
         'Dog'),
        (3,
+        1,
+        1,
         'Grumpy',
         '2015-10-04 03:00:00',
         'cat',
@@ -117,24 +122,26 @@ VALUES (1,
         false,
         false,
         '$HOME/assets/images/grumpycat.jpg',
-        1,
         'Cat');
 
 
 CREATE TABLE private_users_liked_animals
+  ##A PRIMARY KEY IS ALWAYS NEEDED
 (
+  id              BIGINT NOT NULL,
   animal_id       BIGINT NOT NULL,
   private_user_id BIGINT NOT NULL,
   CONSTRAINT private_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
-  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id)
+  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id),
+  PRIMARY KEY (id)
 );
 
-CREATE TABLE private_users_adopted_animals
+/*CREATE TABLE private_users_adopted_animals
 (
+  id        BIGINT NOT NULL,
   animal_id BIGINT NOT NULL,
   owner_id  BIGINT NOT NULL,
   CONSTRAINT private_users_adopted_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
-
-  CONSTRAINT private_users_adopted_animals_private_user_id FOREIGN KEY (owner_id) REFERENCES super_user (id)
-)
-
+  CONSTRAINT private_users_adopted_animals_private_user_id FOREIGN KEY (owner_id) REFERENCES super_user (id),
+  PRIMARY KEY (id)
+);*/

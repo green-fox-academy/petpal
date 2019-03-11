@@ -22,7 +22,7 @@ public class PrivateUser extends SuperUser {
   @JsonIgnore
   private Set<Animal> animalsLikedByUser;
 
-  @OneToMany(mappedBy = "privateUser")
+  @OneToMany(mappedBy = "privateUser", cascade = CascadeType.PERSIST)
   @JsonIgnore
   private Set<Animal> animalsToAdoptByUser;
 }
