@@ -32,8 +32,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
   private static final String AUTHENTICATION_URL = "/login";
   private static final String HOME_URL = "/";
-  private static final String REGISTRATION_URL = "/register/user";
+  private static final String REGISTRATION_URL = "/register/**";
   private static final String REFRESH_TOKEN_URL = "/refreshtoken";
+  private static final String JS = "/*.js";
+  private static final String JSMAP = "/*.js.map";
+  private static final String FAVICON = "/favicon.png";
+  private static final String FAVICON2 = "/favicon.ico";
+  private static final String DATABASE = "/db/migration/mySql";
+
   private static final String API_ROOT_URL = "/**";
 
   @Autowired
@@ -85,7 +91,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             AUTHENTICATION_URL,
             REFRESH_TOKEN_URL,
             REGISTRATION_URL,
-            HOME_URL
+            JS,
+            JSMAP,
+            FAVICON,
+            FAVICON2,
+            HOME_URL,
+            DATABASE
     );
     http.cors().and().csrf().disable()
             .exceptionHandling().authenticationEntryPoint(this.authenticationEntryPoint)
@@ -94,7 +105,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers(AUTHENTICATION_URL, REFRESH_TOKEN_URL, REGISTRATION_URL, HOME_URL).permitAll()
+            .antMatchers(AUTHENTICATION_URL, REFRESH_TOKEN_URL, REGISTRATION_URL, HOME_URL, FAVICON, JS, JSMAP, FAVICON2, DATABASE).permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)

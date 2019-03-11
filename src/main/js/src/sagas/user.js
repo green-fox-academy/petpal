@@ -6,7 +6,7 @@ import { history } from '../store/configureStore';
 export function* loginRequest(action) {
   try {
     const response = yield call(API.loginRequest, action.payload);
-    if (response.status === 200) {
+    if (response.token) {
       yield put({
         type: actions.LOGIN_SUCCEDED,
       });
@@ -26,9 +26,10 @@ export function* loginRequest(action) {
 export function* registerRequest(action) {
   try {
     const response = yield call(API.registerRequest, action.payload);
-    if (response) {
+    if (response.username) {
       yield put({
-        type: actions.REGISTER_SUCCEDED,
+        type: actions.SELECT_CURRENT_FORM,
+        payload: 'login',
       });
     } else {
       yield put({

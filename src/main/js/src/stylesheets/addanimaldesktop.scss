@@ -1,0 +1,70 @@
+$bcColor: #643A94;
+
+@media screen and (min-width:1024px) {
+  .addme {
+    form {
+      width: 50%;
+      height:90%;
+      box-shadow: 0 0 15px 3px $bcColor;
+      border-radius: 100px;
+
+      h3 {
+        font-size: 2vw;
+      }
+
+      input[type=text] {
+        font-size: 1.6vw;
+        width:50%;
+        height:6vh;
+
+        &:focus {
+          width:60%;
+        }
+      }
+
+      div {
+        p {
+          font-size: 1.5vw;
+        }
+
+        label {
+          input[type=radio] {
+            margin-right: 1.5vw;
+            cursor: pointer;
+          }
+
+          cursor: pointer;
+          font-size: 1.5vw;
+        }
+      }
+
+      select {
+        cursor: pointer;
+        width:40%;
+        height:5vh;
+        font-size: 1.5vw;
+
+        option {
+          font-size: 1.35vw;
+        }
+      }
+
+      & > label {
+        font-size: 1.5vw;
+        width:40%;
+        cursor: pointer;
+      }
+
+      button {
+        font-size: 1.8vw;
+        width:50%;
+        transition: 0.5s;
+
+        &:hover {
+          width:60%;
+          font-size: 2vw;
+        }
+      }
+    }
+  }
+}

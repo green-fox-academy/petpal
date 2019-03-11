@@ -12,7 +12,7 @@ const Navbar = ({ isAuthenticated, isHamburgerToggled, toggleHamburgerIcon }) =>
   return (
     <header className="navheader" onClick={handleClick} role="presentation">
       {isAuthenticated ? <HamburgerIcon toggle={isHamburgerToggled} /> : null}
-      <figure><i className="fas fa-paw"></i></figure>
+      <figure><i className="fas fa-paw" /></figure>
       <h1>PetPal</h1>
     </header>
   );
