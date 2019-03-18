@@ -21,13 +21,13 @@ const initState = {
       photo: 'dog.jpg',
     },
     {
-      type: 'pinguin',
+      type: 'penguin',
       name: 'Pingu',
       gender: 'female',
       birth: '2019.02.01',
       vaccinated: false,
       spayed: false,
-      photo: 'pinguin.jpg',
+      photo: 'penguin.jpg',
     },
     {
       type: 'hamster',

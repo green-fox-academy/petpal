@@ -24,7 +24,9 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux }) =
   return queuedAnimal.name ? (
     <div className="finder">
       <div className="animalcard">
-        <figure>{/* <img src={`images/${queuedAnimal.photo}`} alt="animal picture" /> */}</figure>
+        <figure>
+          <img src={`/assets/${queuedAnimal.photo}`} alt="animal picture" />
+        </figure>
         <h2>
           {queuedAnimal.name}
           {' - '}
