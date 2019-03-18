@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "https://petpalgf.herokuapp.com/", maxAge = 3600)
+//@CrossOrigin(origins = "https://petpalgf.herokuapp.com/", maxAge = 3600)
 public class UserController {
 
   private PrivateUserService privateUserService;
@@ -28,11 +28,17 @@ public class UserController {
 //    this.organisationService = organisationService;
   }
 
+  @CrossOrigin
   @PostMapping("/register/user")
   public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException, UsernameTakenException, UnirestException {
     privateUserService.registerNewUser(privateUser);
     ModelMapper modelMapper = new ModelMapper();
-    return ResponseEntity.ok().body(modelMapper.map(privateUser, UserDTO.class));
+    return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Headers",
+                    "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Methods",
+                    "GET, POST, PUT, DELETE, OPTIONS, HEAD").body(modelMapper.map(privateUser, UserDTO.class));
   }
 
   @PostMapping("/register/organization")
@@ -55,23 +61,21 @@ public class UserController {
   }*/
 
   @GetMapping("/user/pets/liked")
-  public ResponseEntity likedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
-    PrivateUser privateUserToChange = privateUserService.findById(id);
-    return ResponseEntity.ok(privateUserToChange.getAnimalsLikedByUser());
+  public ResponseEntity likedPets(Authentication authentication) throws Throwable {
+    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
+    return ResponseEntity.ok(privateUserService.animalsLikedByUser(privateUser.getId()));
   }
 
   @GetMapping("/user/pets/adopted")
-  public ResponseEntity adoptedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
-    PrivateUser privateUserToChange = privateUserService.findById(id);
-    //return ResponseEntity.ok(privateUserToChange.getAnimalsToAdoptByUser());
-    return null;
+  public ResponseEntity adoptedPets(Authentication authentication) throws Throwable {
+    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
+    return ResponseEntity.ok(privateUserService.animalsToAdoptByUser(privateUser.getId()));
   }
 
   @GetMapping("/user/pets/owned")
-  public ResponseEntity ownedPets(@PathVariable Long id, Authentication authentication) throws Throwable {
-    PrivateUser privateUserToChange = privateUserService.findById(id);
-    return ResponseEntity.ok(privateUserToChange.getOwnedAnimalsByUser());
+  public ResponseEntity ownedPets(Authentication authentication) throws Throwable {
+    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
+    return ResponseEntity.ok(privateUserService.animalsOwnedByUser(privateUser.getId()));
   }
-
+  //TODO: delete pet from all of the lists AND delete pet for good (4 endpoints)
 }
-
