@@ -6,8 +6,11 @@ const initState = {
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case LOGIN_SUCCEDED: return { ...state, isAuthenticated: true };
-    case LOGOUT_SUCCEDED: return { ...state, isAuthenticated: false };
-    default: return state;
+    case LOGIN_SUCCEDED:
+      return { ...state, isAuthenticated: true };
+    case LOGOUT_SUCCEDED:
+      return { ...state, isAuthenticated: false };
+    default:
+      return state;
   }
 };

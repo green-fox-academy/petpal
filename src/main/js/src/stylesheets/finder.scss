@@ -1,4 +1,4 @@
-$bcColor: #643A94;
+$bcColor: #643a94;
 $swipeForwardBtnColor: rgb(150, 51, 51);
 $adoptBtnColor: rgb(41, 194, 35);
 
@@ -19,8 +19,9 @@ $adoptBtnColor: rgb(41, 194, 35);
 
     figure {
       width: 80%;
-      height:40%;
-      border:5px solid $bcColor;
+      height: 40%;
+      border: 5px solid $bcColor;
+      overflow: hidden;
 
       img {
         width: 100%;
@@ -32,7 +33,7 @@ $adoptBtnColor: rgb(41, 194, 35);
       font-size: 6vw;
       font-weight: bold;
       color: $bcColor;
-      width:80%;
+      width: 80%;
       text-align: center;
     }
 
@@ -41,25 +42,25 @@ $adoptBtnColor: rgb(41, 194, 35);
     }
 
     div {
-      width:80%;
+      width: 80%;
       display: flex;
       justify-content: space-between;
       align-items: center;
 
       button {
         border-radius: 50%;
-        height:12vh;
-        width:12vh;
-        border:none;
-        outline:none;
-        color:white;
+        height: 12vh;
+        width: 12vh;
+        border: none;
+        outline: none;
+        color: white;
         font-size: 10vw;
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: transparent;
         transition: 0.2s;
-        
+
         &:active {
           transform: scale(0.9);
         }
@@ -67,27 +68,27 @@ $adoptBtnColor: rgb(41, 194, 35);
 
       button:nth-of-type(1) {
         color: $swipeForwardBtnColor;
-        border:5px solid $swipeForwardBtnColor;
+        border: 5px solid $swipeForwardBtnColor;
       }
 
       button:nth-of-type(2) {
         color: $bcColor;
-        border:5px solid $bcColor;
+        border: 5px solid $bcColor;
       }
 
       button:nth-of-type(3) {
         color: $adoptBtnColor;
-        border:5px solid $adoptBtnColor;
+        border: 5px solid $adoptBtnColor;
       }
     }
   }
 }
 
-@media screen and (min-width:1024px){
+@media screen and (min-width: 1024px) {
   .finder {
     .animalcard {
       width: 25%;
-      height:80%;
+      height: 80%;
       box-shadow: 0 0 15px 3px $bcColor;
       border-radius: 60px;
 
@@ -96,14 +97,14 @@ $adoptBtnColor: rgb(41, 194, 35);
         height: 45%;
         border-radius: 30px;
         border: none;
-        box-shadow: 0 0 12px 2px #643A94;
+        box-shadow: 0 0 12px 2px #643a94;
       }
 
       h2 {
         font-size: 1.2vw;
-        width:70%;
+        width: 70%;
       }
-  
+
       h2:first-of-type {
         font-size: 1.6vw;
       }
@@ -122,14 +123,14 @@ $adoptBtnColor: rgb(41, 194, 35);
             background-color: $swipeForwardBtnColor;
           }
         }
-  
+
         button:nth-of-type(2) {
           &:hover {
             color: white;
             background-color: $bcColor;
           }
         }
-  
+
         button:nth-of-type(3) {
           &:hover {
             color: white;

@@ -1,10 +1,10 @@
-$bcColor: #643A94;
+$bcColor: #643a94;
 
 .button {
-  border:4px solid $bcColor;
+  border: 4px solid $bcColor;
   outline: none;
   background-color: transparent;
-  color:$bcColor;
+  color: $bcColor;
   font-size: 5vw;
   font-weight: bold;
   position: relative;
@@ -17,7 +17,7 @@ $bcColor: #643A94;
   span {
     position: relative;
     width: 100%;
-    height:100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

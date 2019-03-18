@@ -3,15 +3,13 @@ import { connect } from 'react-redux';
 import { setDistance, setDistanceREDUX } from '../../actions/settings';
 import '../../stylesheets/settings.scss';
 
-const Settings = ({
-  setDistance, currentDistance, inputDistance, setDistanceREDUX,
-}) => {
-  const handleSubmit = (event) => {
+const Settings = ({ setDistance, currentDistance, inputDistance, setDistanceREDUX }) => {
+  const handleSubmit = event => {
     event.preventDefault();
     setDistance(event.target.geolocation.value);
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setDistanceREDUX(event.target.value);
   };
 
@@ -25,7 +23,9 @@ const Settings = ({
             {inputDistance}
             {'km'}
           </p>
-          <button className="button" type="submit">set distance</button>
+          <button className="button" type="submit">
+            set distance
+          </button>
         </form>
         <span>80km</span>
       </div>
@@ -48,4 +48,7 @@ const mapDispatchToProps = {
   setDistanceREDUX,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Settings);

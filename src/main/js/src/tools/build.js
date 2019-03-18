@@ -3,7 +3,8 @@ const chalk = require('chalk');
 const config = require('../../webpack.config.prod');
 
 webpack(config).run((error, stats) => {
-  if (error) { // so a fatal error occurred. Stop here.
+  if (error) {
+    // so a fatal error occurred. Stop here.
     console.log(chalk.red(error)); // eslint-disable-line
     return 1;
   }
@@ -22,7 +23,7 @@ webpack(config).run((error, stats) => {
   console.log(`Webpack stats: ${stats}`); // eslint-disable-line
 
   // if we got this far, the build succeeded.
-  console.log(chalk.blue('Your app is compiled in production mode in /dist. It\'s ready to roll!')); // eslint-disable-line
+  console.log(chalk.blue("Your app is compiled in production mode in /dist. It's ready to roll!")); // eslint-disable-line
 
   return 0;
 });

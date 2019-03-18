@@ -9,23 +9,24 @@ import '../../stylesheets/addanimaldesktop.scss';
 const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
   const [currentPhoto, setCurrentPhoto] = useState(null);
 
-  useEffect(() => () => {
-    setAddAnimalError('');
-  }, []);
+  useEffect(
+    () => () => {
+      setAddAnimalError('');
+    },
+    [],
+  );
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
-    const {
-      animname, animbirth, animtype, animgender, spayed, vaccinated, animfile,
-    } = event.target;
+    const { animname, animbirth, animtype, animgender, spayed, vaccinated, animfile } = event.target;
     if (
-      animname.value.trim().length > 0
-      && animbirth.value.trim().length > 0
-      && animtype.value.length > 0
-      && animgender.value.length > 0
-      && spayed.value.length > 0
-      && vaccinated.value.length > 0
-      && animfile.files.length > 0
+      animname.value.trim().length > 0 &&
+      animbirth.value.trim().length > 0 &&
+      animtype.value.length > 0 &&
+      animgender.value.length > 0 &&
+      spayed.value.length > 0 &&
+      vaccinated.value.length > 0 &&
+      animfile.files.length > 0
     ) {
       const formData = new FormData();
       formData.append('name', animname.value);
@@ -42,13 +43,11 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
     }
   };
 
-  const handleFile = (event) => {
+  const handleFile = event => {
     setCurrentPhoto(event.target.files[0]);
   };
 
-  return (
-    <AddPetForm onChange={handleFile} onSubmit={handleSubmit} animMessage={animMessage} currentPhoto={currentPhoto} />
-  );
+  return <AddPetForm onChange={handleFile} onSubmit={handleSubmit} animMessage={animMessage} currentPhoto={currentPhoto} />;
 };
 
 const mapStateToProps = store => ({
@@ -60,4 +59,7 @@ const mapDispatchToProps = {
   setAddAnimalError,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddPet);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddPet);

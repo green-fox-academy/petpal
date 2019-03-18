@@ -3,7 +3,7 @@ import HamburgerIcon from './HamburgerIcon';
 import '../../stylesheets/navbar.scss';
 
 const Navbar = ({ isAuthenticated, isHamburgerToggled, toggleHamburgerIcon }) => {
-  const handleClick = (event) => {
+  const handleClick = event => {
     if (event.target.dataset.togglename === 'hambicon') {
       isHamburgerToggled ? toggleHamburgerIcon(false) : toggleHamburgerIcon(true);
     }
@@ -12,7 +12,9 @@ const Navbar = ({ isAuthenticated, isHamburgerToggled, toggleHamburgerIcon }) =>
   return (
     <header className="navheader" onClick={handleClick} role="presentation">
       {isAuthenticated ? <HamburgerIcon toggle={isHamburgerToggled} /> : null}
-      <figure><i className="fas fa-paw" /></figure>
+      <figure>
+        <i className="fas fa-paw" />
+      </figure>
       <h1>PetPal</h1>
     </header>
   );

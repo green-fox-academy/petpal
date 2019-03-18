@@ -10,9 +10,7 @@ browserSync({
     baseDir: 'dist',
   },
 
-  files: [
-    'src/*.html',
-  ],
+  files: ['src/*.html'],
 
   middleware: [historyApiFallback()],
 });
