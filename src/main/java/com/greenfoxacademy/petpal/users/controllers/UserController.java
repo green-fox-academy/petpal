@@ -33,12 +33,14 @@ public class UserController {
   public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException, UsernameTakenException, UnirestException {
     privateUserService.registerNewUser(privateUser);
     ModelMapper modelMapper = new ModelMapper();
-    return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*")
+    return ResponseEntity.ok(modelMapper.map(privateUser, UserDTO.class));
+    
+      /*      ResponseEntity.ok().header("Access-Control-Allow-Origin", "*")
             .header("Access-Control-Allow-Credentials", "true")
             .header("Access-Control-Allow-Headers",
                     "origin, content-type, accept, authorization")
             .header("Access-Control-Allow-Methods",
-                    "GET, POST, PUT, DELETE, OPTIONS, HEAD").body(modelMapper.map(privateUser, UserDTO.class));
+                    "GET, POST, PUT, DELETE, OPTIONS, HEAD").body(modelMapper.map(privateUser, UserDTO.class));*/
   }
 
   @PostMapping("/register/organization")
