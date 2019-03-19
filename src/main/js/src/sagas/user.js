@@ -6,10 +6,12 @@ import { history } from '../store/configureStore';
 export function* loginRequest(action) {
   try {
     const response = yield call(API.loginRequest, action.payload);
-    if (response.token) {
+    const { token } = response;
+    if (token) {
       yield put({
         type: actions.LOGIN_SUCCEDED,
       });
+      localStorage.setItem('accesstoken', token);
       history.push('/home/find');
     } else {
       yield put({
