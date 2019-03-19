@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import Draggable from 'react-draggable';
 import { listAnimalsRequest, listNextAnimalFromRedux } from '../../actions/animal';
 import Spinner from '../Spinner';
 import '../../stylesheets/finder.scss';
 
-const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux }) => {
+const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux, animals }) => {
   const [counter, setCounter] = useState(0);
+  const [coords, setCoords] = useState({ xCoord: null, yCoord: null });
 
   useEffect(() => {
     listAnimalsRequest();
   }, []);
 
   const listNext = () => {
-    if (counter > 2) {
+    if (counter > animals.length - 2) {
       listNextAnimalFromRedux(0);
       setCounter(0);
     } else {
@@ -23,37 +25,39 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux }) =
 
   return queuedAnimal.name ? (
     <div className="finder">
-      <div className="animalcard">
-        <figure>
-          <img src={`/assets/${queuedAnimal.photo}`} alt="animal picture" />
-        </figure>
-        <h2>{queuedAnimal.name}</h2>
-        <h2>
-          {queuedAnimal.type}
-          {' - '}
-          {queuedAnimal.gender}
-        </h2>
-        <h2>
-          {queuedAnimal.vaccinated ? 'vaccinated' : 'not vaccinated'}
-          {' - '}
-          {queuedAnimal.spayed ? 'spayed' : 'not spayed'}
-        </h2>
-        <h2>
-          {'birthday: '}
-          {queuedAnimal.birthDate}
-        </h2>
-        <div>
-          <button type="button" onClick={listNext}>
-            <i className="fas fa-angle-double-right" />
-          </button>
-          <button type="button">
-            <i className="fas fa-thumbs-up" />
-          </button>
-          <button type="button">
-            <i className="fas fa-heart" />
-          </button>
+      <Draggable onStop={listNext} position={{ x: 0, y: 0 }}>
+        <div className="animalcard">
+          <figure>
+            <img src={`/assets/${queuedAnimal.photo}`} alt="animalpic" />
+          </figure>
+          <h2>{queuedAnimal.name}</h2>
+          <h2>
+            {queuedAnimal.type}
+            {' - '}
+            {queuedAnimal.gender}
+          </h2>
+          <h2>
+            {queuedAnimal.vaccinated ? 'vaccinated' : 'not vaccinated'}
+            {' - '}
+            {queuedAnimal.spayed ? 'spayed' : 'not spayed'}
+          </h2>
+          <h2>
+            {'birthday: '}
+            {queuedAnimal.birthDate}
+          </h2>
+          <div>
+            <button type="button" onClick={listNext}>
+              <i className="fas fa-angle-double-right" />
+            </button>
+            <button type="button">
+              <i className="fas fa-thumbs-up" />
+            </button>
+            <button type="button">
+              <i className="fas fa-heart" />
+            </button>
+          </div>
         </div>
-      </div>
+      </Draggable>
     </div>
   ) : (
     <Spinner />

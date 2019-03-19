@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.config.dev.js",
     "clear": "cd ../resources && rimraf static && rimraf templates",
-    "movehtml":"mkdir ..\\resources\\templates && mv ../resources/static/index.html ../resources/templates/",
+    "movehtml": "mkdir ..\\resources\\templates && mv ../resources/static/index.html ../resources/templates/",
     "build": "npm run clear && node src/tools/build.js && npm run movehtml",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
@@ -30,6 +30,7 @@
     "@babel/polyfill": "^7.2.5",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-draggable": "^3.2.1",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^4.0.8",
