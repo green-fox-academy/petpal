@@ -3,7 +3,7 @@ import * as actions from '../actions/types';
 import * as API from '../services/api';
 
 export function* addAnimalRequest(action) {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accesstoken');
   try {
     const response = yield call(API.addAnimal, { info: action.payload, token });
     if (response.name) {
@@ -23,13 +23,13 @@ export function* addAnimalRequest(action) {
 }
 
 export function* listAnimalsRequest() {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('accesstoken');
   try {
     const response = yield call(API.listAnimals, token);
-    if (response.animals) {
+    if (Array.isArray(response) && response[0].name) {
       yield put({
         type: actions.LIST_ANIMALS_SUCCEEDED,
-        // payload: response.animals,
+        payload: response,
       });
     } else {
       yield put({
@@ -37,6 +37,7 @@ export function* listAnimalsRequest() {
       });
     }
   } catch (error) {
+    console.log(error);
     yield put({
       type: actions.LIST_ANIMALS_FAILED,
     });

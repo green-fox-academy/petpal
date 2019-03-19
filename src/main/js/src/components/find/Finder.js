@@ -27,12 +27,12 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux }) =
         <figure>
           <img src={`/assets/${queuedAnimal.photo}`} alt="animal picture" />
         </figure>
+        <h2>{queuedAnimal.name}</h2>
         <h2>
-          {queuedAnimal.name}
-          {' - '}
           {queuedAnimal.type}
+          {' - '}
+          {queuedAnimal.gender}
         </h2>
-        <h2>{queuedAnimal.gender}</h2>
         <h2>
           {queuedAnimal.vaccinated ? 'vaccinated' : 'not vaccinated'}
           {' - '}
@@ -40,7 +40,7 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux }) =
         </h2>
         <h2>
           {'birthday: '}
-          {queuedAnimal.birth}
+          {queuedAnimal.birthDate}
         </h2>
         <div>
           <button type="button" onClick={listNext}>
