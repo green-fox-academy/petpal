@@ -34,7 +34,7 @@ public class UserController {
     privateUserService.registerNewUser(privateUser);
     ModelMapper modelMapper = new ModelMapper();
     return ResponseEntity.ok(modelMapper.map(privateUser, UserDTO.class));
-    
+
       /*      ResponseEntity.ok().header("Access-Control-Allow-Origin", "*")
             .header("Access-Control-Allow-Credentials", "true")
             .header("Access-Control-Allow-Headers",
