@@ -6,16 +6,18 @@ import { history } from '../store/configureStore';
 export function* loginRequest(action) {
   try {
     const response = yield call(API.loginRequest, action.payload);
-    const { token } = response;
+    const { token, refreshToken } = response;
     if (token) {
       yield put({
         type: actions.LOGIN_SUCCEDED,
       });
       localStorage.setItem('accesstoken', token);
+      localStorage.setItem('refreshtoken', refreshToken);
       history.push('/home/find');
     } else {
       yield put({
-        type: actions.LOGIN_FAILED,
+        type: actions.SET_LOGIN_ERROR,
+        message: 'Incorrect username or password!',
       });
     }
   } catch (error) {
