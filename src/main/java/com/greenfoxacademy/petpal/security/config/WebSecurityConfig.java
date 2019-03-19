@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   //private static final String FAVICON = "/favicon.png";
   //private static final String FAVICON2 = "/favicon.ico";
   private static final String DATABASE = "/db/migration/mySql";
-  private static final String ASSETS = "/static/assets/**";
+  private static final String ASSETS = "/assets/**";
 
   private static final String API_ROOT_URL = "/**";
 
