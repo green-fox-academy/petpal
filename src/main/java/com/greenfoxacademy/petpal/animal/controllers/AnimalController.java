@@ -28,7 +28,7 @@ public class AnimalController {
     this.privateUserService = privateUserService;
   }
 
-  @GetMapping("/pets")
+  @GetMapping("/home/pets")
   public ResponseEntity pets() {
     return ResponseEntity.ok(animalService.findAll());
   }
@@ -90,7 +90,7 @@ public class AnimalController {
     return ResponseEntity.ok(privateUser.getAnimalsLikedByUser().remove(animal));
   }
 
-  @DeleteMapping("pet/{id}/adopt")
+  @DeleteMapping("pet/{id}/adoptable")
   public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws Exception {
     PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
     Animal animal = animalService.findById(id);

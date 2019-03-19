@@ -62,19 +62,19 @@ public class UserController {
     return null;
   }*/
 
-  @GetMapping("/user/pets/liked")
+  @GetMapping("/pets/liked")
   public ResponseEntity likedPets(Authentication authentication) throws Throwable {
     PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
     return ResponseEntity.ok(privateUserService.animalsLikedByUser(privateUser.getId()));
   }
 
-  @GetMapping("/user/pets/adopted")
+  @GetMapping("/pets/adoptable")
   public ResponseEntity adoptedPets(Authentication authentication) throws Throwable {
     PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
     return ResponseEntity.ok(privateUserService.animalsToAdoptByUser(privateUser.getId()));
   }
 
-  @GetMapping("/user/pets/owned")
+  @GetMapping("/pets/owned")
   public ResponseEntity ownedPets(Authentication authentication) throws Throwable {
     PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
     return ResponseEntity.ok(privateUserService.animalsOwnedByUser(privateUser.getId()));
