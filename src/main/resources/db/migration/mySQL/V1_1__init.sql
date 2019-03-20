@@ -127,10 +127,12 @@ VALUES (1,
 CREATE TABLE private_users_liked_animals
   -- A PRIMARY KEY IS ALWAYS NEEDED
 (
+  id bigint(20) AUTO_INCREMENT,
   animal_id       BIGINT NOT NULL,
   private_user_id BIGINT NOT NULL,
   CONSTRAINT private_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
-  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id)
+  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id),
+  PRIMARY KEY (id)
 );
 
 
