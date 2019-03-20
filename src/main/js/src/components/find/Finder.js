@@ -7,7 +7,6 @@ import '../../stylesheets/finder.scss';
 
 const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux, animals }) => {
   const [counter, setCounter] = useState(0);
-  const [coords, setCoords] = useState({ xCoord: null, yCoord: null });
 
   useEffect(() => {
     listAnimalsRequest();
@@ -25,7 +24,7 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux, ani
 
   return queuedAnimal.name ? (
     <div className="finder">
-      <Draggable onStop={listNext} position={{ x: 0, y: 0 }}>
+      {/* <Draggable onStop={listNext} position={{ x: 0, y: 0 }}> */}
         <div className="animalcard">
           <figure>
             <img src={`/assets/${queuedAnimal.photo}`} alt="animalpic" />
@@ -57,7 +56,7 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux, ani
             </button>
           </div>
         </div>
-      </Draggable>
+      {/* </Draggable> */}
     </div>
   ) : (
     <Spinner />
