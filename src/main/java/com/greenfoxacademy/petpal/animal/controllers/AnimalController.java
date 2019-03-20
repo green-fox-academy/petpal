@@ -64,6 +64,7 @@ public class AnimalController {
     } else {
       throw new InvalidTypeException("Invalid type");
     }
+    animalService.save(animal);
     privateUserService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
     return ResponseEntity.ok().build();
   }
