@@ -49,7 +49,8 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
   };
 
   const handleBlur = event => {
-    event.target.value.trim().length > 25 ? setAddAnimalError('Name cannot be more than 25 characters!') : setAddAnimalError('');
+    event.target.value.trim().length > 25 ? setAddAnimalError('Name cannot be more than 25 characters!') : null;
+    animMessage && event.target.value.trim().length < 25 ? setAddAnimalError('') : null;
   };
 
   return (
