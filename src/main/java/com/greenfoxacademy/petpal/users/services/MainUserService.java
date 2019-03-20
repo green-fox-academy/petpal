@@ -7,11 +7,12 @@ import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import com.greenfoxacademy.petpal.users.models.SuperUser;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;
 import java.util.Set;
 
-public interface MainUserService<T extends SuperUser> {
+public interface MainUserService<T extends SuperUser> extends UserDetailsService, UserService {
 
   Optional<T> findByUsername(String username);
 

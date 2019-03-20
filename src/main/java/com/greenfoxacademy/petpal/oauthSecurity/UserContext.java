@@ -1,4 +1,4 @@
-package com.greenfoxacademy.petpal.security.model;
+package com.greenfoxacademy.petpal.oauthSecurity;
 
 
 import lombok.Getter;

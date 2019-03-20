@@ -32,6 +32,9 @@ public abstract class SuperUser {
   @Email
   private String email;
   private String phoneNumber;
+  @Column
+  private String imageUrl;
+
 
   @OneToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "geo_code_id")

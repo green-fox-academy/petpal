@@ -7,9 +7,12 @@ import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
 import com.greenfoxacademy.petpal.users.models.Organisation;
+import com.greenfoxacademy.petpal.users.models.SuperUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
@@ -84,5 +87,15 @@ public class OrganisationServiceImpl implements OrganisationService {
   @Override
   public Optional<Organisation> getUserFromAuth(Authentication authenticationn) {
     return Optional.empty();
+  }
+
+  @Override
+  public String signUp(SuperUser user) {
+    return null;
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return null;
   }
 }

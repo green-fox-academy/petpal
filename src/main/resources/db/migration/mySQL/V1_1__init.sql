@@ -19,6 +19,7 @@ CREATE TABLE `super_user`
   `password`     varchar(255),
   `email`        varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
   address        varchar(255),
   geo_code_id    bigint(20),
   PRIMARY KEY (`id`),
@@ -35,6 +36,7 @@ VALUES (1,
         '$2a$10$3A7YK9hDUpHN4plBoCphYOzk426CebJwnaFMk0kN4qEXoWUTiwejC',
         'test1@test.test',
         '5353',
+        'imageUrl'
         'Budapest, Szép u. 2, 1053',
         1,
         'PrivateUser'),
@@ -43,6 +45,7 @@ VALUES (1,
         '$2a$10$y1WkKt52SH8eDm6zvy63v.B0EstAaevqAgfo7plk8v9UuigsMcqxi',
         'test2@test.test',
         '5555',
+        'imageUrl'
         'Gitega, Burundi',
         2,
         'PrivateUser'),
@@ -51,6 +54,8 @@ VALUES (1,
         '$2a$10$N.4V.83hs.5X2bI0qY0Tme2PYceHtDf2Suzh0QHEcYVZxeS0YhJL6',
         'test3@test.test',
         null,
+        'imageUrl'
+        'google'
         '1042',
         3,
         'PrivateUser');
