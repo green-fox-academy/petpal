@@ -97,7 +97,7 @@ VALUES (1,
         '2019-02-04 03:00:00',
         true,
         true,
-        '$HOME/assets/images/penguee.jpg',
+        'penguee.jpg',
         'Dog'),
        (2,
         1,
@@ -109,7 +109,7 @@ VALUES (1,
         '2019-05-04 03:00:00',
         false,
         true,
-        '$HOME/assets/images/doggo.jpg',
+        'doggo.jpg',
         'Dog'),
        (3,
         1,
@@ -121,20 +121,19 @@ VALUES (1,
         '2050-05-04 03:00:00',
         false,
         false,
-        '$HOME/assets/images/grumpycat.jpg',
+        'grumpycat.jpg',
         'Cat');
 
-
 CREATE TABLE private_users_liked_animals
-  ##A PRIMARY KEY IS ALWAYS NEEDED
+  -- A PRIMARY KEY IS ALWAYS NEEDED
 (
-  id              BIGINT NOT NULL,
   animal_id       BIGINT NOT NULL,
   private_user_id BIGINT NOT NULL,
   CONSTRAINT private_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
-  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id),
-  PRIMARY KEY (id)
+  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id)
 );
+
+
 
 /*CREATE TABLE private_users_adopted_animals
 (

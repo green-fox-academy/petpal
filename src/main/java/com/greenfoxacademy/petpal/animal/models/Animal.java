@@ -2,6 +2,7 @@ package com.greenfoxacademy.petpal.animal.models;
 
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -31,9 +32,9 @@ public abstract class Animal {
   @ManyToMany
   @JoinTable(
           name = "private_users_liked_animals",
-          inverseJoinColumns = @JoinColumn(
-                  name = "id", referencedColumnName = "id"),
           joinColumns = @JoinColumn(
+                  name = "animal_id", referencedColumnName = "id"),
+          inverseJoinColumns = @JoinColumn(
                   name = "private_user_id", referencedColumnName = "id"))
   private Set<PrivateUser> privateUser;
 
