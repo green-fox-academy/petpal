@@ -41,6 +41,10 @@ $adoptBtnColor: rgb(41, 194, 35);
 
     h2:first-of-type {
       font-size: 8vw;
+      background-color: $bcColor;
+      color:white;
+      padding:1vh;
+      border-radius: 20px;
     }
 
     div {

@@ -5,6 +5,7 @@ import MainContent from './MainContent';
 import Sidebar from './sidebar/Sidebar';
 import Settings from './settings/Settings';
 import AddPet from './add/AddPet';
+import Favourites from './favourites/Favourites';
 import Finder from './find/Finder';
 import '../stylesheets/home.scss';
 
@@ -14,9 +15,10 @@ const Home = ({ match }) => (
     <MainContent>
       <Sidebar />
       <div className="home">
-        <Route exact path={`${match.url}/settings`} component={Settings} />
-        <Route exact path={`${match.url}/add`} component={AddPet} />
-        <Route exact path={`${match.url}/find`} component={Finder} />
+        <Route path={`${match.path}/settings`} component={Settings} />
+        <Route path={`${match.path}/add`} component={AddPet} />
+        <Route path={`${match.path}/favourites`} component={Favourites} />
+        <Route path={`${match.path}/find`} component={Finder} />
       </div>
     </MainContent>
   </Fragment>

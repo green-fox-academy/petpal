@@ -17,7 +17,6 @@ const Landingpage = ({ selectedForm, setSelectedForm, loginWithGoogle }) => {
   };
 
   const handleGoogleLogin = () => {
-    console.log('hello from google');
     loginWithGoogle();
   };
 
@@ -26,27 +25,25 @@ const Landingpage = ({ selectedForm, setSelectedForm, loginWithGoogle }) => {
       <NavbarCont />
       <MainContent>
         <div className="landingpage">
-          <div className="formscont" style={selectedForm === 'login' ? { left: '0px' } : { left: '-100%' }}>
+          <nav className="chooseform" onClick={handleClick} role="presentation">
+            <button data-action="login" type="button" className={selectedForm === 'login' ? 'activeformbtn' : null}>
+              <span data-action="login">sign in</span>
+            </button>
+            <button data-action="register" type="button" className={selectedForm === 'register' ? 'activeformbtn' : null}>
+              <span data-action="register">register</span>
+            </button>
+          </nav>
+          <div className={selectedForm === 'login' ? 'formscont' : 'formscont activeregisterform'}>
             <LoginCont />
             <RegisterCont />
           </div>
           <div className="googleconnect">
-            <p>or connect with</p>
+            <p>or</p>
             <button type="button" className="googlesigninbtn" onClick={handleGoogleLogin}>
-              <span>
-                <i className="fab fa-google-plus-g" />
-              </span>
-              <span>Google</span>
+              <i className="fab fa-google-plus-g" />
+              <span>connect with Google</span>
             </button>
           </div>
-          <nav className="chooseform" onClick={handleClick} role="presentation">
-            <button data-action="login" type="button" style={selectedForm === 'login' ? { borderBottomColor: '#3a0577c9' } : null}>
-              <span data-action="login">sign in</span>
-            </button>
-            <button data-action="register" type="button" style={selectedForm === 'register' ? { borderBottomColor: '#3a0577c9' } : null}>
-              <span data-action="register">register</span>
-            </button>
-          </nav>
         </div>
       </MainContent>
     </Fragment>
