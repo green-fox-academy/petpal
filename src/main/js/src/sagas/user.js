@@ -7,6 +7,7 @@ export function* loginRequest(action) {
   try {
     const response = yield call(API.loginRequest, action.payload);
     const { token, refreshToken } = response;
+    console.log('faszom');
     if (token) {
       yield put({
         type: actions.LOGIN_SUCCEDED,
@@ -63,6 +64,27 @@ export function* logoutRequest() {
   } catch (error) {
     yield put({
       type: actions.LOGOUT_FAILED,
+    });
+  }
+}
+
+export function* googleSignIn() {
+  try {
+    const response = yield call(API.googleLoginRequest);
+    if (response) {
+      yield put({
+        type: actions.GOOGLE_LOGIN_SUCCEDED,
+      });
+      history.push('/home/find');
+    } else {
+      yield put({
+        type: actions.SET_LOGIN_ERROR,
+        message: 'Google sign in failed!',
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: actions.GOOGLE_LOGIN_FAILED,
     });
   }
 }

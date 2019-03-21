@@ -11,4 +11,5 @@ export default function* rootSaga() {
   yield takeEvery(actions.ADD_ANIMAL_REQUEST, animalSaga.addAnimalRequest);
   yield takeEvery(actions.LIST_ANIMALS_REQUEST, animalSaga.listAnimalsRequest);
   yield takeLatest(actions.SET_GEO_DISTANCE_REQUESTED, settingsSaga);
+  yield takeEvery(actions.GOOGLE_SIGN_IN, userSaga.googleSignIn);
 }
