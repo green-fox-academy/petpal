@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
     @GetMapping("/login")
     public String loadLoginPage(){
-        return "index";
+        return "login";
     }
 
     @GetMapping("/home")
     public String home(){
         return "home";
     }
-
-
 
 }

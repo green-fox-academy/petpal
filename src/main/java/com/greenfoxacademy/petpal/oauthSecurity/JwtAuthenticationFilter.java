@@ -1,6 +1,7 @@
 package com.greenfoxacademy.petpal.oauthSecurity;
 
 import com.greenfoxacademy.petpal.users.services.MainUserService;
+import com.greenfoxacademy.petpal.users.services.PrivateUserServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import static com.greenfoxacademy.petpal.oauthSecurity.Constants.TOKEN_PARAM;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private MainUserService userDetailsService;
+    private PrivateUserServiceImpl userDetailsService;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

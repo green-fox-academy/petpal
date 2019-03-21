@@ -21,7 +21,7 @@ CREATE TABLE `super_user`
   `phone_number` varchar(255) DEFAULT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   address        varchar(255),
-  geo_code_id    bigint(20),
+  geo_code_id    bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT geo_code_id FOREIGN KEY (`id`) REFERENCES `geo_code` (`id`)
 

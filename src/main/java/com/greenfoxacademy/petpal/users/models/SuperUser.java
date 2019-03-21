@@ -27,7 +27,7 @@ public abstract class SuperUser {
   private Long id;
   @NotBlank
   private String username;
-  @NotBlank
+ // @NotBlank
   private String password;
   @Email
   private String email;

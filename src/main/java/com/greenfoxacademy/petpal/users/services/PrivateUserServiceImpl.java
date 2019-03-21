@@ -190,7 +190,10 @@ public class PrivateUserServiceImpl extends OidcUserService implements PrivateUs
 
 
   private void updateUser(GoogleOAuth2UserInfo userInfo) {
-    SuperUser user = mainUserRepository.findByEmail(userInfo.getEmail());
+    PrivateUser user = (PrivateUser) mainUserRepository.findByEmail(userInfo.getEmail());
+    if(user == null){
+      user = new PrivateUser();
+    }
     user.setEmail(userInfo.getEmail());
     user.setImageUrl(userInfo.getImageUrl());
     user.setUsername(userInfo.getName());
