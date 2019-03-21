@@ -1,4 +1,6 @@
 $bcColor: #643a94;
+$google: #d2504d;
+$googleLight: rgb(228, 125, 123);
 
 .landingpage {
   width: 100%;
@@ -18,34 +20,35 @@ $bcColor: #643a94;
     }
 
     .googlesigninbtn {
-      color:white;
-      width:50%;
-      background-color: #d2504d;
+      color: white;
+      width: 70%;
+      height: 7.5vh;
+      background-color: $google;
       font-family: inherit;
       font-size: 5.5vw;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-evenly;
       align-items: center;
       outline: none;
       border: none;
       cursor: pointer;
       transition: 0.15s;
 
-      & > span {
-        width: 70%;
-      }
+      // & > span {
+      //   width: 70%;
+      // }
 
-      & > span:first-of-type {
-        background-color: rgb(228, 125, 123);
-        width: 30%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 7.5vh;
+      // & > span:first-of-type {
+      //   background-color: $google;
+      //   width: 30%;
+      //   display: flex;
+      //   justify-content: center;
+      //   align-items: center;
+      //   height: 7.5vh;
 
-        & > i {
-          font-size: 8.5vw;
-        }
+      // }
+      & > i {
+        font-size: 8.5vw;
       }
 
       &:active {
@@ -65,25 +68,49 @@ $bcColor: #643a94;
       width: 50%;
       height: 100%;
       border: none;
-      border-bottom: 5px solid transparent;
       outline: none;
       background-color: transparent;
       font-size: 6vw;
+      font-family: inherit;
       font-weight: bold;
       color: $bcColor;
+      position: relative;
+
+      &::after {
+        position: absolute;
+        content: '';
+        top: 100%;
+        left: 32%;
+        width: 36%;
+        height: 3px;
+        background-color: $bcColor;
+        transition: transform 0.6s;
+        transform: scaleX(0);
+        border-radius: 30px;
+      }
+    }
+
+    .activeformbtn {
+      &::after {
+        transition: transform 0.6s;
+        transform: scaleX(1);
+      }
     }
   }
 
   .formscont {
     width: 200%;
-    height: 75%;
+    height: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     padding: 2vh 0;
-    position: relative;
     transition: 0.5s;
+  }
+
+  .activeregisterform {
+    transform: translateX(-50%);
   }
 }
 

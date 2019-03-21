@@ -39,7 +39,13 @@ const AddPetForm = ({ onSubmit, onChange, currentPhoto, animMessage, onBlur }) =
         </label>
       </div>
       <label style={currentPhoto ? { backgroundColor: 'rgb(35, 170, 35)', color: 'white' } : null} htmlFor="animfile">
-        {currentPhoto ? currentPhoto.name : 'select a photo...'}
+        {currentPhoto ? (
+          <span>{currentPhoto.name}</span>
+        ) : (
+          <span>
+            select a photo... <i className="fas fa-paperclip" />
+          </span>
+        )}
       </label>
       <input type="file" name="animfile" id="animfile" onChange={onChange} />
       <button className="button" type="submit">
