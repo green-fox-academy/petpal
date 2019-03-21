@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { requestLogin, loginWithGoogle } from '../../actions/user';
+import { requestLogin } from '../../actions/user';
 import { setLoginError } from '../../actions/errors';
 import Login from '../../components/login/Login';
 
@@ -10,7 +10,6 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = {
   requestLogin,
   setLoginError,
-  loginWithGoogle,
 };
 
 export default connect(

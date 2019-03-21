@@ -25,37 +25,37 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux, ani
   return queuedAnimal.name ? (
     <div className="finder">
       {/* <Draggable onStop={listNext} position={{ x: 0, y: 0 }}> */}
-        <div className="animalcard">
-          <figure>
-            <img src={`/assets/${queuedAnimal.photo}`} alt="animalpic" />
-          </figure>
-          <h2>{queuedAnimal.name}</h2>
-          <h2>
-            {queuedAnimal.type}
-            {' - '}
-            {queuedAnimal.gender}
-          </h2>
-          <h2>
-            {queuedAnimal.vaccinated ? 'vaccinated' : 'not vaccinated'}
-            {' - '}
-            {queuedAnimal.spayed ? 'spayed' : 'not spayed'}
-          </h2>
-          <h2>
-            {'birthday: '}
-            {queuedAnimal.birthDate}
-          </h2>
-          <div>
-            <button type="button" onClick={listNext}>
-              <i className="fas fa-angle-double-right" />
-            </button>
-            <button type="button">
-              <i className="fas fa-thumbs-up" />
-            </button>
-            <button type="button">
-              <i className="fas fa-heart" />
-            </button>
-          </div>
+      <div className="animalcard">
+        <figure>
+          <img src={`/assets/${queuedAnimal.photoPath}`} alt="animalpic" />
+        </figure>
+        <h2>{queuedAnimal.name}</h2>
+        <h2>
+          {queuedAnimal.type}
+          {' - '}
+          {queuedAnimal.gender}
+        </h2>
+        <h2>
+          {queuedAnimal.vaccinated ? 'vaccinated' : 'not vaccinated'}
+          {' - '}
+          {queuedAnimal.spayed ? 'spayed' : 'not spayed'}
+        </h2>
+        <h2>
+          {'birthday: '}
+          {queuedAnimal.birthDate}
+        </h2>
+        <div>
+          <button type="button" onClick={listNext}>
+            <i className="fas fa-angle-double-right" />
+          </button>
+          <button type="button">
+            <i className="fas fa-thumbs-up" />
+          </button>
+          <button type="button">
+            <i className="fas fa-heart" />
+          </button>
         </div>
+      </div>
       {/* </Draggable> */}
     </div>
   ) : (

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const Login = ({ requestLogin, loginErrorMsg, setLoginError, loginWithGoogle }) => {
+const Login = ({ requestLogin, loginErrorMsg, setLoginError }) => {
   useEffect(
     () => () => {
       setLoginError('');
@@ -13,21 +13,16 @@ const Login = ({ requestLogin, loginErrorMsg, setLoginError, loginWithGoogle }) 
     const { loginemail, loginpass } = event.target;
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/;
     if (loginemail.value.trim().length > 0 && loginpass.value.trim().length > 0) {
-      if (emailRegex.test(loginemail.value)) {
-        requestLogin({ email: loginemail.value, password: loginpass.value });
-        event.target.reset();
-        setLoginError('');
-      } else {
-        setLoginError('Wrong e-mail format!');
-      }
+      // if (emailRegex.test(loginemail.value)) {
+      requestLogin({ email: loginemail.value, password: loginpass.value });
+      event.target.reset();
+      setLoginError('');
+      // } else {
+      //   setLoginError('Wrong e-mail format!');
+      // }
     } else {
       setLoginError('Fill out all fields please!');
     }
-  };
-
-  const handleGoogleLogin = () => {
-    console.log('hello from google');
-    loginWithGoogle();
   };
 
   return (
@@ -44,13 +39,6 @@ const Login = ({ requestLogin, loginErrorMsg, setLoginError, loginWithGoogle }) 
       </div>
       <button className="button" type="submit">
         <span>sign me in</span>
-      </button>
-      <p>or</p>
-      <button type="button" className="googlesigninbtn" onClick={handleGoogleLogin}>
-        <span>
-          <i className="fab fa-google-plus-g" />
-        </span>
-        <span>Sign in with Google</span>
       </button>
     </form>
   );

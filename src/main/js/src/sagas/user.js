@@ -7,6 +7,7 @@ export function* loginRequest(action) {
   try {
     const response = yield call(API.loginRequest, action.payload);
     const { token, refreshToken } = response;
+    console.log('faszom');
     if (token) {
       yield put({
         type: actions.LOGIN_SUCCEDED,

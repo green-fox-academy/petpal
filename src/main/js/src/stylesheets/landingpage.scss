@@ -4,6 +4,56 @@ $bcColor: #643a94;
   width: 100%;
   height: 100%;
 
+  .googleconnect {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+    p {
+      font-size: 5.5vw;
+      font-weight: bold;
+    }
+
+    .googlesigninbtn {
+      color:white;
+      width:50%;
+      background-color: #d2504d;
+      font-family: inherit;
+      font-size: 5.5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      transition: 0.15s;
+
+      & > span {
+        width: 70%;
+      }
+
+      & > span:first-of-type {
+        background-color: rgb(228, 125, 123);
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 7.5vh;
+
+        & > i {
+          font-size: 8.5vw;
+        }
+      }
+
+      &:active {
+        transform: scale(0.8);
+      }
+    }
+  }
+
   .chooseform {
     width: 100%;
     height: 10%;
@@ -26,7 +76,7 @@ $bcColor: #643a94;
 
   .formscont {
     width: 200%;
-    height: 90%;
+    height: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
