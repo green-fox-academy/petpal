@@ -66,3 +66,24 @@ export function* logoutRequest() {
     });
   }
 }
+
+export function* googleSignIn() {
+  try {
+    const response = yield call(API.googleLoginRequest);
+    if (response) {
+      yield put({
+        type: actions.GOOGLE_LOGIN_SUCCEDED,
+      });
+      history.push('/home/find');
+    } else {
+      yield put({
+        type: actions.SET_LOGIN_ERROR,
+        message: 'Google sign in failed!',
+      });
+    }
+  } catch (error) {
+    yield put({
+      type: actions.GOOGLE_LOGIN_FAILED,
+    });
+  }
+}

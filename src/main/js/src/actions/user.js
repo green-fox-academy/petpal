@@ -23,3 +23,7 @@ export const toggleHamburgerIcon = bool => ({
   type: actions.TOGGLE_HAMB_ICON,
   payload: bool,
 });
+
+export const loginWithGoogle = () => ({
+  type: actions.GOOGLE_SIGN_IN,
+});

@@ -70,10 +70,55 @@ $bcColor: #643a94;
 
   button {
     width: 50%;
-    height: 8vh;
+    height: 7.5vh;
     background-color: $bcColor;
     color: white;
-    font-size: 9vw;
+    font-size: 7.5vw;
+  }
+
+  p {
+    font-size: 5.5vw;
+    font-weight: bold;
+  }
+
+  .googlesigninbtn,
+  .fbsigninbtn {
+    width: 65%;
+    background-color: #d2504d;
+    font-family: inherit;
+    font-size: 5.5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.15s;
+
+    & >span {
+      width:78%;
+    }
+
+    & > span:first-of-type {
+      background-color: rgb(228, 125, 123);
+      width:22%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 7.5vh;
+
+      & > i {
+        font-size: 8.5vw;
+      }
+    }
+
+    &:active {
+      transform: scale(0.8);
+    }
+  }
+
+  .fbsigninbtn {
+    background-color: #2a598e;
   }
 }
 
