@@ -11,11 +11,11 @@ VALUES (1, 20, 20),
        (2, 30, 30),
        (3, 40, 40);
 
-CREATE TABLE `super_user`
+CREATE TABLE `parent_user`
 (
   `id`           bigint(20)   AUTO_INCREMENT,
   `user_type`    varchar(255),
-  `username`     varchar(255) DEFAULT NULL,
+  `name`     varchar(255) DEFAULT NULL,
   `password`     varchar(255),
   `email`        varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
@@ -30,7 +30,8 @@ CREATE TABLE `super_user`
 -- testUser1 password: pass1
 -- testUser2 password: pass2
 -- testUser3 password: pass3
-INSERT INTO super_user (id, username, password, email, phone_number, address, geo_code_id, user_type)
+
+/*INSERT INTO parent_user (id, username, password, email, phone_number, image_url, address, geo_code_id, user_type)
 VALUES (1,
         'test1',
         '$2a$10$3A7YK9hDUpHN4plBoCphYOzk426CebJwnaFMk0kN4qEXoWUTiwejC',
@@ -59,7 +60,7 @@ VALUES (1,
         '1042',
         3,
         'PrivateUser');
-
+*/
 
 CREATE TABLE `animal`
 (
@@ -76,11 +77,11 @@ CREATE TABLE `animal`
   `spayed`              bit          DEFAULT 0,
   `vaccinated`          bit          DEFAULT 0,
   `adopted`             bit          DEFAULT 0,
-  CONSTRAINT super_user_id FOREIGN KEY (`id`) REFERENCES `super_user` (`id`),
+  CONSTRAINT parent_user_id FOREIGN KEY (`id`) REFERENCES `parent_user` (`id`),
   PRIMARY KEY (`id`)
 );
 
-INSERT INTO animal (id,
+/*INSERT INTO animal (id,
                     owner_id,
                     adopter_id,
                     name,
@@ -128,7 +129,7 @@ VALUES (1,
         false,
         '$HOME/assets/images/grumpycat.jpg',
         'Cat');
-
+*/
 
 CREATE TABLE private_users_liked_animals
   ##A PRIMARY KEY IS ALWAYS NEEDED
@@ -137,7 +138,7 @@ CREATE TABLE private_users_liked_animals
   animal_id       BIGINT NOT NULL,
   private_user_id BIGINT NOT NULL,
   CONSTRAINT private_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
-  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id),
+  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES parent_user (id),
   PRIMARY KEY (id)
 );
 

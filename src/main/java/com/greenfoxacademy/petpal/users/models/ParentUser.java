@@ -20,15 +20,13 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class SuperUser {
+public abstract class ParentUser {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @NotBlank
-  private String username;
- // @NotBlank
-  private String password;
+  private String name;
   @Email
   private String email;
   private String phoneNumber;
@@ -36,7 +34,7 @@ public abstract class SuperUser {
   private String imageUrl;
 
 
-  @OneToOne(cascade = CascadeType.PERSIST)
+  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinColumn(name = "geo_code_id")
   private GeoCode geoCode;
   private String address;
@@ -46,8 +44,7 @@ public abstract class SuperUser {
   @JsonIgnore
   private Set<Animal> ownedAnimalsByUser;
 
-  public SuperUser(@NotBlank String username, @NotBlank String password) {
-    this.username = username;
-    this.password = password;
+  public ParentUser(@NotBlank String name) {
+    this.name = name;
   }
 }

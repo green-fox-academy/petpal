@@ -1,13 +1,13 @@
 import uniFetch from './unifetch';
 
 // export const loginRequest = data => (
-//   uniFetch('/login', 'POST', null, { username: data.username, password: data.password })
+//   uniFetch('/login', 'POST', null, { name: data.name, password: data.password })
 // );
 
 export const loginRequest = () => ({ token: 200 });
 
 // export const registerRequest = data => (
-//   uniFetch('/register/user', 'POST', null, { username: data.username, password: data.password })
+//   uniFetch('/register/user', 'POST', null, { name: data.name, password: data.password })
 // );
 
 export const registerRequest = () => ({ username: 'lol' });

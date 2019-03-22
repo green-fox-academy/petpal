@@ -1,6 +1,6 @@
 package com.greenfoxacademy.petpal.oauthSecurity;
 
-import com.greenfoxacademy.petpal.users.models.SuperUser;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -45,7 +45,7 @@ public class JwtTokenUtil implements Serializable {
         return expiration.before(new Date());
     }
 
-    public String generateToken(SuperUser user) {
+    public String generateToken(ParentUser user) {
         return doGenerateToken(user.getEmail());
     }
 

@@ -26,30 +26,30 @@ public class ErrorHandlingAdvice {
   }
 
   @ResponseBody
-  @ExceptionHandler(UsernameTakenException.class)
+  @ExceptionHandler(EmailTakenException.class)
   @ResponseStatus(HttpStatus.CONFLICT)
-  ErrorMsg usernameTaken(UsernameTakenException ex) {
+  ErrorMsg usernameTaken(EmailTakenException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
 
   @ResponseBody
   @ExceptionHandler(AnimalIdNotFoundException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  ErrorMsg animalNotFound(UsernameTakenException ex) {
+  ErrorMsg animalNotFound(EmailTakenException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
 
   @ResponseBody
   @ExceptionHandler(UserNotFoundException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  ErrorMsg userIdNotFound(UsernameTakenException ex) {
+  ErrorMsg userIdNotFound(EmailTakenException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
 
   @ResponseBody
   @ExceptionHandler(UserIsNullException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  ErrorMsg userIsNull(UsernameTakenException ex) {
+  ErrorMsg userIsNull(EmailTakenException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
   @ResponseBody

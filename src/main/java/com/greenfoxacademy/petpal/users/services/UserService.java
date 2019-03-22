@@ -1,7 +1,7 @@
 package com.greenfoxacademy.petpal.users.services;
 
-import com.greenfoxacademy.petpal.users.models.SuperUser;
+import com.greenfoxacademy.petpal.users.models.GoogleUser;
 
 public interface UserService {
-    String signUp(SuperUser user);
+    String signUp(GoogleUser user);
 }

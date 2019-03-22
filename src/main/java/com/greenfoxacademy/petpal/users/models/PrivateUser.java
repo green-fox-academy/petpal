@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity(name = "PrivateUser")
@@ -16,7 +17,10 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PrivateUser extends SuperUser {
+public class PrivateUser extends ParentUser {
+
+  @NotBlank
+  private String password;
 
   @ManyToMany(mappedBy = "privateUser", cascade = CascadeType.PERSIST)
   @JsonIgnore

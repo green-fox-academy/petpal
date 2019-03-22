@@ -8,16 +8,16 @@ import java.util.List;
 
 @Getter
 public class UserContext {
-  private final String username;
+  private final String email;
   private final List<GrantedAuthority> authorities;
 
-  private UserContext(String username, List<GrantedAuthority> authorities) {
-    this.username = username;
+  private UserContext(String email, List<GrantedAuthority> authorities) {
+    this.email = email;
     this.authorities = authorities;
   }
 
-  public static UserContext create(String username, List<GrantedAuthority> authorities) {
-    return new UserContext(username, authorities);
+  public static UserContext create(String email, List<GrantedAuthority> authorities) {
+    return new UserContext(email, authorities);
   }
 
 }

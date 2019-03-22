@@ -1,7 +1,6 @@
 package com.greenfoxacademy.petpal.oauthSecurity;
 
-import com.greenfoxacademy.petpal.users.services.MainUserService;
-import com.greenfoxacademy.petpal.users.services.PrivateUserServiceImpl;
+import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
@@ -23,13 +23,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements ApplicationContextAware{
 
     @Autowired
-    private PrivateUserServiceImpl oidcUserService;
+    private OidcUserService oidcUserService;
 
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Autowired
-    private MainUserService userDetailsService;
+    private ParentUserService userDetailsService;
 
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
