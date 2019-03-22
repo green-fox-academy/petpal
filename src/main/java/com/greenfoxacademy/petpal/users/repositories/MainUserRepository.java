@@ -15,7 +15,7 @@ public interface MainUserRepository<T extends ParentUser> extends JpaRepository<
 
   Boolean existsByEmail(String email);
 
-  T save(T t);
+  //T save(T t);
 
   T findByEmail(String email);
 }

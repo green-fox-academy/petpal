@@ -2,6 +2,7 @@ package com.greenfoxacademy.petpal.oauthSecurity;
 
 import com.greenfoxacademy.petpal.users.ParentUserFactory;
 import com.greenfoxacademy.petpal.users.UserType;
+import com.greenfoxacademy.petpal.users.models.GoogleUser;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

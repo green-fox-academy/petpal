@@ -22,11 +22,4 @@ public class PrivateUser extends ParentUser {
   @NotBlank
   private String password;
 
-  @ManyToMany(mappedBy = "privateUser", cascade = CascadeType.PERSIST)
-  @JsonIgnore
-  private Set<Animal> animalsLikedByUser;
-
-  @OneToMany(mappedBy = "privateUserAdopt", cascade = CascadeType.PERSIST)
-  @JsonIgnore
-  private Set<Animal> animalsToAdoptByUser;
 }

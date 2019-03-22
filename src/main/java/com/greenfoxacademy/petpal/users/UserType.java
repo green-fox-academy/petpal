@@ -9,18 +9,18 @@ public enum UserType {
 
   Private {
 
-    public PrivateUser createUser() {
+    public ParentUser createUser() {
       return new PrivateUser();
     }
   },
 
   Google{
-    public GoogleUser createUser(){
+    public ParentUser createUser(){
       return new GoogleUser();
   }},
 
   Org {
-    public Organisation createUser() {
+    public ParentUser createUser() {
       return new Organisation();
     }
   };

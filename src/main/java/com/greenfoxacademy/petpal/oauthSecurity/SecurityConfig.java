@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
@@ -56,12 +55,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Appl
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().
-                antMatchers("/login/**", "/webjars/**").permitAll()
+                antMatchers("/login", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
                 .oauth2Login()
+                .loginPage("/login")
                 .redirectionEndpoint()
                 .baseUri("/oauth2/callback/*")
                 .and()

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Service
+@Service(value = "userDetailsService")
 public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService {
 
   @Autowired

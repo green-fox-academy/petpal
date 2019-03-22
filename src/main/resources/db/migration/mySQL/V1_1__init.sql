@@ -131,14 +131,14 @@ VALUES (1,
         'Cat');
 */
 
-CREATE TABLE private_users_liked_animals
+CREATE TABLE parent_users_liked_animals
   ##A PRIMARY KEY IS ALWAYS NEEDED
 (
   id              BIGINT NOT NULL,
   animal_id       BIGINT NOT NULL,
-  private_user_id BIGINT NOT NULL,
-  CONSTRAINT private_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
-  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES parent_user (id),
+  parent_user_id BIGINT NOT NULL,
+  CONSTRAINT parent_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
+  CONSTRAINT parent_users_liked_animals_parent_user_id FOREIGN KEY (parent_user_id) REFERENCES parent_user (id),
   PRIMARY KEY (id)
 );
 

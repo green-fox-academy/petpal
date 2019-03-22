@@ -3,10 +3,7 @@ package com.greenfoxacademy.petpal.users.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.geocode.GeoCode;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,8 +16,12 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class ParentUser {
+
+  public ParentUser(@NotBlank String name) {
+    this.name = name;
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +45,12 @@ public abstract class ParentUser {
   @JsonIgnore
   private Set<Animal> ownedAnimalsByUser;
 
-  public ParentUser(@NotBlank String name) {
-    this.name = name;
-  }
+  @ManyToMany(mappedBy = "parentUser", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private Set<Animal> animalsLikedByUser;
+
+  @OneToMany(mappedBy = "parentUserAdopt", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private Set<Animal> animalsToAdoptByUser;
+
 }
