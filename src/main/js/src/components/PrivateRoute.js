@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const PrivateRoute = (WrappedComponent) => {
-  const Authenticator = (props) => {
+const PrivateRoute = WrappedComponent => {
+  const Authenticator = props => {
     const { isAuthenticated, history } = props;
     if (!isAuthenticated) history.push('/');
     return isAuthenticated ? <WrappedComponent {...props} /> : null;

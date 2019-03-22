@@ -1,26 +1,31 @@
 package com.greenfoxacademy.petpal.users;
 
+import com.greenfoxacademy.petpal.users.models.GoogleUser;
 import com.greenfoxacademy.petpal.users.models.Organisation;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
-import com.greenfoxacademy.petpal.users.models.SuperUser;
 
 public enum UserType {
 
   Private {
-    @Override
-    public SuperUser createUser() {
+
+    public ParentUser createUser() {
       return new PrivateUser();
     }
   },
 
+  Google{
+    public ParentUser createUser(){
+      return new GoogleUser();
+  }},
+
   Org {
-    @Override
-    public SuperUser createUser() {
+    public ParentUser createUser() {
       return new Organisation();
     }
   };
 
-  public SuperUser createUser() {
+  public ParentUser createUser() {
     return null;
   }
 

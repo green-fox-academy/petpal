@@ -1,12 +1,10 @@
 import React from 'react';
 
-const AddPetForm = ({
-  onSubmit, onChange, currentPhoto, animMessage,
-}) => (
+const AddPetForm = ({ onSubmit, onChange, currentPhoto, animMessage, onBlur }) => (
   <div className="addme">
     <form onSubmit={onSubmit}>
-      {animMessage !== '' ? <h3>{animMessage}</h3> : null}
-      <input type="text" name="animname" placeholder="your animal's name..." />
+      {animMessage ? <h3>{animMessage}</h3> : null}
+      <input type="text" name="animname" placeholder="your animal's name..." onBlur={onBlur} />
       <input type="text" name="animbirth" placeholder="birth date... e.g.:2018.10.24." />
       <select name="animtype">
         <option value="dog">dog</option>
@@ -40,14 +38,19 @@ const AddPetForm = ({
           <span>no</span>
         </label>
       </div>
-      <label
-        style={currentPhoto ? { backgroundColor: '#643A94', color: 'white' } : null}
-        htmlFor="animfile"
-      >
-        {currentPhoto ? currentPhoto.name : 'select a photo...'}
+      <label style={currentPhoto ? { backgroundColor: 'rgb(35, 170, 35)', color: 'white' } : null} htmlFor="animfile">
+        {currentPhoto ? (
+          <span>{currentPhoto.name}</span>
+        ) : (
+          <span>
+            select a photo... <i className="fas fa-paperclip" />
+          </span>
+        )}
       </label>
       <input type="file" name="animfile" id="animfile" onChange={onChange} />
-      <button className="button" type="submit">submit</button>
+      <button className="button" type="submit">
+        submit
+      </button>
     </form>
   </div>
 );

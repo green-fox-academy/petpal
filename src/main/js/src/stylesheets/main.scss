@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Signika+Negative');
 
-html{
-  overflow-x: hidden;  
+html {
+  overflow: hidden;
 }
 
 body {
   width: 100vw;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
   font-family: 'Signika Negative', sans-serif;
 }
 
@@ -17,20 +17,20 @@ body {
   margin: 0;
 }
 
-a{
+a {
   text-decoration: none;
   color: black;
 }
 
 #root {
-  width:100%;
+  width: 100%;
   min-height: 100vh;
 }
 
 main {
   position: relative;
   top: 8vh;
-  width:100%;
-  height:calc(100vh - 8vh);
+  width: 100%;
+  height: calc(100vh - 8vh);
   z-index: 10;
 }

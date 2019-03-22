@@ -14,7 +14,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin([
-      { from: 'src/images', to: '/' }
+      { from: 'src/assets', to: 'assets' }
     ]),
   ],
   module: {
@@ -34,13 +34,12 @@ module.exports = {
         test: /\.(jpe?g|png|gif|ico)$/i,
         use: [
           {
-            loader: 'url-loader',
+            loader: 'file-loader',
             options: {
-              limit: 8000,
+              outputPath: 'assets/',
               name: '[name].[ext]',
             },
           },
-          { loader: 'file-loader' },
         ],
       },
       {

@@ -1,0 +1,51 @@
+$bgColor: #643a94;
+
+.favouritescont {
+  width: 100%;
+  height: 100%;
+
+  .favsbuttons {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .tabselectbtn {
+      outline: none;
+      border: none;
+      width: 28%;
+      height: 60%;
+      color: $bgColor;
+      font-family: inherit;
+      background-color: #fff;
+      font-weight: bold;
+      font-size: 4.5vw;
+      border: 2px solid $bgColor;
+      cursor: pointer;
+
+      &:first-child {
+        border-radius: 20px 0px 0px 20px;
+        border-right: none;
+      }
+
+      &:last-child {
+        border-radius: 0px 20px 20px 0px;
+        border-left: none;
+      }
+    }
+
+    .activetabbtn {
+      color: white;
+      background-color: $bgColor;
+    }
+  }
+
+  .selectedfavtab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    width: 100%;
+  }
+}

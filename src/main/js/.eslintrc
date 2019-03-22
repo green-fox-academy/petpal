@@ -1,11 +1,7 @@
 {
   "root": true,
-  "extends": [
-    "airbnb"
-  ],
-  "plugins": [
-    "react"
-  ],
+  "extends": ["airbnb"],
+  "plugins": ["react"],
   "env": {
     "es6": true,
     "browser": true,
@@ -21,7 +17,7 @@
     "global-require": 0,
     "no-shadow": 0,
     "react/forbid-prop-types": 0,
-    "no-unused-expressions": ["error", {"allowTernary": true}],
+    "no-unused-expressions": ["error", { "allowTernary": true }],
     "no-param-reassign": 0,
     "linebreak-style": 0,
     "function-paren-newline": 0,
@@ -29,19 +25,23 @@
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "jsx-a11y/anchor-is-valid": [
-      "error", {
-        "components": [ "Link" ],
-        "specialLink": [ "to", "hrefLeft", "hrefRight" ],
-        "aspects": [ "noHref", "invalidHref", "preferButton" ]
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["to", "hrefLeft", "hrefRight"],
+        "aspects": ["noHref", "invalidHref", "preferButton"]
       }
     ],
-    "jsx-a11y/label-has-for": [ 2, {
-        "components": [ "Label" ],
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": ["Label"],
         "required": {
-            "some": [ "nesting", "id" ]
+          "some": ["nesting", "id"]
         },
         "allowChildren": false
-    }],
+      }
+    ],
     "max-len": [2, 140, 2],
     "no-underscore-dangle": 0,
     "react/jsx-filename-extension": 0,
