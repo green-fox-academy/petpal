@@ -21,6 +21,7 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
     const { animname, animbirth, animtype, animgender, spayed, vaccinated, animfile } = event.target;
     if (
       animname.value.trim().length > 0 &&
+      animname.value.trim().length < 25 &&
       animbirth.value.trim().length > 0 &&
       animtype.value.length > 0 &&
       animgender.value.length > 0 &&
@@ -47,7 +48,14 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
     setCurrentPhoto(event.target.files[0]);
   };
 
-  return <AddPetForm onChange={handleFile} onSubmit={handleSubmit} animMessage={animMessage} currentPhoto={currentPhoto} />;
+  const handleBlur = event => {
+    event.target.value.trim().length > 25 ? setAddAnimalError('Name cannot be more than 25 characters!') : null;
+    animMessage && event.target.value.trim().length < 25 ? setAddAnimalError('') : null;
+  };
+
+  return (
+    <AddPetForm onBlur={handleBlur} onChange={handleFile} onSubmit={handleSubmit} animMessage={animMessage} currentPhoto={currentPhoto} />
+  );
 };
 
 const mapStateToProps = store => ({

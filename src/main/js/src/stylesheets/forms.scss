@@ -70,10 +70,10 @@ $bcColor: #643a94;
 
   button {
     width: 50%;
-    height: 8vh;
+    height: 7.5vh;
     background-color: $bcColor;
     color: white;
-    font-size: 9vw;
+    font-size: 7.5vw;
   }
 }
 
@@ -110,11 +110,6 @@ $bcColor: #643a94;
     button {
       font-size: 2.5vw;
       width: 20%;
-
-      &:hover {
-        background-color: #fff;
-        color: $bcColor;
-      }
     }
   }
 }
