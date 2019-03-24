@@ -43,3 +43,69 @@ export function* listAnimalsRequest() {
     });
   }
 }
+
+export function* listLikedAnimalsRequest() {
+  const token = localStorage.getItem('accesstoken');
+  try {
+    const response = yield call(API.listLikedAnimals, token);
+    if (response.likedAnimals) {
+      yield put({
+        type: actions.LIST_LIKED_ANIMALS_SUCCEEDED,
+        payload: response.likedAnimals,
+      });
+    } else {
+      yield put({
+        type: actions.LIST_LIKED_ANIMALS_FAILED,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: actions.LIST_LIKED_ANIMALS_FAILED,
+    });
+  }
+}
+
+export function* listOwnedAnimalsRequest() {
+  const token = localStorage.getItem('accesstoken');
+  try {
+    const response = yield call(API.listOwnedAnimals, token);
+    if (response.ownedAnimals) {
+      yield put({
+        type: actions.LIST_OWNED_ANIMALS_SUCCEEDED,
+        payload: response.ownedAnimals,
+      });
+    } else {
+      yield put({
+        type: actions.LIST_OWNED_ANIMALS_FAILED,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: actions.LIST_OWNED_ANIMALS_FAILED,
+    });
+  }
+}
+
+export function* listAdoptedAnimalsRequest() {
+  const token = localStorage.getItem('accesstoken');
+  try {
+    const response = yield call(API.listAdoptedAnimals, token);
+    if (response.adoptableAnimals) {
+      yield put({
+        type: actions.LIST_ADOPTED_ANIMALS_SUCCEEDED,
+        payload: response.adoptableAnimals,
+      });
+    } else {
+      yield put({
+        type: actions.LIST_ADOPTED_ANIMALS_FAILED,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: actions.LIST_ADOPTED_ANIMALS_FAILED,
+    });
+  }
+}
