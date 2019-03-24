@@ -1,0 +1,12 @@
+.favanims {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 100%;
+  width: 100%;
+
+  & > li {
+    
+  }
+}

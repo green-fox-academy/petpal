@@ -14,7 +14,7 @@ const Sidebar = ({ isToggled, requestLogout, history, match, toggleHamburgerIcon
   };
 
   return (
-    <div className="sidebar" style={isToggled ? { left: '0px' } : { left: '-100vw' }}>
+    <div className={isToggled ? 'sidebar activesidebar' : 'sidebar'}>
       <button type="button" data-menuitem="find" onClick={handleClick}>
         <i data-menuitem="find" className="fas fa-map-pin" />
         <span data-menuitem="find">finder</span>
@@ -23,8 +23,8 @@ const Sidebar = ({ isToggled, requestLogout, history, match, toggleHamburgerIcon
         <i data-menuitem="add" className="fas fa-plus" />
         <span data-menuitem="add">add pet</span>
       </button>
-      <button type="button" data-menuitem="favourites" onClick={handleClick}>
-        <i data-menuitem="favourites" className="fas fa-star" />
+      <button type="button" data-menuitem="favourites/liked" onClick={handleClick}>
+        <i data-menuitem="favourites/liked" className="fas fa-star" />
         <span data-menuitem="favourites/liked">favourites</span>
       </button>
       <button type="button" data-menuitem="settings" onClick={handleClick}>

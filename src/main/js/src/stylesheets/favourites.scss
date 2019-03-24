@@ -43,9 +43,12 @@ $bgColor: #643a94;
 
   .selectedfavtab {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    flex-direction: column;
     height: 90%;
     width: 100%;
+    padding: 2vh;
+    overflow: auto;
   }
 }
