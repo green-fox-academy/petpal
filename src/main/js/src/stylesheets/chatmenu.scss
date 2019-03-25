@@ -1,0 +1,73 @@
+$chatColor: rgb(38, 38, 102);
+
+.chatmenu {
+  width: 100vw;
+  position: fixed;
+  height: 92vh;
+  z-index: 100;
+  transform: translateX(100%);
+  background-color: $chatColor;
+  color: white;
+  transition: 0.5s;
+
+  & > h3 {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 7vw;
+    color: white;
+    font-weight: bold;
+  }
+
+  & > ul {
+    width: 100%;
+    min-height: 85%;
+    overflow-y: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    & > li {
+      width: 90%;
+      height: 10vh;
+      background-color: #fff;
+      color: $chatColor;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 4vh;
+      
+      & > span {
+        width: 57%;
+        height:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      & > span:first-of-type,
+      & > span:last-of-type {
+        width: 25%;
+        font-size: 5.5vw;
+        font-weight: bold;
+      }
+      & > span:last-of-type {
+        font-size: 3.5vw;
+        width:18%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.activechatmenu {
+  transform: translateX(0%);
+}
+
+.unseenmessageavailable {
+  font-weight: bold;
+}

@@ -16,7 +16,7 @@ const Register = ({ requestRegister, setRegisterError, registerErrorMsg }) => {
     if ((registername.value.trim().length > 0 && registerpass.value.trim().length > 0, registeremail.value.trim().length > 0)) {
       if (nameRegex.test(registername.value)) {
         if (emailRegex.test(registeremail.value)) {
-          requestRegister({ username: registername.value, password: registerpass.value, registeremail: registeremail.value });
+          requestRegister({ name: registername.value, password: registerpass.value, email: registeremail.value });
           setRegisterError('');
           event.target.reset();
         } else {
@@ -36,7 +36,7 @@ const Register = ({ requestRegister, setRegisterError, registerErrorMsg }) => {
       {registerErrorMsg ? <h3>{registerErrorMsg}</h3> : null}
       <div>
         <input className="input" name="registername" type="text" id="registername" />
-        <label htmlFor="registername">username</label>
+        <label htmlFor="registername">full name</label>
       </div>
       <div>
         <input className="input" name="registeremail" type="text" id="registeremail" />

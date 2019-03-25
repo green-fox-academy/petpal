@@ -57,3 +57,102 @@ export const listAdoptedAnimals = token => ({
     { id: 4, name: 'sanyika', photoPath: 'cat.jpg', gender: 'male', type: 'cat' },
   ],
 });
+
+export const listChatsOfUser = token => ({
+  ownChats: [
+    {
+      chatId: 1,
+      partner: 'Eniko',
+      unSeen: 0,
+      messages: [
+        { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'eniko.tothova', sentAt: 1553553808 },
+        { message: 'vaaagom, nagyon fasza lett 😂😍🦔', author: 'dani.zsin', sentAt: 1553553808 },
+        { message: 'high five 🖐😎👍🏍', author: 'eniko.tothova', sentAt: 1553553808 },
+      ],
+    },
+    {
+      chatId: 2,
+      partner: 'Krisz',
+      unSeen: 1,
+      messages: [{ message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'krisz', sentAt: 1553553808 }],
+    },
+    {
+      chatId: 3,
+      partner: 'Sol',
+      unSeen: 1,
+      messages: [{ message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'sol', sentAt: 1553553808 }],
+    },
+    {
+      chatId: 4,
+      partner: 'Dani',
+      unSeen: 0,
+      messages: [
+        { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'dani', sentAt: 1553553808 },
+        { message: 'dánkesőőőőn 👌🙊', author: 'dani.zsin', sentAt: 1553553808 },
+      ],
+    },
+    {
+      chatId: 5,
+      partner: 'Csongi',
+      unSeen: 0,
+      messages: [
+        { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
+        { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
+      ],
+    },
+    // {
+    //   chatId: 6,
+    //   partner: 'Csongi',
+    //   unSeen: 0,
+    //   messages: [
+    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
+    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
+    //   ],
+    // },
+    // {
+    //   chatId: 7,
+    //   partner: 'Csongi',
+    //   unSeen: 0,
+    //   messages: [
+    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
+    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
+    //   ],
+    // },
+    // {
+    //   chatId: 8,
+    //   partner: 'Csongi',
+    //   unSeen: 0,
+    //   messages: [
+    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
+    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
+    //   ],
+    // },
+    // {
+    //   chatId: 9,
+    //   partner: 'Csongi',
+    //   unSeen: 0,
+    //   messages: [
+    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
+    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
+    //   ],
+    // },
+    // {
+    //   chatId: 10,
+    //   partner: 'Csongi',
+    //   unSeen: 0,
+    //   messages: [
+    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
+    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
+    //   ],
+    // },
+    // {
+    //   chatId: 11,
+    //   partner: 'Csongi',
+    //   unSeen: 0,
+    //   messages: [
+    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
+    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
+    //   ],
+    // },
+  ],
+});

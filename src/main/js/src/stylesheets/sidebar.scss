@@ -2,11 +2,10 @@ $bcColor: #643a94;
 
 .sidebar {
   position: fixed;
-  top: 8vh;
   width: 100vw;
   background-color: $bcColor;
   z-index: 100;
-  height: calc(100vh - 8vh);
+  height: 92vh;
   transition: 0.5s;
   display: flex;
   justify-content: flex-start;
