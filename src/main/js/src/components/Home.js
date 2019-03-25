@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import NavbarCont from '../containers/navbar/NavbarCont';
 import MainContent from './MainContent';
 import Sidebar from './sidebar/Sidebar';
+import ChatMenu from './ChatSidebar/ChatMenu';
 import Settings from './settings/Settings';
 import AddPet from './add/AddPet';
 import Favourites from './favourites/Favourites';
@@ -14,6 +15,7 @@ const Home = ({ match }) => (
     <NavbarCont />
     <MainContent>
       <Sidebar />
+      <ChatMenu />
       <div className="home">
         <Route path={`${match.path}/settings`} component={Settings} />
         <Route path={`${match.path}/add`} component={AddPet} />
