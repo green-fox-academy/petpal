@@ -17,22 +17,11 @@ const OwnedAnimals = ({ listOwnedAnimalsRequest, ownedAnimals }) => {
 
   return ownedAnimals ? (
     <ul className="favanims" onClick={handleOwnedAnimalClick}>
-      <li>
-        <ul>
-          <li>name</li>
-          <li>type</li>
-          <li>gender</li>
-          <li>photo</li>
-          <li>edit</li>
-          <li>remove</li>
-        </ul>
-      </li>
       {ownedAnimals.map(animal => (
         <li key={animal.id}>
-          <ul>
+          <ul className="yellowbgcolor">
             <li>{animal.name}</li>
             <li>{animal.type}</li>
-            <li>{animal.gender}</li>
             <li>
               <img src={`/assets/${animal.photoPath}`} alt="animal" />
             </li>
@@ -43,7 +32,7 @@ const OwnedAnimals = ({ listOwnedAnimalsRequest, ownedAnimals }) => {
             </li>
             <li>
               <button data-animalid={animal.id} data-animalaction="remove" className="removebtn" type="button">
-                <i data-animalid={animal.id} data-animalaction="remove" className="fas fa-trash-alt" />
+                <i data-animalid={animal.id} data-animalaction="remove" className="fas fa-times-circle" />
               </button>
             </li>
           </ul>

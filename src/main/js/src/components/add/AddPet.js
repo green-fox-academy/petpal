@@ -19,6 +19,7 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
   const handleSubmit = event => {
     event.preventDefault();
     const { animname, animbirth, animtype, animgender, spayed, vaccinated, animfile } = event.target;
+    const dateRegex = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
     if (
       animname.value.trim().length > 0 &&
       animname.value.trim().length < 25 &&
@@ -29,16 +30,22 @@ const AddPet = ({ addAnimalRequest, setAddAnimalError, animMessage }) => {
       vaccinated.value.length > 0 &&
       animfile.files.length > 0
     ) {
-      const formData = new FormData();
-      formData.append('name', animname.value);
-      formData.append('birth', animbirth.value);
-      formData.append('type', animtype.value);
-      formData.append('gender', animgender.value);
-      formData.append('spayed', spayed.value);
-      formData.append('vaccinated', vaccinated.value);
-      formData.append('photo', currentPhoto);
-      addAnimalRequest(formData);
-      setAddAnimalError('');
+      if (dateRegex.test(animbirth.value.trim())) {
+        const dateArray = animbirth.value.split('-');
+        const timestamp = new Date(`${dateArray[0]}-${dateArray[1]}-${dateArray[2]} 00:00:00`).getTime();
+        const formData = new FormData();
+        formData.append('name', animname.value);
+        formData.append('birth', timestamp);
+        formData.append('type', animtype.value);
+        formData.append('gender', animgender.value);
+        formData.append('spayed', spayed.value);
+        formData.append('vaccinated', vaccinated.value);
+        formData.append('photo', currentPhoto);
+        addAnimalRequest(formData);
+        setAddAnimalError('');
+      } else {
+        setAddAnimalError('Invalid date format!');
+      }
     } else {
       setAddAnimalError('Fill out all fields please!');
     }

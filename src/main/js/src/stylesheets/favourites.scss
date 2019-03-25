@@ -1,4 +1,6 @@
 $bgColor: #643a94;
+$lightPurple: #845bb3;
+$darkPurple: #401c69;
 
 .favouritescont {
   width: 100%;
@@ -16,28 +18,31 @@ $bgColor: #643a94;
       border: none;
       width: 28%;
       height: 60%;
-      color: $bgColor;
+      color: $darkPurple;
       font-family: inherit;
       background-color: #fff;
       font-weight: bold;
       font-size: 4.5vw;
-      border: 2px solid $bgColor;
+      border: 2px solid $darkPurple;
       cursor: pointer;
 
       &:first-child {
         border-radius: 20px 0px 0px 20px;
+      }
+
+      &:nth-child(2) {
+        border-left: none;
         border-right: none;
       }
 
       &:last-child {
         border-radius: 0px 20px 20px 0px;
-        border-left: none;
       }
     }
 
     .activetabbtn {
       color: white;
-      background-color: $bgColor;
+      background-color: $darkPurple;
     }
   }
 
