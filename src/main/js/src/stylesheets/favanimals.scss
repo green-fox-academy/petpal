@@ -1,5 +1,6 @@
 $bgColor: #643a94;
 $rmvbtn: rgb(129, 8, 8);
+$darkPurple: #401c69;
 
 .favanims {
   display: flex;
@@ -13,12 +14,6 @@ $rmvbtn: rgb(129, 8, 8);
   & > li {
     width: 100%;
     height: 10vh;
-
-    &:first-of-type {
-      background-color: $bgColor;
-      color: white;
-      font-weight: bold;
-    }
 
     & > ul {
       list-style: none;
@@ -48,7 +43,7 @@ $rmvbtn: rgb(129, 8, 8);
           background-color: white;
           border-radius: 30px;
           color: $bgColor;
-          font-size: 4.5vw;
+          font-size: 5.5vw;
           transition: 0.1s;
 
           &:active {
@@ -59,6 +54,10 @@ $rmvbtn: rgb(129, 8, 8);
         .removebtn {
           color: $rmvbtn;
           border-color: $rmvbtn;
+
+          & > i {
+            font-size: 6.5vw;
+          }
         }
 
         &:nth-of-type(4) {
@@ -69,6 +68,10 @@ $rmvbtn: rgb(129, 8, 8);
           }
         }
       }
+    }
+
+    &:last-of-type > ul {
+      border-bottom: none;
     }
   }
 }
