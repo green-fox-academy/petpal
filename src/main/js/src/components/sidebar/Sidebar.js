@@ -9,7 +9,9 @@ const Sidebar = ({ isToggled, requestLogout, history, match, toggleHamburgerIcon
     const { dataset } = event.target;
     if (dataset.menuitem) {
       dataset.menuitem === 'logout' ? requestLogout() : history.push(`${match.url}/${dataset.menuitem}`);
-      toggleHamburgerIcon(false);
+      setTimeout(() => {
+        toggleHamburgerIcon(false);
+      }, 100);
     }
   };
 

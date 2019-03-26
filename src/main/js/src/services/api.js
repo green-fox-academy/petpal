@@ -61,98 +61,48 @@ export const listAdoptedAnimals = token => ({
 export const listChatsOfUser = token => ({
   ownChats: [
     {
-      chatId: 1,
+      userId: 1,
       partner: 'Eniko',
       unSeen: 0,
       messages: [
-        { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'eniko.tothova', sentAt: 1553553808 },
-        { message: 'vaaagom, nagyon fasza lett 😂😍🦔', author: 'dani.zsin', sentAt: 1553553808 },
-        { message: 'high five 🖐😎👍🏍', author: 'eniko.tothova', sentAt: 1553553808 },
+        { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 1, sentAt: 1553553818 },
+        { message: 'vaaagom, nagyon fasza lett 😂😍🦔', author: 66, sentAt: 1553553308 },
+        { message: 'high five 🖐😎👍🏍', author: 1, sentAt: 1553553809 },
+        { message: 'van kedved valamikor kavezni? ☕', author: 1, sentAt: 1553556808 },
+        { message: 'miazhogy! menjunk 😎✌😍', author: 66, sentAt: 1553553508 },
+        { message: 'hetvege? ✔🙊', author: 1, sentAt: 1553637150000 },
+        { message: 'szupi 😜🙋‍♂️', author: 66, sentAt: 1553637160000 },
       ],
     },
     {
-      chatId: 2,
+      userId: 2,
       partner: 'Krisz',
       unSeen: 1,
-      messages: [{ message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'krisz', sentAt: 1553553808 }],
+      messages: [{ message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 2, sentAt: 1553553808 }],
     },
     {
-      chatId: 3,
+      userId: 3,
       partner: 'Sol',
       unSeen: 1,
-      messages: [{ message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'sol', sentAt: 1553553808 }],
+      messages: [{ message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 3, sentAt: 1553553808 }],
     },
     {
-      chatId: 4,
+      userId: 4,
       partner: 'Dani',
       unSeen: 0,
       messages: [
-        { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'dani', sentAt: 1553553808 },
-        { message: 'dánkesőőőőn 👌🙊', author: 'dani.zsin', sentAt: 1553553808 },
+        { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 4, sentAt: 1553553808 },
+        { message: 'dánkesőőőőn 👌🙊', author: 66, sentAt: 1553553908 },
       ],
     },
     {
-      chatId: 5,
+      userId: 5,
       partner: 'Csongi',
       unSeen: 0,
       messages: [
-        { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
-        { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
+        { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 5, sentAt: 1553553808 },
+        { message: 'kosz teska 😎🖐🐱‍🏍', author: 66, sentAt: 1553553908 },
       ],
     },
-    // {
-    //   chatId: 6,
-    //   partner: 'Csongi',
-    //   unSeen: 0,
-    //   messages: [
-    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
-    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
-    //   ],
-    // },
-    // {
-    //   chatId: 7,
-    //   partner: 'Csongi',
-    //   unSeen: 0,
-    //   messages: [
-    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
-    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
-    //   ],
-    // },
-    // {
-    //   chatId: 8,
-    //   partner: 'Csongi',
-    //   unSeen: 0,
-    //   messages: [
-    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
-    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
-    //   ],
-    // },
-    // {
-    //   chatId: 9,
-    //   partner: 'Csongi',
-    //   unSeen: 0,
-    //   messages: [
-    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
-    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
-    //   ],
-    // },
-    // {
-    //   chatId: 10,
-    //   partner: 'Csongi',
-    //   unSeen: 0,
-    //   messages: [
-    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
-    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
-    //   ],
-    // },
-    // {
-    //   chatId: 11,
-    //   partner: 'Csongi',
-    //   unSeen: 0,
-    //   messages: [
-    //     { message: 'kiraly ez a chat Danikam 👌🙋‍🙊', author: 'csongi', sentAt: 1553553808 },
-    //     { message: 'kosz teska 😎🖐🐱‍🏍', author: 'dani.zsin', sentAt: 1553553808 },
-    //   ],
-    // },
   ],
 });

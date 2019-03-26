@@ -1,25 +1,38 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { listChatsOfUser } from '../../actions/chat';
+import { toggleChatMenu } from '../../actions/user';
 import ChatPreview from './ChatPreview';
 import Spinner from '../Spinner';
 import '../../stylesheets/chatmenu.scss';
 
-const ChatMenu = ({ isChatToggled, listChatsOfUser, userChats }) => {
+const ChatMenu = ({ isChatToggled, listChatsOfUser, userChats, history, match, toggleChatMenu }) => {
   useEffect(() => {
     listChatsOfUser();
   }, []);
+
+  const handleClick = event => {
+    const { chatid } = event.target.dataset;
+    if (chatid) {
+      history.push(`${match.url}/chat/${chatid}`);
+      setTimeout(() => {
+        toggleChatMenu(false);
+      }, 100);
+    }
+  };
 
   return (
     <div className={isChatToggled ? 'chatmenu activechatmenu' : 'chatmenu'}>
       <h3>Chats</h3>
       {userChats ? (
-        <ul>
+        <ul onClick={handleClick}>
           {userChats.map(chat => {
-            const { chatId, partner, unSeen, messages } = chat;
+            const { userId, partner, unSeen, messages } = chat;
             return (
               <ChatPreview
-                key={chatId}
+                key={userId}
+                chatId={userId}
                 partner={partner}
                 unSeen={unSeen}
                 lastMessage={messages.length > 0 ? messages[messages.length - 1].message : null}
@@ -42,9 +55,12 @@ const mapStateToProps = store => ({
 
 const mapDisPatchToProps = {
   listChatsOfUser,
+  toggleChatMenu,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDisPatchToProps,
-)(ChatMenu);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDisPatchToProps,
+  )(ChatMenu),
+);
