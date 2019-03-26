@@ -30,7 +30,7 @@ export function* loginRequest(action) {
 export function* registerRequest(action) {
   try {
     const response = yield call(API.registerRequest, action.payload);
-    if (response.username) {
+    if (response.name) {
       yield put({
         type: actions.SELECT_CURRENT_FORM,
         payload: 'login',
