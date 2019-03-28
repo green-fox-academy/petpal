@@ -21,11 +21,11 @@ import javax.validation.Valid;
 @RestController
 public class UserController {
 
-  private ParentUserService userDetailsService;
+  private ParentUserService<ParentUser> userDetailsService;
   private ModelMapper modelMapper = new ModelMapper();
 
   @Autowired
-  public UserController(ParentUserService userDetailsService) {
+  public UserController(ParentUserService<ParentUser> userDetailsService) {
     this.userDetailsService = userDetailsService;
   }
 
@@ -70,7 +70,7 @@ public class UserController {
 
   @PutMapping("/user/{id}")
   public ResponseEntity changePassword(Authentication authentication, @RequestBody String password) throws Throwable {
-    ParentUser user = (ParentUser) userDetailsService.getUserFromAuth(authentication);
+    ParentUser user = userDetailsService.getUserFromAuth(authentication);
     //TODO: separate usertype, pw not applicable for GoogleU, changePW method should be implemented in service with pw hash
     //TODO: I'm not sure if we need this (lyancsie)
     return ResponseEntity.ok().build();
@@ -85,14 +85,13 @@ public class UserController {
 
   @GetMapping("/pets/liked")
   public ResponseEntity likedPets(Authentication authentication) throws Throwable {
-
     ParentUser parentUser =  userDetailsService.getUserFromAuth(authentication);
     return ResponseEntity.ok(userDetailsService.animalsLikedByUser(parentUser));
     //TODO: remove raw type
   }
 
-  @GetMapping("/pets/adoptable")
-  public ResponseEntity adoptedPets(Authentication authentication) throws Throwable {
+  @GetMapping("/pets/underadoption")
+  public ResponseEntity petsUnderAdoption(Authentication authentication) throws Throwable {
     ParentUser parentUser =  userDetailsService.getUserFromAuth(authentication);
     return ResponseEntity.ok(userDetailsService.animalsUnderAdoptionByUser(parentUser));
 
@@ -106,5 +105,5 @@ public class UserController {
     return ResponseEntity.ok(userDetailsService.animalsOwnedByUser(parentUser));
     //TODO: remove raw type
   }
-  //TODO: implement DELETE endpoints (deleting from the lists)
+  //TODO: implement DELETE endpoints (deleting from the lists) - IMPLEMENTED IN ANIMALCONTROLLER
 }

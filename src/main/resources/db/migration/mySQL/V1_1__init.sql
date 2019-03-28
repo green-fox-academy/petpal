@@ -22,7 +22,6 @@ CREATE TABLE `parent_user`
   `image_url`    varchar(255) DEFAULT NULL,
   `address`      varchar(255),
   PRIMARY KEY (`id`)
-
 );
 
 -- testUser1 password: pass1
@@ -61,7 +60,7 @@ CREATE TABLE `animal`
   `id`                  bigint(20)   AUTO_INCREMENT,
   `owner_id`            bigint(20),
   `adopter_id`          bigint(20),
-  `animal_type`         varchar(255),
+  `animal_race`         varchar(255),
   `name`                varchar(255) DEFAULT NULL,
   `birth_date`          datetime(6),
   `type`                varchar(255) DEFAULT NULL,
@@ -86,27 +85,49 @@ INSERT INTO animal (id,
                     spayed,
                     vaccinated,
                     photo_path,
-                    animal_type)
+                    animal_race)
 VALUES (1,
         1,
         1,
         'Pinguee',
         '2010-02-04 03:00:00',
-        'dog',
+        'beagle',
         'female',
         '2019-02-04 03:00:00',
         true,
         true,
         'penguin.jpg',
         'Dog'),
-       (2, 1, 1, 'Doggo', '2012-10-04 03:00:00', 'dog', 'male', '2019-05-04 03:00:00', false, true, 'doggo.jpg', 'Dog'),
-       (3, 1, 1, 'Grumpy', '2015-10-04 03:00:00', 'cat', 'male', '2050-05-04 03:00:00', false, false, 'cat.jpg', 'Cat');
+       (2,
+        1,
+        1,
+        'Doggo',
+        '2012-10-04 03:00:00',
+        'labrador',
+        'male',
+        '2019-05-04 03:00:00',
+        false,
+        true,
+        'doggo.jpg',
+        'Dog'),
+       (3,
+        1,
+        1,
+        'Grumpy',
+        '2015-10-04 03:00:00',
+        'persian',
+        'male',
+        '2050-05-04 03:00:00',
+        false,
+        false,
+        'cat.jpg',
+        'Cat');
 
 
 CREATE TABLE parent_users_liked_animals
   ##A PRIMARY KEY IS ALWAYS NEEDED
 (
-  id             BIGINT NOT NULL,
+  `id`                  bigint(20)   AUTO_INCREMENT,
   animal_id      BIGINT NOT NULL,
   parent_user_id BIGINT NOT NULL,
   CONSTRAINT parent_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
@@ -121,3 +142,34 @@ VALUES (1, 1, 1),
        (4, 2, 2),
        (5, 3, 1),
        (6, 3, 3);
+
+CREATE TABLE `chat` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `unseen` bigint(20) DEFAULT NULL,
+  `animal_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKm8cm7iqknrtsfbeuacclu1f7k` (`animal_id`),
+  CONSTRAINT `FKm8cm7iqknrtsfbeuacclu1f7k` FOREIGN KEY (`animal_id`) REFERENCES `animal` (`id`)
+);
+
+CREATE TABLE `chat_message` (
+                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                              `message` varchar(255) DEFAULT NULL,
+                              `sent_at` datetime(6) DEFAULT NULL,
+                              `author_id` bigint(20) DEFAULT NULL,
+                              `chat_id` bigint(20) DEFAULT NULL,
+                              PRIMARY KEY (`id`),
+                              KEY `FK4ylgrvun73ef8n503f8ry6k11` (`author_id`),
+                              KEY `FKax7xe8g71nf0wvpoychqkqeid` (`chat_id`),
+                              CONSTRAINT `FK4ylgrvun73ef8n503f8ry6k11` FOREIGN KEY (`author_id`) REFERENCES `parent_user` (`id`),
+                              CONSTRAINT `FKax7xe8g71nf0wvpoychqkqeid` FOREIGN KEY (`chat_id`) REFERENCES `chat` (`id`)
+);
+
+CREATE TABLE `parent_user_chats` (
+                                   `chat_id` bigint(20) NOT NULL,
+                                   `parent_user_id` bigint(20) NOT NULL,
+                                   PRIMARY KEY (`chat_id`,`parent_user_id`),
+                                   KEY `FK5vo5gqy3ey3b532tqt0r4ckt2` (`parent_user_id`),
+                                   CONSTRAINT `FK5spokj2kew0a2jng55uqmpylm` FOREIGN KEY (`chat_id`) REFERENCES `chat` (`id`),
+                                   CONSTRAINT `FK5vo5gqy3ey3b532tqt0r4ckt2` FOREIGN KEY (`parent_user_id`) REFERENCES `parent_user` (`id`)
+);
