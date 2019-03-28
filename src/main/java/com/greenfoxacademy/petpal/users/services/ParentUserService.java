@@ -2,10 +2,7 @@ package com.greenfoxacademy.petpal.users.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
-import com.greenfoxacademy.petpal.exception.AnimalUnderAdoptionException;
-import com.greenfoxacademy.petpal.exception.EmailTakenException;
-import com.greenfoxacademy.petpal.exception.ExceedMaxNumberOfAnimalsToAdoptException;
-import com.greenfoxacademy.petpal.exception.UserNotFoundException;
+import com.greenfoxacademy.petpal.exception.*;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.oauthSecurity.UserContext;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
@@ -141,15 +138,48 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     saveUser(t);
   }
 
-  public void addAnimalToAnimalsOwnedByUser(Animal animal, T t){
+  public void addAnimalToAnimalsOwnedByUser(Animal animal, T t) throws AnimalIsNullException {
+    Set<Animal> animalsOwnedByUser = t.getAnimalsOwnedByUser();
+    animalsOwnedByUser.add(animal);
+    t.setAnimalsOwnedByUser(animalsOwnedByUser);
+
+    animal.setOwner(t);
+    animalService.save(animal);
+
+    saveUser(t);
   }
 
-  public void removeAnimalToAnimalsLikedByUser(Animal animal, T t){
+  public void removeAnimalFromAnimalsLikedByUser(Animal animal, T t){
+    Set<Animal> animalsLikedByUser = t.getAnimalsLikedByUser();
+    animalsLikedByUser.remove(animal);
+    t.setAnimalsLikedByUser(animalsLikedByUser);
+
+    Set<ParentUser> allUsersLiked = animal.getParentUserLike();
+    allUsersLiked.remove(t);
+    animal.setParentUserLike(allUsersLiked);
+
+    saveUser(t);
   }
 
-  public void removeAnimalToAnimalsUnderAdoptionByUser(Animal animal, T t){
+  public void removeAnimalFromAnimalsUnderAdoptionByUser(Animal animal, T t){
+    Set<Animal> animalsUnderAdoptionByUser = t.getAnimalsUnderAdoptionByUser();
+    animalsUnderAdoptionByUser.remove(animal);
+    t.setAnimalsUnderAdoptionByUser(animalsUnderAdoptionByUser);
+
+    animal.setParentUserAdopt(null);
+    animal.setUnderAdoption(false);
+
+    saveUser(t);
   }
 
-  public void removeAnimalToAnimalsOwnedByUser (Animal animal, T t){
+  public void removeAnimalFromAnimalsOwnedByUser(Animal animal, T t){
+    Set<Animal> animalsOwnedByUser = t.getAnimalsOwnedByUser();
+    animalsOwnedByUser.remove(animal);
+    t.setAnimalsOwnedByUser(animalsOwnedByUser);
+
+    animal.setOwner(null);
+    animalService.remove(animal);
+
+    saveUser(t);
   }
 }

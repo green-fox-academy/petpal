@@ -49,35 +49,12 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
       return saveUser(privateUser);
     }
     throw new EmailTakenException("Email address already taken, please choose an other one or sign in.");
-
   }
 
-//  @Override
-//  public Set<Animal> animalsLikedByUser(PrivateUser privateUser) {
-//    return privateUser.getAnimalsLikedByUser();
-//  }
-//
-//  @Override
-//  public Set<Animal> animalsUnderAdoptionByUser(PrivateUser privateUser) {
-//    return privateUser.getAnimalsUnderAdoptionByUser();
-//  }
-//
-//  @Override
-//  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) {
-//    //TODO: implement the method, scroll down
-//  }
-//
-//  @Override
-//  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) {
-//    //TODO: implement the method, scroll down
-//
-//  }
-//
-//  @Override
-//  public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) {
-//    //TODO: implement the method, scroll down
-//
-//  }
+  @Override
+  public PrivateUser changeUserDetails(PrivateUser privateUser) {
+    return null;
+  }
 
   private List<SimpleGrantedAuthority> getAuthority() {
     return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
@@ -93,39 +70,5 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
   }
 }
 
-/*
-  @Override
-  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
-    if (animal.getAdopted()) {
-      throw new AnimalUnderAdoptionException("This pet has been already adopted.");
-    }
-    Set<Animal> animalsLikedByUser = animalsLikedByUser(privateUser.getId());
-    animalsLikedByUser.add(animal);
-    privateUser.setAnimalsLikedByUser(animalsLikedByUser);
-    System.out.println(animalsLikedByUser);
-    Set<PrivateUser> privateUsers = animal.getPrivateUser();
-    privateUsers.add(privateUser);
-    animal.setPrivateUser(privateUsers);
-    saveUser(privateUser);
-  }
 
-  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable {
-    if (animal.getAdopted()) {
-      throw new AnimalUnderAdoptionException("This pet has been already adopted.");
-    }
-    Set<Animal> animalsUnderAdoptionByUser = animalsUnderAdoptionByUser(privateUser.getId());
-    animal.setAdopted(true);
-    animalsUnderAdoptionByUser.add(animal);
-    //privateUser.setAnimalsUnderAdoptionByUser(animalsUnderAdoptionByUser);
-    saveUser(privateUser);
-  }
-
-  @Override
-  public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
-    Set<Animal> animalsOwnedByUser = animalsOwnedByUser(privateUser.getId());
-    animalsOwnedByUser.add(animal);
-    privateUser.setAnimalsOwnedByUser(animalsOwnedByUser);
-    saveUser(privateUser);
-  }
-  */
 
