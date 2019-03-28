@@ -3,7 +3,9 @@ package com.greenfoxacademy.petpal.animal.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.chat.models.Chat;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -15,6 +17,8 @@ import java.util.Set;
 @DiscriminatorColumn(name = "animal_race")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class Animal {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

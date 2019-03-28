@@ -70,7 +70,6 @@ CREATE TABLE `animal`
   `spayed`              bit          DEFAULT 0,
   `vaccinated`          bit          DEFAULT 0,
   `under_adoption`             bit          DEFAULT 0,
-  CONSTRAINT parent_user_id FOREIGN KEY (`id`) REFERENCES `parent_user` (`id`),
   PRIMARY KEY (`id`)
 );
 
@@ -128,8 +127,8 @@ CREATE TABLE parent_users_liked_animals
   ##A PRIMARY KEY IS ALWAYS NEEDED
 (
   `id`                  bigint(20)   AUTO_INCREMENT,
-  animal_id      BIGINT NOT NULL,
-  parent_user_id BIGINT NOT NULL,
+  animal_id      BIGINT,
+  parent_user_id BIGINT,
   CONSTRAINT parent_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
   CONSTRAINT parent_users_liked_animals_parent_user_id FOREIGN KEY (parent_user_id) REFERENCES parent_user (id),
   PRIMARY KEY (id)
