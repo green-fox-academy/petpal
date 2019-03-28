@@ -75,8 +75,8 @@ public class AnimalController {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
     return ResponseEntity.ok(parentUser.getAnimalsOwnedByUser().remove(animal));
-    userDetailsService.SolMethodja(animal,parentUser);
-    animalService.remove(animalService.findById(id));
+    // userDetailsService.SolMethodja(animal,parentUser);
+    //animalService.remove(animalService.findById(id));
   }
 
   @DeleteMapping("/pet/{id}/like")
