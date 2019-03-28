@@ -3,12 +3,10 @@ package com.greenfoxacademy.petpal.users.controllers;
 import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.oauthSecurity.Token;
-import com.greenfoxacademy.petpal.users.models.Organisation;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.models.dtos.LoginUserDTO;
 import com.greenfoxacademy.petpal.users.models.dtos.RegisterUserDTO;
-import com.greenfoxacademy.petpal.users.models.dtos.UserDTO;
 import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.modelmapper.ModelMapper;
@@ -45,11 +43,16 @@ public class UserController {
     return ResponseEntity.ok(authentication.getPrincipal());
   }*/
 
-  @PostMapping("/register/organization")
-  public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) throws UserIsNullException, UnirestException, EmailTakenException {
-    userDetailsService.register(organisation);
-    return ResponseEntity.ok().body(modelMapper.map(organisation, UserDTO.class));
-  }
+//  @PostMapping("/register/organization")
+//  public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) throws UserIsNullException, UnirestException, EmailTakenException {
+//    userDetailsService.register(organisation);
+//    return ResponseEntity.ok().body(modelMapper.map(organisation, UserDTO.class));
+//  }
+//  @PostMapping("/register/organization")
+//  public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) throws UserIsNullException, UnirestException, EmailTakenException {
+//    parentUserService.register(organisation);
+//    return ResponseEntity.ok().body(modelMapper.map(organisation, UserDTO.class));
+//  }
 
 /*  @PostMapping("/oauth2/authorize/google")
   public ResponseEntity loginGoogleUser(GoogleUser googleUser) throws UserNotFoundException {
@@ -62,7 +65,7 @@ public class UserController {
   public ResponseEntity loginPrivateUser(@Valid @RequestBody LoginUserDTO loginUserDTO ) throws Throwable {
     PrivateUser privateUser = (PrivateUser) userDetailsService.findByEmail(loginUserDTO.getEmail());
     Token token = new Token(userDetailsService.login(privateUser));
-    //TODO: remove raw type   
+    //TODO: remove raw type
     return ResponseEntity.ok().body(token);
   }
 
@@ -92,8 +95,10 @@ public class UserController {
   @GetMapping("/pets/adoptable")
   public ResponseEntity adoptedPets(Authentication authentication) throws Throwable {
     ParentUser parentUser =  userDetailsService.getUserFromAuth(authentication);
+    return ResponseEntity.ok(userDetailsService.animalsUnderAdoptionByUser(parentUser));
+
     //TODO: remove raw type
-    return ResponseEntity.ok(userDetailsService.animalsToAdoptByUser(parentUser));
+
   }
 
   @GetMapping("/pets/owned")

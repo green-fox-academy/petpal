@@ -1,9 +1,9 @@
 package com.greenfoxacademy.petpal.animal;
 
-import com.greenfoxacademy.petpal.AbstractFactory;
+import com.greenfoxacademy.petpal.Factory;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 
-public class AnimalFactory implements AbstractFactory<Animal, AnimalType> {
+public class AnimalFactory implements Factory<Animal, AnimalType> {
 
   @Override
   public Animal create(AnimalType animalType) {
