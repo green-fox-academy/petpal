@@ -35,7 +35,7 @@ const Landingpage = ({ selectedForm, setSelectedForm }) => {
           </div>
           <div className="googleconnect">
             <p>or</p>
-            <a href="https://petpalgf.herokuapp.com/oauth2/authorize/google" className="googlesigninbtn">
+            <a href="/oauth2/authorize/google" className="googlesigninbtn">
               <i className="fab fa-google-plus-g" />
               <span>connect with Google</span>
             </a>

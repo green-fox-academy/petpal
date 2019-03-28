@@ -6,10 +6,10 @@ import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.animal.models.Cat;
 import com.greenfoxacademy.petpal.animal.models.Dog;
-import com.greenfoxacademy.petpal.exception.InvalidRaceException;
 import com.greenfoxacademy.petpal.animal.repositories.AnimalRepository;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
+import com.greenfoxacademy.petpal.exception.InvalidRaceException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,8 +37,9 @@ public class AnimalServiceImpl implements AnimalService {
     if (animalRepository.existsById(animal.getId())) {
       animalRepository.deleteById(animal.getId());
     }
-    throw new AnimalIdNotFoundException("There is no Animal with such ID");
+    throw new AnimalIdNotFoundException();
   }
+
   // kérdés vissza adja e?
   @Override
   public Set<Animal> findAll() {
@@ -48,7 +49,7 @@ public class AnimalServiceImpl implements AnimalService {
   @Override
   public Animal findById(Long id) throws AnimalIdNotFoundException {
     return animalRepository.findById(id)
-            .orElseThrow(() -> new AnimalIdNotFoundException(("There is no Animal with such ID")));
+            .orElseThrow(AnimalIdNotFoundException::new);
   }
 
   @Override
@@ -64,7 +65,7 @@ public class AnimalServiceImpl implements AnimalService {
 //      animal = modelMapper.map(animalDTO, Cat.class);
 //      return save(animal);
     } else {
-      throw new InvalidRaceException("Invalid animalRace");
+      throw new InvalidRaceException();
     }
     //TODO: reflection
 //    for (AnimalType type : AnimalType.values())
@@ -73,7 +74,6 @@ public class AnimalServiceImpl implements AnimalService {
 //        animal = modelMapper.map(animalDTO, Class.forName(type.name()));
 //      }
   }
-
 
   @Override
   public void validateAnimal(Animal animal) throws AnimalIsNullException {

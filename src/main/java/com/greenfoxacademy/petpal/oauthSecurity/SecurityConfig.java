@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Appl
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/login/**","/register/**", "/webjars/**","/bundle.js", "/favicon.ico","/assets/**").permitAll()
+                .antMatchers("/", "/login/**","/register/**", "/webjars/**","/bundle.js", "/favicon.ico","/assets/**","/googleauth", "/hello").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
