@@ -38,7 +38,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
     throw new AnimalIdNotFoundException("There is no Animal with such ID");
   }
-
+  // kérdés vissza adja e?
   @Override
   public Set<Animal> findAll() {
     return animalRepository.findAllSet();

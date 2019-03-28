@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
-      List<Animal> findAllBy();
 
       default Set<Animal> findAllSet () {
         return new HashSet<>(findAll());
