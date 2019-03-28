@@ -1,5 +1,12 @@
 package com.greenfoxacademy.petpal.users.services;
 
+import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.exception.EmailTakenException;
+import com.greenfoxacademy.petpal.exception.UserNotFoundException;
+import com.greenfoxacademy.petpal.geocode.GeoCodeService;
+import com.greenfoxacademy.petpal.oauthSecurity.JwtTokenUtil;
+import com.greenfoxacademy.petpal.users.models.PrivateUser;
+import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,13 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import trialpetpal.demo.animal.models.Animal;
-import trialpetpal.demo.exception.EmailTakenException;
-import trialpetpal.demo.exception.UserNotFoundException;
-import trialpetpal.demo.geocode.GeoCodeService;
-import trialpetpal.demo.oauthSecurity.JwtTokenUtil;
-import trialpetpal.demo.users.models.PrivateUser;
-import trialpetpal.demo.users.repositories.MainUserRepository;
+
 
 import java.util.Arrays;
 import java.util.List;
