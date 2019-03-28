@@ -78,6 +78,7 @@ CREATE TABLE `animal`
 INSERT INTO animal (id,
                     owner_id,
                     adopter_id,
+                    animal_race,
                     name,
                     birth_date,
                     type,
@@ -85,11 +86,12 @@ INSERT INTO animal (id,
                     from_when_available,
                     spayed,
                     vaccinated,
-                    photo_path,
-                    animal_race)
+                    photo_path
+                  )
 VALUES (1,
         1,
         1,
+        'Dog',
         'Pinguee',
         '2010-02-04 03:00:00',
         'beagle',
@@ -97,11 +99,12 @@ VALUES (1,
         '2019-02-04 03:00:00',
         true,
         true,
-        'penguin.jpg',
-        'Dog'),
+        'penguin.jpg'
+        ),
        (2,
         1,
         1,
+        'Dog',
         'Doggo',
         '2012-10-04 03:00:00',
         'labrador',
@@ -109,11 +112,12 @@ VALUES (1,
         '2019-05-04 03:00:00',
         false,
         true,
-        'doggo.jpg',
-        'Dog'),
+        'doggo.jpg'
+        ),
        (3,
         1,
         1,
+        'Cat',
         'Grumpy',
         '2015-10-04 03:00:00',
         'persian',
@@ -121,8 +125,8 @@ VALUES (1,
         '2050-05-04 03:00:00',
         false,
         false,
-        'cat.jpg',
-        'Cat');
+        'cat.jpg'
+        );
 
 
 CREATE TABLE parent_users_liked_animals

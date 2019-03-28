@@ -46,7 +46,7 @@ public abstract class ParentUser {
   @JsonIgnore
   private Set<Animal> animalsOwnedByUser;
 
-  @ManyToMany(mappedBy = "parentUserLike", cascade = CascadeType.PERSIST)
+  @ManyToMany(mappedBy = "parentUserLike", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JsonIgnore
   private Set<Animal> animalsLikedByUser;
 

@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.*;
 public class AnimalController {
 
   private AnimalService animalService;
-  private ParentUserService userDetailsService;
+  private ParentUserService <ParentUser> userDetailsService;
 
   @Autowired
-  public AnimalController(AnimalService animalService, ParentUserService userDetailsService) {
+  public AnimalController(AnimalService animalService, ParentUserService <ParentUser> userDetailsService) {
     this.animalService = animalService;
     this.userDetailsService = userDetailsService;
   }
@@ -40,9 +40,10 @@ public class AnimalController {
   }
 
   @PostMapping("/pet/{id}/like")
-  public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws Throwable {
+  public ResponseEntity addToLike(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     userDetailsService.addAnimalToAnimalsLikedByUser(animalService.findById(id), parentUser);
+    System.out.println(animalService.findById(id));
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
