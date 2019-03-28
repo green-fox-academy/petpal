@@ -52,5 +52,4 @@ public class ErrorHandlingAdvice {
   ErrorMsg animalAlreadyAdopted(AnimalAlreadyAdoptedException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
-
 }

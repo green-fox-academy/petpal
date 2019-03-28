@@ -6,7 +6,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -21,7 +20,6 @@ public abstract class ParentUser {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @NotBlank
   private String name;
   @Email
   private String email;

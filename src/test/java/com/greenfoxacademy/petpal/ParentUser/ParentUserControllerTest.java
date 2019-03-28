@@ -19,35 +19,43 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class PrivateUserController {
-//not only for PrivateUser
+public class ParentUserControllerTest {
 
   @Autowired
   MockMvc mockMvc;
 
-  private String name = "testuser@gmail.com";
+  private String name = "testUser";
   private String password = "password";
-  private String email = "";
+  private String email = "testuser@gmail.com";
   private String error = "error";
-  private String jsonObject = "";
+  private String jsonObject;
   private String result = "";
 
+  public void perform() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(jsonObject))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+            .andExpect(content().json(result));
+  }
+
   @Test
-  public void registerUnsuccessfulMissingParameters() throws Exception {
+  public void register_missingParameters_returnsBadRequest() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint))
             .andExpect(status().isBadRequest());
   }
 
   @Test
-  public void registerWithNoEmail() throws Exception {
+  public void register_missingEmail_returnsBadRequest() throws Exception {
     jsonObject = new JSONObject()
             .put("name", name)
             .put("password", password)
+            .put("email", "")
             .toString();
 
     result = new JSONObject()
             .put("status", error)
-            .put("message", "Missing parameter(s): {username=must not be blank}")
+            .put("message", "Missing parameter(s): {email=must not be blank}")
             .toString();
 
     mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint)
@@ -68,12 +76,7 @@ public class PrivateUserController {
             .put("status", error)
             .put("message", "Missing parameter(s): {password=must not be blank}")
             .toString();
-    
-    mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(jsonObject))
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(content().json(result));
 
+    perform();
   }
 }
