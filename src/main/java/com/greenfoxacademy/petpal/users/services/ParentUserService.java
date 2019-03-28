@@ -2,23 +2,20 @@ package com.greenfoxacademy.petpal.users.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
+import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.oauthSecurity.UserContext;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
-<<<<<<
-
-<HEAD
-=======
-        >>>>>>>67a2a0453ce4506166841bf9ea225cbc897ce3da
 
 @Service(value = "userDetailsService")
 public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService {

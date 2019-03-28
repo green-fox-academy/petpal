@@ -18,16 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 
-<<<<<<
-
-<HEAD
-=======
-
-        >>>>>>>67a2a0453ce4506166841bf9ea225cbc897ce3da
-        <<<<<<
-
-<HEAD
-
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   @Autowired
