@@ -8,7 +8,7 @@ import RegisterCont from '../containers/register/RegisterCont';
 import '../stylesheets/landingpage.scss';
 import '../stylesheets/forms.scss';
 
-const Landingpage = ({ selectedForm, setSelectedForm, loginWithGoogle, history }) => {
+const Landingpage = ({ selectedForm, setSelectedForm }) => {
   const handleClick = event => {
     const { dataset } = event.target;
     if (dataset.action) {

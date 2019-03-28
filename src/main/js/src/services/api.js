@@ -1,6 +1,6 @@
 import uniFetch from './unifetch';
 
-export const loginRequest = data => uniFetch('/login/user', 'POST', null, { username: data.email, password: data.password });
+export const loginRequest = data => uniFetch('/login/user', 'POST', null, { email: data.email, password: data.password });
 
 export const registerRequest = data =>
   uniFetch('/register/user', 'POST', null, { name: data.name, email: data.email, password: data.password });
