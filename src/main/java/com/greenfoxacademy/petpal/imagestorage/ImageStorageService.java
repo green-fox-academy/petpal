@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 @Service
 public class ImageStorageService {
@@ -19,7 +20,7 @@ public class ImageStorageService {
   private final Path fileStorageLocation;
 
   @Autowired
-  public ImageStorageService(ImageStorageProperties imageStorageProperties) throws IOException, FileStorageException {
+  public ImageStorageService(ImageStorageProperties imageStorageProperties) throws FileStorageException {
     this.fileStorageLocation = Paths.get(imageStorageProperties.getUploadDir())
             .toAbsolutePath().normalize();
 
@@ -31,7 +32,7 @@ public class ImageStorageService {
   }
 
   public String storeFile(MultipartFile file) throws FileStorageException {
-    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
     try {
       if (fileName.contains("..")) {

@@ -36,7 +36,7 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
   @Override
   public String login(PrivateUser privateUser) throws UserNotFoundException {
     if (!isEmailInDB(privateUser)) {
-      throw new UserNotFoundException("No such user");
+      throw new UserNotFoundException();
     }
     return jwtTokenUtil.generateToken(privateUser);
   }

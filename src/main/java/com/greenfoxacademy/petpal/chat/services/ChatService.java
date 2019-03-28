@@ -29,7 +29,7 @@ public class ChatService {
 
   public Chat findById(Long id) throws ChatIdNotFoundException {
     return chatRepository.findById(id)
-            .orElseThrow(() -> new ChatIdNotFoundException(("There is no Chat with such ID")));
+            .orElseThrow(ChatIdNotFoundException::new);
   }
 
   public void saveChat(ChatMessage chatMessage, Long id, ParentUser parentUser) throws ChatIdNotFoundException {
