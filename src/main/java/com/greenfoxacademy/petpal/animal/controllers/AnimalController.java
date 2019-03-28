@@ -8,6 +8,8 @@ import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import com.greenfoxacademy.petpal.exception.InvalidTypeException;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
+import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +21,12 @@ import org.springframework.web.bind.annotation.*;
 public class AnimalController {
 
   private AnimalService animalService;
-  private PrivateUserService privateUserService;
+  private ParentUserService userDetailsService;
 
   @Autowired
-  public AnimalController(AnimalService animalService, PrivateUserService privateUserService) {
+  public AnimalController(AnimalService animalService, ParentUserService userDetailsService) {
     this.animalService = animalService;
-    this.privateUserService = privateUserService;
+    this.userDetailsService = userDetailsService;
   }
 
   @GetMapping("/home/pets")
@@ -39,21 +41,21 @@ public class AnimalController {
 
   @PostMapping("/pet/{id}/like")
   public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws Throwable {
-    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
-    privateUserService.addAnimalToAnimalsLikedByUser(animalService.findById(id), privateUser);
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
+    userDetailsService.addAnimalToAnimalsLikedByUser(animalService.findById(id), parentUser);
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
-    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
-    privateUserService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), privateUser);
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
+    userDetailsService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), parentUser);
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/pet")
   public ResponseEntity upload(@RequestBody AnimalDTO animalDTO, Authentication authentication) throws Throwable {
-    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
+    ParentUser privateUser = userDetailsService.getUserFromAuth(authentication);
     ModelMapper modelMapper = new ModelMapper();
     Animal animal;
     if (animalDTO.getType().equals("dog")) {
@@ -64,7 +66,7 @@ public class AnimalController {
       throw new InvalidTypeException("Invalid type");
     }
     animalService.save(animal);
-    privateUserService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
+    userDetailsService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
     return ResponseEntity.ok().build();
   }
 
@@ -77,22 +79,22 @@ public class AnimalController {
   }
 
   @DeleteMapping("/pet/{id}/owned")
-  public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Exception {
-    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
+  public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Throwable {
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    return ResponseEntity.ok(privateUser.getOwnedAnimalsByUser().remove(animal));
+    return ResponseEntity.ok(parentUser.getOwnedAnimalsByUser().remove(animal));
   }
 
   @DeleteMapping("/pet/{id}/like")
-  public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws Exception {
-    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
+  public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws Throwable {
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    return ResponseEntity.ok(privateUser.getAnimalsLikedByUser().remove(animal));
+    return ResponseEntity.ok(parentUser.getAnimalsLikedByUser().remove(animal));
   }
 
   @DeleteMapping("pet/{id}/adoptable")
-  public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws Exception {
-    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
+  public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
     //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
     return null;

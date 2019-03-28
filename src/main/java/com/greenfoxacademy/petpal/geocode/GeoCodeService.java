@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petpal.geocode;
 
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -11,9 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class GeoCodeService {
 
-  public GeoCode generateUserLocationFromAddress(SuperUser superUser) throws UnirestException {
+  public GeoCode generateUserLocationFromAddress(ParentUser parentUser) throws UnirestException {
     String prefix = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-    String address = superUser.getAddress();
+    String address = parentUser.getAddress();
     String suffix = "&key=" + System.getenv("GOOGLE_API_KEY");
     HttpResponse<JsonNode> response = Unirest.get(prefix + address + suffix).asJson();
 

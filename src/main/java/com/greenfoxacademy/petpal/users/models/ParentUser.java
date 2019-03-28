@@ -1,8 +1,8 @@
 package com.greenfoxacademy.petpal.users.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.greenfoxacademy.petpal.animal.models.Animal;
 import lombok.*;
-import trialpetpal.demo.animal.models.Animal;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
