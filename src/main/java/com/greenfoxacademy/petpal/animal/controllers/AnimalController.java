@@ -5,6 +5,7 @@ import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.animal.models.Cat;
 import com.greenfoxacademy.petpal.animal.models.Dog;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
+import com.greenfoxacademy.petpal.chat.services.ChatService;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import com.greenfoxacademy.petpal.exception.InvalidRaceException;
@@ -21,17 +22,20 @@ import org.springframework.web.bind.annotation.*;
 public class AnimalController {
 
   private AnimalService animalService;
-  private ParentUserService <ParentUser> userDetailsService;
+  private ChatService chatService;
+  private ParentUserService<ParentUser> userDetailsService;
 
   @Autowired
-  public AnimalController(AnimalService animalService, ParentUserService <ParentUser> userDetailsService) {
+  public AnimalController(AnimalService animalService, ParentUserService <ParentUser> userDetailsService ) {
     this.animalService = animalService;
     this.userDetailsService = userDetailsService;
+    this.chatService = chatService;
   }
 
   @GetMapping("/home/pets")
-  public ResponseEntity pets() {
-    return ResponseEntity.ok(animalService.findAll());
+  public ResponseEntity pets(Authentication authentication) throws Throwable {
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
+    return ResponseEntity.ok(userDetailsService.findAllAdoptableAnimals(parentUser));
   }
 
   @GetMapping("/pet/{id}")
@@ -42,8 +46,10 @@ public class AnimalController {
   @PostMapping("/pet/{id}/like")
   public ResponseEntity addToLike(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
-    userDetailsService.addAnimalToAnimalsLikedByUser(animalService.findById(id), parentUser);
-    System.out.println(animalService.findById(id));
+    Animal animal = animalService.findById(id);
+    System.out.println(parentUser.getId());
+    System.out.println(animal.getId());
+    userDetailsService.addAnimalToAnimalsLikedByUser(animal, parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
@@ -51,6 +57,7 @@ public class AnimalController {
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
+    chatService.createChat(parentUser, animalService.findById(id).getOwner(), animalService.findById(id));
 //    userDetailsService.addAnimalToAnimalsUnderAdoptionByUser((animalService.findById(id), parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
@@ -63,7 +70,6 @@ public class AnimalController {
     return ResponseEntity.ok().build();
   }
 
-  //PUT /pet/{id} -> ha elcseszted, javíthatod az állat adatait (edited)
   @PutMapping("/pet/{id}")
   public ResponseEntity change(@PathVariable Long id, Authentication authentication, Animal animal) throws AnimalIdNotFoundException, AnimalIsNullException {
     //TODO: modify an animal's details

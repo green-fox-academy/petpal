@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petpal.animal.services;
 
+import com.greenfoxacademy.petpal.animal.AnimalFactory;
 import com.greenfoxacademy.petpal.animal.AnimalType;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
@@ -54,6 +55,7 @@ public class AnimalServiceImpl implements AnimalService {
   public Animal uploadAnimal(AnimalDTO animalDTO) throws InvalidRaceException, AnimalIsNullException {
     ModelMapper modelMapper = new ModelMapper();
     Animal animal;
+
     if (animalDTO.getType().equals("Dog")) {
       animal = modelMapper.map(animalDTO, Dog.class);
     } else if (animalDTO.getType().equals("Cat")) {

@@ -2,11 +2,15 @@ package com.greenfoxacademy.petpal.users.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.chat.models.Chat;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,15 +34,9 @@ public abstract class ParentUser {
   @Column
   private String imageUrl;
 
-
-
-
 /*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinColumn(name = "geo_code_id")
   private GeoCode geoCode;*/
-  /*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "geo_code_id")
-    private GeoCode geoCode;*/
   private String address;
 //  TODO address fields
 
@@ -46,12 +44,16 @@ public abstract class ParentUser {
   @JsonIgnore
   private Set<Animal> animalsOwnedByUser;
 
-  @ManyToMany(mappedBy = "parentUserLike", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @ManyToMany(mappedBy = "parentUserLike", cascade = CascadeType.PERSIST)
   @JsonIgnore
+
   private Set<Animal> animalsLikedByUser;
 
   @OneToMany(mappedBy = "parentUserAdopt", cascade = CascadeType.PERSIST)
   @JsonIgnore
   private Set<Animal> animalsUnderAdoptionByUser;
 
+  @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private Set<Chat> chats;
 }
