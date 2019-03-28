@@ -1,0 +1,19 @@
+.chatmenuicon {
+  width: 6vh;
+  height: 6vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 3%;
+
+  & > i {
+    color: white;
+    font-size: 9vw;
+    transition: 0.1s;
+
+    &:active {
+      transform: scale(0.8);
+    }
+  }
+}

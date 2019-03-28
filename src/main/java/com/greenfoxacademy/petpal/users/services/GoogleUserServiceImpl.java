@@ -1,54 +1,61 @@
 package com.greenfoxacademy.petpal.users.services;
 
-
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Set;
 
-public class GoogleUserServiceImpl extends ParentUserService {
+<<<<<<<HEAD
 
-    @Override
-    public ParentUser login(ParentUser parentUser) {
-        return null;
-    }
+public class GoogleUserServiceImpl extends ParentUserService<GoogleUser> {
 
-    @Override
-    public ParentUser register(ParentUser parentUser) throws EmailTakenException, UnirestException {
-        return null;
-    }
+  @Autowired
+  private MainUserRepository userRepository;
 
-    @Override
-    public Set<Animal> animalsLikedByUser(ParentUser parentUser) {
-        return null;
-    }
+  @Autowired
+  private JwtTokenUtil jwtTokenUtil;
 
-    @Override
-    public Set<Animal> animalsToAdoptByUser(ParentUser parentUser) {
-        return null;
-    }
+  @Override
+  public String login(GoogleUser googleUser) {
+    userRepository.save(googleUser);
+    return jwtTokenUtil.generateToken(googleUser);
+  }
 
-    @Override
-    public void addAnimalToAnimalsLikedByUser(Animal animal, ParentUser parentUser) {
+  @Override
+  public GoogleUser register(GoogleUser googleUser) throws EmailTakenException, UnirestException {
+    return null;
+  }
 
-    }
+  @Override
+  public Set<Animal> animalsLikedByUser(GoogleUser googleUser) {
+    return null;
+  }
 
-    @Override
-    public void addAnimalToAnimalsToAdoptByUser(Animal animal, ParentUser parentUser) {
+  @Override
+  public Set<Animal> animalsToAdoptByUser(GoogleUser googleUser) {
+    return null;
+  }
 
-    }
+  @Override
+  public void addAnimalToAnimalsLikedByUser(Animal animal, GoogleUser googleUser) {
 
-    @Override
-    public void addAnimalToAnimalsOwnedByUser(Animal animal, ParentUser parentUser) {
+  }
 
-    }
+  @Override
+  public void addAnimalToAnimalsToAdoptByUser(Animal animal, GoogleUser googleUser) {
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
+  }
+
+  @Override
+  public void addAnimalToAnimalsOwnedByUser(Animal animal, GoogleUser googleUser) {
+
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return null;
+  }
 }

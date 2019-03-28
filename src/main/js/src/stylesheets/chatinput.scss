@@ -1,0 +1,52 @@
+$darkblue: rgb(38, 38, 102);
+$bgColor: #643a94;
+
+.chatinput {
+  width: 100%;
+  height: 15%;
+  border-top: 2px solid $bgColor;
+
+  & > form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    & > textarea {
+      width: 70%;
+      height: 85%;
+      padding: 1vh;
+      font-family: inherit;
+      resize: none;
+      font-size: 4vw;
+      outline: none;
+      border:2px solid $bgColor;
+      border-radius: 20px;
+
+      &::placeholder {
+        font-family: inherit;
+      }
+    }
+
+    & > button {
+      width: 22%;
+      height: 50%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      outline: none;
+      border: none;
+      color: white;
+      font-size: 5vw;
+      font-family: inherit;
+      background-color: $bgColor;
+      transition: 0.1s;
+      border-radius: 12px;
+
+      &:active {
+        transform: scale(0.8);
+      }
+    }
+  }
+}

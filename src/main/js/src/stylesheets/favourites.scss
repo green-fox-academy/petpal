@@ -26,12 +26,15 @@ $bgColor: #643a94;
 
       &:first-child {
         border-radius: 20px 0px 0px 20px;
+      }
+
+      &:nth-child(2) {
+        border-left: none;
         border-right: none;
       }
 
       &:last-child {
         border-radius: 0px 20px 20px 0px;
-        border-left: none;
       }
     }
 
@@ -42,10 +45,8 @@ $bgColor: #643a94;
   }
 
   .selectedfavtab {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 90%;
     width: 100%;
+    padding: 2vh;
   }
 }

@@ -2,7 +2,6 @@ package com.greenfoxacademy.petpal.users.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.animal.models.Animal;
-import com.greenfoxacademy.petpal.geocode.GeoCode;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,10 +18,6 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class ParentUser {
 
-  public ParentUser(@NotBlank String name) {
-    this.name = name;
-  }
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -34,10 +29,9 @@ public abstract class ParentUser {
   @Column
   private String imageUrl;
 
-
-  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  @JoinColumn(name = "geo_code_id")
-  private GeoCode geoCode;
+  /*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "geo_code_id")
+    private GeoCode geoCode;*/
   private String address;
 //  TODO address fields
 

@@ -5,7 +5,7 @@ const AddPetForm = ({ onSubmit, onChange, currentPhoto, animMessage, onBlur }) =
     <form onSubmit={onSubmit}>
       {animMessage ? <h3>{animMessage}</h3> : null}
       <input type="text" name="animname" placeholder="your animal's name..." onBlur={onBlur} />
-      <input type="text" name="animbirth" placeholder="birth date... e.g.:2018.10.24." />
+      <input type="text" name="animbirth" placeholder="birth date... e.g.:2018-10-24" />
       <select name="animtype">
         <option value="dog">dog</option>
         <option value="cat">cat</option>
@@ -47,7 +47,7 @@ const AddPetForm = ({ onSubmit, onChange, currentPhoto, animMessage, onBlur }) =
           </span>
         )}
       </label>
-      <input type="file" name="animfile" id="animfile" onChange={onChange} />
+      <input type="file" name="animfile" id="animfile" onChange={onChange} accept="image/jpg, image/jpeg, image/png, image/gif" />
       <button className="button" type="submit">
         submit
       </button>

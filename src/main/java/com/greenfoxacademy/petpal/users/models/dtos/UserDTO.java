@@ -1,4 +1,4 @@
-package com.greenfoxacademy.petpal.users.models;
+package com.greenfoxacademy.petpal.users.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -14,7 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 public abstract class Animal {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

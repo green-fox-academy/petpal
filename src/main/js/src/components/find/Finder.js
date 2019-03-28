@@ -42,7 +42,7 @@ const Finder = ({ listAnimalsRequest, queuedAnimal, listNextAnimalFromRedux, ani
         </h2>
         <h2>
           {'birthday: '}
-          {queuedAnimal.birthDate}
+          {new Date(queuedAnimal.birthDate).toLocaleDateString('de-DE', { month: 'short', day: '2-digit', year: 'numeric' })}
         </h2>
         <div>
           <button type="button" onClick={listNext}>

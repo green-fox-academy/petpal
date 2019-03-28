@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,46 +18,54 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static com.greenfoxacademy.petpal.oauthSecurity.Constants.TOKEN_PARAM;
+<<<<<<
 
+<HEAD
+=======
+
+        >>>>>>>67a2a0453ce4506166841bf9ea225cbc897ce3da
+        <<<<<<
+
+<HEAD
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private ParentUserService userDetailsService;
+  @Autowired
+  private ParentUserService userDetailsService;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+  @Autowired
+  private JwtTokenUtil jwtTokenUtil;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        String token = req.getParameter(TOKEN_PARAM);
-        String username = null;
-        if (token != null) {
-            try {
-                username = jwtTokenUtil.getUsernameFromToken(token);
-            } catch (IllegalArgumentException e) {
-                logger.error("an error occured during getting name from token", e);
-            } catch (ExpiredJwtException e) {
-                logger.warn("the token is expired and not valid anymore", e);
-            } catch(SignatureException e){
-                logger.error("Authentication Failed. Username or Password not valid.");
-            }
-        } else {
-            logger.warn("couldn't find bearer string, will ignore the header");
-        }
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-            if (jwtTokenUtil.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
-                logger.info("authenticated user " + username + ", setting security context");
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-        }
-
-        chain.doFilter(req, res);
+  @Override
+  protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+    String token = req.getHeader("Authorization");
+    String username = null;
+    if (token != null) {
+      token = token.split(" ")[1];
+      try {
+        username = jwtTokenUtil.getUsernameFromToken(token);
+      } catch (IllegalArgumentException e) {
+        logger.error("an error occured during getting name from token", e);
+      } catch (ExpiredJwtException e) {
+        logger.warn("the token is expired and not valid anymore", e);
+      } catch (SignatureException e) {
+        logger.error("Authentication Failed. Username or Password not valid.");
+      }
+    } else {
+      logger.warn("couldn't find bearer string, will ignore the header");
     }
+    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+      UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+      if (jwtTokenUtil.validateToken(token, userDetails)) {
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
+        logger.info("authenticated user " + username + ", setting security context");
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+      }
+    }
+
+    chain.doFilter(req, res);
+  }
 }

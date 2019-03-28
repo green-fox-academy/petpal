@@ -2,8 +2,9 @@ package com.greenfoxacademy.petpal.users.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.exception.EmailTakenException;
-import com.greenfoxacademy.petpal.geocode.GeoCode;
+import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
+import com.greenfoxacademy.petpal.oauthSecurity.JwtTokenUtil;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -15,7 +16,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
@@ -26,19 +29,23 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
   private GeoCodeService locationService;
   @Autowired
   private MainUserRepository mainUserRepository;
+  @Autowired
+  private JwtTokenUtil jwtTokenUtil;
 
   @Override
-  public PrivateUser login(PrivateUser privateUser) {
-    return null;
+  public String login(PrivateUser privateUser) throws UserNotFoundException {
+    if (!isEmailInDB(privateUser)) {
+      throw new UserNotFoundException("No such user");
+    }
+    return jwtTokenUtil.generateToken(privateUser);
   }
 
   @Override
   public PrivateUser register(PrivateUser privateUser) throws EmailTakenException, UnirestException {
-
-    if (!isUserInDB(privateUser)) {
+    if (!isEmailInDB(privateUser)) {
       privateUser.setPassword(encoder.encode(privateUser.getPassword()));
-      GeoCode geoCode = locationService.generateUserLocationFromAddress(privateUser);
-      privateUser.setGeoCode(geoCode);
+      //   GeoCode geoCode = locationService.generateUserLocationFromAddress(privateUser);
+      //  privateUser.setGeoCode(geoCode);
       return saveUser(privateUser);
     }
     throw new EmailTakenException("Email address already taken, please choose an other one or sign in.");
@@ -72,8 +79,6 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
 
   }
 
-
-
   private List<SimpleGrantedAuthority> getAuthority() {
     return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
   }
@@ -81,12 +86,12 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     PrivateUser user = (PrivateUser) mainUserRepository.findByEmail(username);
-      if (user == null) {
-        throw new UsernameNotFoundException("Invalid username or password.");
-      }
-      return new User(user.getEmail(), user.getPassword(), getAuthority());
+    if (user == null) {
+      throw new UsernameNotFoundException("Invalid username or password.");
     }
- }
+    return new User(user.getEmail(), user.getPassword(), getAuthority());
+  }
+}
 
 /*
   @Override

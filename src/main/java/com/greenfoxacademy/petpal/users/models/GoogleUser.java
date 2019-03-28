@@ -21,5 +21,5 @@ public class GoogleUser extends ParentUser {
     @OneToMany(mappedBy = "parentUser", cascade = CascadeType.PERSIST)
     @JsonIgnore
     private Set<Animal> animalsToAdoptByUser;*/
-//TODO: ask Eniko if we need this
+
 }

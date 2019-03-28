@@ -1,0 +1,73 @@
+$bgColor: #643a94;
+$rmvbtn: rgb(129, 8, 8);
+$darkPurple: #401c69;
+
+.favanims {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+
+  & > li {
+    width: 100%;
+    height: 10vh;
+
+    & > ul {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-bottom: 2px solid $darkPurple;
+
+      & > li {
+        width: 9vh;
+        height: 9vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        font-weight: bold;
+
+        & > button {
+          width: 80%;
+          height: 60%;
+          outline: none;
+          border: none;
+          border: 2px solid $darkPurple;
+          background-color: white;
+          border-radius: 30px;
+          color: $darkPurple;
+          font-size: 5.5vw;
+          transition: 0.1s;
+
+          &:active {
+            transform: scale(0.8);
+          }
+        }
+
+        .removebtn {
+          color: $rmvbtn;
+          border-color: $rmvbtn;
+
+          & > i {
+            font-size: 6.5vw;
+          }
+        }
+
+        & > img {
+          width: 80%;
+          height: 80%;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    &:last-of-type > ul {
+      border-bottom: none;
+    }
+  }
+}

@@ -16,17 +16,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 public class AnimalController {
 
   private AnimalService animalService;
-  private ParentUserService parentUserService;
+  private ParentUserService userDetailsService;
 
   @Autowired
-  public AnimalController(AnimalService animalService, ParentUserService parentUserService) {
-    //TODO: fix DI here
+  public AnimalController(AnimalService animalService, ParentUserService userDetailsService) {
     this.animalService = animalService;
-    this.parentUserService = parentUserService;
+    this.userDetailsService = userDetailsService;
   }
 
   @GetMapping("/home/pets")
@@ -41,23 +41,23 @@ public class AnimalController {
 
   @PostMapping("/pet/{id}/like")
   public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws Throwable {
-    ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
-    parentUserService.addAnimalToAnimalsLikedByUser(animalService.findById(id), parentUser);
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
+    userDetailsService.addAnimalToAnimalsLikedByUser(animalService.findById(id), parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
-    ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
-    parentUserService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), parentUser);
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
+    userDetailsService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/pet")
   public ResponseEntity upload(@RequestBody AnimalDTO animalDTO, Authentication authentication) throws Throwable {
-    ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     ModelMapper modelMapper = new ModelMapper();
     Animal animal;
     if (animalDTO.getType().equals("dog")) {
@@ -67,8 +67,9 @@ public class AnimalController {
     } else {
       throw new InvalidTypeException("Invalid type");
     }
+    animalService.save(animal);
+    userDetailsService.addAnimalToAnimalsOwnedByUser(animal, parentUser);
     //TODO: remove business logic from controller
-    parentUserService.addAnimalToAnimalsOwnedByUser(animal, parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
@@ -83,22 +84,22 @@ public class AnimalController {
 
   @DeleteMapping("/pet/{id}/owned")
   public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Throwable {
-    ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
     return ResponseEntity.ok(parentUser.getOwnedAnimalsByUser().remove(animal));
   }
 
   @DeleteMapping("/pet/{id}/like")
   public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws Throwable {
-    ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
     //TODO: implement
-    return null;
+    return ResponseEntity.ok(parentUser.getAnimalsLikedByUser().remove(animal));
   }
 
   @DeleteMapping("pet/{id}/adoptable")
   public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
-    ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
     //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
     //TODO: implement

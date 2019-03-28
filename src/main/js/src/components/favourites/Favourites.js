@@ -6,6 +6,7 @@ import LikedAnimals from './LikedAnimals';
 import AdoptedAnimals from './AdoptedAnimals';
 import OwnedAnimals from './OwnedAnimals';
 import '../../stylesheets/favourites.scss';
+import '../../stylesheets/favanimals.scss';
 
 const Favourites = ({ match, history, currentFavTab, selectFavTab }) => {
   const handleClick = event => {

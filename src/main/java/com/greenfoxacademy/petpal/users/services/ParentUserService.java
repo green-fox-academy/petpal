@@ -2,21 +2,23 @@ package com.greenfoxacademy.petpal.users.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
-import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.oauthSecurity.UserContext;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+
+<<<<<<
+
+<HEAD
+=======
+        >>>>>>>67a2a0453ce4506166841bf9ea225cbc897ce3da
 
 @Service(value = "userDetailsService")
 public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService {
@@ -30,7 +32,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
 
   public T findByEmail(String email) throws Throwable {
     //TODO: set default message in the constructor of the exception class
-    if(mainUserRepository.findByEmail(email) == null){
+    if (mainUserRepository.findByEmail(email) == null) {
       throw new UsernameNotFoundException("There is no User with such email");
     }
     return (T) mainUserRepository.findByEmail(email);
@@ -54,21 +56,24 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return t == null;
   }
 
-  public boolean isUserInDB(T t){
+/*  public boolean isUserInDB(T t){
     return mainUserRepository.existsById(t.getId());
-  }
+  }*/
 
+  public boolean isEmailInDB(T t) {
+    return mainUserRepository.existsByEmail(t.getEmail());
+  }
 
   public T getUserFromAuth(Authentication authentication) throws Throwable {
     UserContext userContext = (UserContext) authentication.getPrincipal();
     return findByEmail(userContext.getEmail());
   }
 
-  public Set<Animal> animalsOwnedByUser(T t){
+  public Set<Animal> animalsOwnedByUser(T t) {
     return t.getOwnedAnimalsByUser();
   }
 
-  public abstract T login(T t);
+  public abstract String login(T t) throws UserNotFoundException;
 
   public abstract T register(T t) throws EmailTakenException, UnirestException;
 

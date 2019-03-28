@@ -21,9 +21,7 @@ CREATE TABLE `parent_user`
   `phone_number` varchar(255) DEFAULT NULL,
   `image_url`    varchar(255) DEFAULT NULL,
   `address`      varchar(255),
-  `geo_code_id`  bigint(20)   DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT geo_code_id FOREIGN KEY (`id`) REFERENCES `geo_code` (`id`)
+  PRIMARY KEY (`id`)
 
 );
 
@@ -31,7 +29,7 @@ CREATE TABLE `parent_user`
 -- testUser2 password: pass2
 -- testUser3 password: pass3
 
-INSERT INTO parent_user (id, name, password, email, phone_number, image_url, address, geo_code_id, user_type)
+INSERT INTO parent_user (id, name, password, email, phone_number, image_url, address, user_type)
 VALUES (1,
         'test1',
         '$2a$10$3A7YK9hDUpHN4plBoCphYOzk426CebJwnaFMk0kN4qEXoWUTiwejC',
@@ -39,7 +37,6 @@ VALUES (1,
         '5353',
         'imageUrl',
         'Budapest, Szép u. 2, 1053',
-        1,
         'PrivateUser'),
        (2,
         'test2',
@@ -48,7 +45,6 @@ VALUES (1,
         '5555',
         'imageUrl',
         'Gitega, Burundi',
-        2,
         'PrivateUser'),
        (3,
         'test3',
@@ -58,7 +54,6 @@ VALUES (1,
         'imageUrl',
         'google'
         '1042',
-        3,
         'PrivateUser');
 
 CREATE TABLE `animal`
@@ -102,32 +97,10 @@ VALUES (1,
         '2019-02-04 03:00:00',
         true,
         true,
-        '$HOME/assets/images/penguee.jpg',
+        'penguin.jpg',
         'Dog'),
-       (2,
-        1,
-        1,
-        'Doggo',
-        '2012-10-04 03:00:00',
-        'dog',
-        'male',
-        '2019-05-04 03:00:00',
-        false,
-        true,
-        '$HOME/assets/images/doggo.jpg',
-        'Dog'),
-       (3,
-        1,
-        1,
-        'Grumpy',
-        '2015-10-04 03:00:00',
-        'cat',
-        'male',
-        '2050-05-04 03:00:00',
-        false,
-        false,
-        '$HOME/assets/images/grumpycat.jpg',
-        'Cat');
+       (2, 1, 1, 'Doggo', '2012-10-04 03:00:00', 'dog', 'male', '2019-05-04 03:00:00', false, true, 'doggo.jpg', 'Dog'),
+       (3, 1, 1, 'Grumpy', '2015-10-04 03:00:00', 'cat', 'male', '2050-05-04 03:00:00', false, false, 'cat.jpg', 'Cat');
 
 
 CREATE TABLE parent_users_liked_animals

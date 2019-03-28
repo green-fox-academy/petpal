@@ -2,17 +2,17 @@ $bcColor: #643a94;
 
 .sidebar {
   position: fixed;
-  top: 8vh;
   width: 100vw;
   background-color: $bcColor;
   z-index: 100;
-  height: calc(100vh - 8vh);
-  transition: 0.5s;
+  height: 92vh;
+  transition: 0.45s;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   padding-top: 5vh;
+  transform: translateX(-100%);
 
   button {
     width: 80%;
@@ -35,6 +35,10 @@ $bcColor: #643a94;
       transform: scale(0.8);
     }
   }
+}
+
+.activesidebar {
+  transform: translateX(0%);
 }
 
 @media screen and (min-width: 1024px) {

@@ -8,16 +8,12 @@ import RegisterCont from '../containers/register/RegisterCont';
 import '../stylesheets/landingpage.scss';
 import '../stylesheets/forms.scss';
 
-const Landingpage = ({ selectedForm, setSelectedForm, loginWithGoogle }) => {
+const Landingpage = ({ selectedForm, setSelectedForm }) => {
   const handleClick = event => {
     const { dataset } = event.target;
     if (dataset.action) {
       setSelectedForm(dataset.action);
     }
-  };
-
-  const handleGoogleLogin = () => {
-    loginWithGoogle();
   };
 
   return (
@@ -39,10 +35,10 @@ const Landingpage = ({ selectedForm, setSelectedForm, loginWithGoogle }) => {
           </div>
           <div className="googleconnect">
             <p>or</p>
-            <button type="button" className="googlesigninbtn" onClick={handleGoogleLogin}>
+            <a href="https://petpalgf.herokuapp.com/oauth2/authorize/google" className="googlesigninbtn">
               <i className="fab fa-google-plus-g" />
               <span>connect with Google</span>
-            </button>
+            </a>
           </div>
         </div>
       </MainContent>

@@ -24,6 +24,11 @@ export const toggleHamburgerIcon = bool => ({
   payload: bool,
 });
 
+export const toggleChatMenu = bool => ({
+  type: actions.TOGGLE_CHAT_MENU,
+  payload: bool,
+});
+
 export const loginWithGoogle = () => ({
   type: actions.GOOGLE_SIGN_IN,
 });
