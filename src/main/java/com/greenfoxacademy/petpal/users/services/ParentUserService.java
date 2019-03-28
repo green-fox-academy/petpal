@@ -129,7 +129,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
       throw new ExceedMaxNumberOfAnimalsToAdoptException();
     }
     if (isAnimalOwnedByUser(animal, t)) {
-      throw new OwnedAnimalCannotBeAdoptedException("You cannot adopt your own animal");
+      throw new OwnedAnimalCannotBeAdoptedException();
     }
     Set<Animal> animalsUnderAdoptionByUser = t.getAnimalsUnderAdoptionByUser();
     animalsUnderAdoptionByUser.add(animal);
@@ -174,7 +174,10 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     saveUser(t);
   }
 
-  public void removeAnimalFromAnimalsOwnedByUser(Animal animal, T t) throws AnimalIdNotFoundException {
+  public void removeAnimalFromAnimalsOwnedByUser(Animal animal, T t) throws AnimalIdNotFoundException, NotOwnedAnimalDeleteException {
+    if (!isAnimalOwnedByUser(animal, t)) {
+      throw new NotOwnedAnimalDeleteException();
+    }
     Set<Animal> animalsOwnedByUser = t.getAnimalsOwnedByUser();
     animalsOwnedByUser.remove(animal);
     t.setAnimalsOwnedByUser(animalsOwnedByUser);

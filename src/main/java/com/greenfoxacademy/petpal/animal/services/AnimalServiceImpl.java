@@ -36,7 +36,7 @@ public class AnimalServiceImpl implements AnimalService {
   public void remove(Animal animal) throws AnimalIdNotFoundException {
     if (animalRepository.existsById(animal.getId())) {
       animalRepository.deleteById(animal.getId());
-    }
+    } else
     throw new AnimalIdNotFoundException();
   }
 
