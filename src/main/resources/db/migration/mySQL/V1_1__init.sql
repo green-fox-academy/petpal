@@ -70,7 +70,7 @@ CREATE TABLE `animal`
   `photo_path`          varchar(255) DEFAULT NULL,
   `spayed`              bit          DEFAULT 0,
   `vaccinated`          bit          DEFAULT 0,
-  `adopted`             bit          DEFAULT 0,
+  `under_adoption`             bit          DEFAULT 0,
   CONSTRAINT parent_user_id FOREIGN KEY (`id`) REFERENCES `parent_user` (`id`),
   PRIMARY KEY (`id`)
 );
