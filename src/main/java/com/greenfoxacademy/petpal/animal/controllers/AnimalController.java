@@ -7,7 +7,7 @@ import com.greenfoxacademy.petpal.animal.models.Dog;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
-import com.greenfoxacademy.petpal.exception.InvalidTypeException;
+import com.greenfoxacademy.petpal.exception.InvalidRaceException;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import org.modelmapper.ModelMapper;
@@ -56,17 +56,7 @@ public class AnimalController {
   @PostMapping("/pet")
   public ResponseEntity upload(@RequestBody AnimalDTO animalDTO, Authentication authentication) throws Throwable {
     ParentUser privateUser = userDetailsService.getUserFromAuth(authentication);
-    ModelMapper modelMapper = new ModelMapper();
-    Animal animal;
-    if (animalDTO.getAnimalRace().equals("dog")) {
-      animal = modelMapper.map(animalDTO, Dog.class);
-    } else if (animalDTO.getAnimalRace().equals("cat")) {
-      animal = modelMapper.map(animalDTO, Cat.class);
-    } else {
-      throw new InvalidTypeException("Invalid animalRace");
-    }
-    animalService.save(animal);
-    userDetailsService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
+    userDetailsService.addAnimalToAnimalsOwnedByUser(animalService.uploadAnimal(animalDTO), privateUser);
     return ResponseEntity.ok().build();
   }
 

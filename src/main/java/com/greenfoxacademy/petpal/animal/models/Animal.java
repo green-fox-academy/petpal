@@ -19,8 +19,8 @@ public abstract class Animal {
   private Long id;
   private String name;
   private Timestamp birthDate;
-  private String animalRace;
   private String animalType;
+  private String animalRace;
   private String gender;
   private Timestamp fromWhenAvailable;
   private String photoPath;
