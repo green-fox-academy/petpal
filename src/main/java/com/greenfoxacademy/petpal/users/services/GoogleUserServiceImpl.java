@@ -1,6 +1,5 @@
 package com.greenfoxacademy.petpal.users.services;
 
-import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.oauthSecurity.JwtTokenUtil;
 import com.greenfoxacademy.petpal.users.models.GoogleUser;

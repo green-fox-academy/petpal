@@ -13,4 +13,5 @@ import javax.persistence.Entity;
 @Setter
 @AllArgsConstructor
 public class GoogleUser extends ParentUser {
+
 }

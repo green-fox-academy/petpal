@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petpal.users.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 public class Organisation extends ParentUser {
 
     @NotBlank
+    @JsonIgnore
     private String password;
 
 }

@@ -16,6 +16,7 @@ import java.util.Set;
 
 @Service
 public class ChatService {
+
   private ChatRepository chatRepository;
   private MessageService messageService;
   private ParentUserService parentUserService;
