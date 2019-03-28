@@ -37,7 +37,7 @@ public class AnimalServiceImpl implements AnimalService {
     if (animalRepository.existsById(animal.getId())) {
       animalRepository.deleteById(animal.getId());
     } else
-    throw new AnimalIdNotFoundException();
+      throw new AnimalIdNotFoundException();
   }
 
   // kérdés vissza adja e?
@@ -55,15 +55,12 @@ public class AnimalServiceImpl implements AnimalService {
   @Override
   public Animal uploadAnimal(AnimalDTO animalDTO) throws InvalidRaceException, AnimalIsNullException {
     ModelMapper modelMapper = new ModelMapper();
-
-    if ((animalDTO.getType().equalsIgnoreCase("dog")) || (animalDTO.getType().equalsIgnoreCase("cat"))) {
-//      Animal animal = AnimalFactory.create(AnimalType.valueOf(animalDTO.getType()));
+    if (animalDTO.getType().equalsIgnoreCase("dog")) {
       Animal animal = modelMapper.map(animalDTO, Dog.class);
       return animal;
-//    } else if (animalDTO.getType().equals("Cat")) {
-//      Animal animal = new Cat();
-//      animal = modelMapper.map(animalDTO, Cat.class);
-//      return save(animal);
+    } else if (animalDTO.getType().equalsIgnoreCase("cat")) {
+      Animal animal = modelMapper.map(animalDTO, Cat.class);
+      return animal;
     } else {
       throw new InvalidRaceException();
     }
