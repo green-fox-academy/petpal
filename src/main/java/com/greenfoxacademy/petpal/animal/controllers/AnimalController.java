@@ -23,11 +23,11 @@ public class AnimalController {
 
   private AnimalService animalService;
   private ChatService chatService;
-  private ParentUserService<ParentUser> userDetailsService;
+  private ParentUserService userDetailsService;
 
   @Autowired
 
-  public AnimalController(AnimalService animalService, ParentUserService<ParentUser> userDetailsService) {
+  public AnimalController(AnimalService animalService, ParentUserService userDetailsService, ChatService chatService) {
     this.animalService = animalService;
     this.userDetailsService = userDetailsService;
     this.chatService = chatService;
