@@ -74,7 +74,8 @@ public class AnimalController {
   public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-
+    userDetailsService.SolMethodja(animal,parentUser);
+    animalService.remove(animalService.findById(id));
     return ResponseEntity.ok(parentUser.getOwnedAnimalsByUser().remove(animal));
   }
 

@@ -12,7 +12,7 @@ public interface AnimalService {
 
   Animal save(Animal animal) throws AnimalIsNullException;
 
-  void remove(Long id) throws AnimalIdNotFoundException;
+  void remove(Animal animal) throws AnimalIdNotFoundException;
 
   Set<Animal> findAll();
 

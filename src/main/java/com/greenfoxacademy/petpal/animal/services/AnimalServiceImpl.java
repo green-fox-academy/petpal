@@ -32,9 +32,9 @@ public class AnimalServiceImpl implements AnimalService {
   }
 
   @Override
-  public void remove(Long id) throws AnimalIdNotFoundException {
-    if (animalRepository.existsById(id)) {
-      animalRepository.deleteById(id);
+  public void remove(Animal animal) throws AnimalIdNotFoundException {
+    if (animalRepository.existsById(animal.getId())) {
+      animalRepository.deleteById(animal.getId());
     }
     throw new AnimalIdNotFoundException("There is no Animal with such ID");
   }
