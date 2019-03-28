@@ -2,9 +2,9 @@ package com.greenfoxacademy.petpal.users.models;
 
 import com.greenfoxacademy.petpal.Factory;
 
-public class ParentUserFactory implements Factory<ParentUser, UserType> {
+public class ParentUserFactory {
 
-  public ParentUser create(UserType userType) {
+  public static ParentUser create(UserType userType) {
     return userType.createUser();
   }
 }
