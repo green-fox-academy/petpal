@@ -50,7 +50,7 @@ public class AnimalController {
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
-    userDetailsService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), parentUser);
+//    userDetailsService.addAnimalToAnimalsUnderAdoptionByUser((animalService.findById(id), parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
