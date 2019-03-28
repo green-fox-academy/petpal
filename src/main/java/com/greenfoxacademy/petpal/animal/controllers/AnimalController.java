@@ -5,6 +5,7 @@ import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.animal.models.Cat;
 import com.greenfoxacademy.petpal.animal.models.Dog;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
+import com.greenfoxacademy.petpal.chat.services.ChatService;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import com.greenfoxacademy.petpal.exception.InvalidTypeException;
@@ -22,11 +23,13 @@ public class AnimalController {
 
   private AnimalService animalService;
   private ParentUserService userDetailsService;
+  private ChatService chatService;
 
   @Autowired
-  public AnimalController(AnimalService animalService, ParentUserService userDetailsService) {
+  public AnimalController(AnimalService animalService, ParentUserService userDetailsService, ChatService chatService) {
     this.animalService = animalService;
     this.userDetailsService = userDetailsService;
+    this.chatService = chatService;
   }
 
   @GetMapping("/home/pets")
@@ -50,6 +53,7 @@ public class AnimalController {
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     userDetailsService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), parentUser);
+    chatService.createChat(parentUser, animalService.findById(id).getOwner(), animalService.findById(id));
     return ResponseEntity.ok().build();
   }
 
@@ -70,7 +74,6 @@ public class AnimalController {
     return ResponseEntity.ok().build();
   }
 
-  //PUT /pet/{id} -> ha elcseszted, javíthatod az állat adatait (edited)
   @PutMapping("/pet/{id}")
   public ResponseEntity change(@PathVariable Long id, Authentication authentication, Animal animal) throws AnimalIdNotFoundException, AnimalIsNullException {
     //TODO: modify an animal's details
