@@ -5,7 +5,6 @@ import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
-import com.greenfoxacademy.petpal.oauthSecurity.UserContext;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -40,8 +39,6 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return (T) mainUserRepository.findById(id)
             .orElseThrow(() -> new UserNotFoundException(("There is no User with such ID")));
   }
-
-
 
   public T saveUser(T t) {
     return (T) mainUserRepository.save(t);
