@@ -5,6 +5,7 @@ import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FilterService {
@@ -17,7 +18,7 @@ public class FilterService {
   }
 
   public List<Animal> filterAnimals(AnimalFilter animalFilter) {
-    List<Animal> animals = animalService.findAll();
+    Set<Animal> animals = animalService.findAll();
 
     return animals.stream()
             .filter(a -> a.getBirthDate().after(animalFilter.getBirthDateMin()))

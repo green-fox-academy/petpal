@@ -23,5 +23,5 @@ public class GeoCode {
 
 /*  @OneToOne(mappedBy = "geoCode", cascade = CascadeType.PERSIST)
   @JsonIgnore
-  private ParentUser parentUser;*/
+  private ParentUser parentUserLike;*/
 }

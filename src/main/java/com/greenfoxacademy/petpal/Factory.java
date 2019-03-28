@@ -1,6 +1,6 @@
 package com.greenfoxacademy.petpal;
 
-public interface AbstractFactory<T, U extends Enum> {
+public interface Factory<T, U extends Enum> {
 
   T create(U type);
 

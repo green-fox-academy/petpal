@@ -1,5 +1,7 @@
 package com.greenfoxacademy.petpal.animal.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.greenfoxacademy.petpal.chat.models.Chat;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "animal_type")
+@DiscriminatorColumn(name = "animal_race")
 @Getter
 @Setter
 public abstract class Animal {
@@ -20,13 +22,14 @@ public abstract class Animal {
   private String name;
   private Timestamp birthDate;
   private String type;
+ // private String animalRace;
   private String gender;
   private Timestamp fromWhenAvailable;
   //TODO: replace
   private String photoPath;
   private Boolean spayed;
   private Boolean vaccinated;
-  private Boolean adopted;
+  private Boolean underAdoption;
 
   @ManyToMany
   @JoinTable(
@@ -35,7 +38,7 @@ public abstract class Animal {
                   name = "animal_id", referencedColumnName = "id"),
           inverseJoinColumns = @JoinColumn(
                   name = "parent_user_id", referencedColumnName = "id"))
-  private Set<ParentUser> parentUser;
+  private Set<ParentUser> parentUserLike;
 
   @ManyToOne
   @JoinColumn(name = "adopter_id", referencedColumnName = "id")
@@ -48,4 +51,8 @@ public abstract class Animal {
   protected Long getAge() {
     return 0L;
   }
+
+  @OneToOne(mappedBy = "animal", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private Chat chat;
 }
