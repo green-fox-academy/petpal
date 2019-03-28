@@ -1,7 +1,5 @@
 package com.greenfoxacademy.petpal.animal.services;
 
-import com.greenfoxacademy.petpal.animal.AnimalFactory;
-import com.greenfoxacademy.petpal.animal.AnimalType;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.animal.models.Cat;
@@ -14,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.Set;
 
 @Service
@@ -36,8 +35,9 @@ public class AnimalServiceImpl implements AnimalService {
   public void remove(Animal animal) throws AnimalIdNotFoundException {
     if (animalRepository.existsById(animal.getId())) {
       animalRepository.deleteById(animal.getId());
-    } else
+    } else {
       throw new AnimalIdNotFoundException();
+    }
   }
 
   // kérdés vissza adja e?
@@ -64,7 +64,17 @@ public class AnimalServiceImpl implements AnimalService {
     } else {
       throw new InvalidRaceException();
     }
-    //TODO: reflection
+
+  }
+
+    public Animal uploadAnimalWithReflection(Animal animal){
+      ModelMapper modelMapper = new ModelMapper();
+      Class c = animal.getClass();
+      Animal animalToReturn = modelMapper.map(animal, (Type) c);
+      return animalToReturn;
+    }
+
+    //TODO: test if it's working with Reflection API
 //    for (AnimalType type : AnimalType.values())
 //      if (animalDTO.getAnimalRace().equals(type.name())){
 //        Class<Animal> cls = Class.forName(type.name());
