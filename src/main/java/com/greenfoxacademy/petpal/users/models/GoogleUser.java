@@ -1,14 +1,11 @@
 package com.greenfoxacademy.petpal.users.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.greenfoxacademy.petpal.animal.models.Animal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity(name = "GoogleUser")
 @DiscriminatorValue("GoogleUser")
@@ -24,5 +21,5 @@ public class GoogleUser extends ParentUser {
     @OneToMany(mappedBy = "parentUser", cascade = CascadeType.PERSIST)
     @JsonIgnore
     private Set<Animal> animalsToAdoptByUser;*/
-
+//TODO: ask Eniko if we need this
 }

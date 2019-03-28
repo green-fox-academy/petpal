@@ -60,7 +60,6 @@ VALUES (1,
         '1042',
         3,
         'PrivateUser');
-*/
 
 CREATE TABLE `animal`
 (
@@ -149,5 +148,3 @@ VALUES (1, 1, 1),
        (4, 2, 2),
        (5, 3, 1),
        (6, 3, 3);
-
-

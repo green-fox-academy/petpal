@@ -24,6 +24,7 @@ public class AnimalController {
 
   @Autowired
   public AnimalController(AnimalService animalService, ParentUserService parentUserService) {
+    //TODO: fix DI here
     this.animalService = animalService;
     this.parentUserService = parentUserService;
   }
@@ -42,6 +43,7 @@ public class AnimalController {
   public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
     parentUserService.addAnimalToAnimalsLikedByUser(animalService.findById(id), parentUser);
+    //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 
@@ -49,6 +51,7 @@ public class AnimalController {
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
     parentUserService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), parentUser);
+    //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 
@@ -64,7 +67,9 @@ public class AnimalController {
     } else {
       throw new InvalidTypeException("Invalid type");
     }
+    //TODO: remove business logic from controller
     parentUserService.addAnimalToAnimalsOwnedByUser(animal, parentUser);
+    //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 

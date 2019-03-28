@@ -2,7 +2,6 @@ package com.greenfoxacademy.petpal.animal.models;
 
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -24,6 +23,7 @@ public abstract class Animal {
   private String type;
   private String gender;
   private Timestamp fromWhenAvailable;
+  //TODO: replace
   private String photoPath;
   private Boolean spayed;
   private Boolean vaccinated;
