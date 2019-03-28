@@ -30,7 +30,7 @@ export const toggleChatMenu = bool => ({
 });
 
 export const loginWithGoogle = () => ({
-  type: actions.GOOGLE_SIGN_IN,
+  type: actions.GOOGLE_AUTH_OK,
 });
 
 export const selectFavTab = tab => ({

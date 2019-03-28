@@ -61,7 +61,6 @@ public class UserController {
   }*/
 
   @PostMapping("/login/user")
-
   public ResponseEntity loginPrivateUser(@Valid @RequestBody LoginUserDTO loginUserDTO ) throws Throwable {
     PrivateUser privateUser = (PrivateUser) userDetailsService.findByEmail(loginUserDTO.getEmail());
     Token token = new Token(userDetailsService.login(privateUser));
