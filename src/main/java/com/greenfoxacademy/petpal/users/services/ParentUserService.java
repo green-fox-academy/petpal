@@ -151,16 +151,20 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     saveUser(t);
   }
 
-  public void removeAnimalFromAnimalsLikedByUser(Animal animal, T t) {
+  public void removeAnimalFromAnimalsLikedByUser(Animal animal, T t) throws AnimalIdNotFoundException {
+
     Set<Animal> animalsLikedByUser = t.getAnimalsLikedByUser();
-    animalsLikedByUser.remove(animal);
-    t.setAnimalsLikedByUser(animalsLikedByUser);
+    if (animalsLikedByUser.contains(animal)) {
+      animalsLikedByUser.remove(animal);
+      t.setAnimalsLikedByUser(animalsLikedByUser);
 
-    Set<ParentUser> allUsersLiked = animal.getParentUserLike();
-    allUsersLiked.remove(t);
-    animal.setParentUserLike(allUsersLiked);
+      Set<ParentUser> allUsersLiked = animal.getParentUserLike();
+      allUsersLiked.remove(t);
+      animal.setParentUserLike(allUsersLiked);
 
-    saveUser(t);
+      saveUser(t);
+    } else
+      throw new AnimalIdNotFoundException();
   }
 
   public void removeAnimalFromAnimalsUnderAdoptionByUser(Animal animal, T t) {
