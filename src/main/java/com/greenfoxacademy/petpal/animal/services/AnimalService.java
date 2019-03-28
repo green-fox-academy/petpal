@@ -19,4 +19,9 @@ public interface AnimalService {
   Animal findById(Long id) throws AnimalIdNotFoundException;
 
   Animal uploadAnimal(AnimalDTO animalDTO) throws InvalidRaceException, AnimalIsNullException;
+
+  void validateAnimal(Animal animal) throws AnimalIsNullException;
+
+  boolean isAnimalInDB(Animal animal);
+
 }

@@ -1,56 +1,47 @@
 import React, { useEffect } from 'react';
 
-const Register = ({ requestRegister, setRegisterError, registerErrorMsg }) => {
+const Login = ({ requestLogin, loginErrorMsg, setLoginError }) => {
   useEffect(
     () => () => {
-      setRegisterError('');
+      setLoginError('');
     },
     [],
   );
 
-  const handlesubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    const { registername, registerpass, registeremail } = event.target;
+    const { loginemail, loginpass } = event.target;
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/;
-    const nameRegex = /^[a-záéíűúőóüöA-ZÁÍÉŰÚŐÓÜÖ -]*$/;
-    if ((registername.value.trim().length > 0 && registerpass.value.trim().length > 0, registeremail.value.trim().length > 0)) {
-      if (nameRegex.test(registername.value)) {
-        if (emailRegex.test(registeremail.value)) {
-          requestRegister({ name: registername.value, password: registerpass.value, email: registeremail.value });
-          setRegisterError('');
-          event.target.reset();
-        } else {
-          setRegisterError('Wrong e-mail format!');
-        }
+    if (loginemail.value.trim().length > 0 && loginpass.value.trim().length > 0) {
+      if (emailRegex.test(loginemail.value)) {
+        requestLogin({ email: loginemail.value, password: loginpass.value });
+        event.target.reset();
+        setLoginError('');
       } else {
-        setRegisterError('Name can only contain letters and spaces!');
+        setLoginError('Wrong e-mail format!');
       }
     } else {
-      setRegisterError('Fill out all fields please!');
+      setLoginError('Fill out all fields please!');
     }
   };
 
   return (
-    <form className="registerform" onSubmit={handlesubmit}>
-      <h2>sign up for free</h2>
-      {registerErrorMsg ? <h3>{registerErrorMsg}</h3> : null}
+    <form className="loginform" onSubmit={handleSubmit}>
+      <h2>log in to your account</h2>
+      {loginErrorMsg !== '' ? <h3>{loginErrorMsg}</h3> : null}
       <div>
-        <input className="input" name="registername" type="text" id="registername" />
-        <label htmlFor="registername">full name</label>
+        <input className="input" name="loginemail" type="text" id="loginemail" />
+        <label htmlFor="loginemail">e-mail</label>
       </div>
       <div>
-        <input className="input" name="registeremail" type="text" id="registeremail" />
-        <label htmlFor="registeremail">e-mail</label>
-      </div>
-      <div>
-        <input name="registerpass" type="password" id="registerpass" />
-        <label htmlFor="registerpass">password</label>
+        <input name="loginpass" type="password" id="loginpass" />
+        <label htmlFor="loginpass">password</label>
       </div>
       <button className="button" type="submit">
-        <span>register</span>
+        <span>sign me in</span>
       </button>
     </form>
   );
 };
 
-export default Register;
+export default Login;

@@ -43,6 +43,7 @@ public class AnimalController {
   public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     userDetailsService.addAnimalToAnimalsLikedByUser(animalService.findById(id), parentUser);
+    //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 
@@ -50,6 +51,7 @@ public class AnimalController {
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     userDetailsService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), parentUser);
+    //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 
@@ -79,6 +81,7 @@ public class AnimalController {
   public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
+    //TODO: implement
     return ResponseEntity.ok(parentUser.getAnimalsLikedByUser().remove(animal));
   }
 
@@ -87,6 +90,7 @@ public class AnimalController {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
     //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
+    //TODO: implement
     return null;
   }
 }
