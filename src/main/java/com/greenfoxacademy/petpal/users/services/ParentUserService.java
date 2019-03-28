@@ -62,8 +62,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
   }
 
   public T getUserFromAuth(Authentication authentication) throws Throwable {
-    UserContext userContext = (UserContext) authentication.getPrincipal();
-    return findByEmail(userContext.getEmail());
+    return findByEmail((authentication.getName()));
   }
 
   public Set<Animal> animalsOwnedByUser(T t) {
