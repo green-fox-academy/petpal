@@ -9,13 +9,14 @@ import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class AppConfig {
+
   @Bean
   @Primary
   public ParentUserService getParentUserService(ParentUserService userDetailsService) throws Exception {
-    if(userDetailsService instanceof PrivateUserServiceImpl){
+    if (userDetailsService instanceof PrivateUserServiceImpl) {
       return new PrivateUserServiceImpl();
     }
-    if(userDetailsService instanceof GoogleUserServiceImpl){
+    if (userDetailsService instanceof GoogleUserServiceImpl) {
       return new GoogleUserServiceImpl();
     }
     throw new Exception("Bean instantiation not working properly");

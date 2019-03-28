@@ -1,7 +1,8 @@
 package com.greenfoxacademy.petpal.exception;
 
-public class InvalidRaceException extends Throwable {
+public class InvalidRaceException extends Exception {
 
-  public InvalidRaceException(String invalid_race) {
+  public InvalidRaceException() {
+    super("Invalid race");
   }
 }
