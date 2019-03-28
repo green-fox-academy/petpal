@@ -21,22 +21,25 @@ public class UserController {
 
   private ParentUserService parentUserService;
   private ModelMapper modelMapper;
+  //TODO: find out thy modelMapper is not used
 
   @Autowired
-  public UserController(ParentUserService parentUserService) {
-    this.parentUserService = parentUserService;
+  public UserController(ParentUserService userDetailsService) {
+    this.parentUserService = userDetailsService;
   }
 
   @CrossOrigin
   @PostMapping("/register/user")
   public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException, EmailTakenException, UnirestException {
     parentUserService.register(privateUser);
+    //TODO: remove raw type
     return ResponseEntity.ok(modelMapper.map(privateUser, UserDTO.class));
   }
 
   @PostMapping("/register/organization")
   public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) throws UserIsNullException, UnirestException, EmailTakenException {
     parentUserService.register(organisation);
+    //TODO: remove raw type
     return ResponseEntity.ok().body(modelMapper.map(organisation, UserDTO.class));
   }
 
@@ -74,5 +77,5 @@ public class UserController {
     return ResponseEntity.ok(parentUserService.animalsOwnedByUser(parentUser));
     //TODO: remove raw type
   }
-  //TODO: delete endpoints (deleting from the lists)
+  //TODO: implement DELETE endpoints (deleting from the lists)
 }
