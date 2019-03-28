@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,8 +50,9 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
             .orElseThrow(() -> new UserNotFoundException(("There is no User with such ID")));
   }
 
-  public T saveUser(T t) {
-    return (T) mainUserRepository.save(t);
+  public ParentUser saveUser(ParentUser t) {
+    System.out.println(t.getId());
+    return (ParentUser) mainUserRepository.save(t);
   }
 
   public void removeUser(T t) {
@@ -109,7 +111,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return filteredSetAdoptedAnimals;
   }
 
-  public void addAnimalToAnimalsLikedByUser(Animal animal, T t) throws AnimalUnderAdoptionException {
+  public void addAnimalToAnimalsLikedByUser(Animal animal, T t) throws AnimalUnderAdoptionException, AnimalIsNullException {
     if (animal.getUnderAdoption()) {
       throw new AnimalUnderAdoptionException("This pet is under adoption at the moment.");
     }
@@ -117,11 +119,15 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     animalsLikedByUser.add(animal);
     t.setAnimalsLikedByUser(animalsLikedByUser);
 
+
     Set<ParentUser> allUsersLiked = animal.getParentUserLike();
     allUsersLiked.add(t);
     animal.setParentUserLike(allUsersLiked);
 
+    animalService.save(animal);
     saveUser(t);
+
+//    animalService.save(animal);
   }
 
   public void addAnimalToAnimalsUnderAdoptionByUser(Animal animal, T t) throws ExceedMaxNumberOfAnimalsToAdoptException {
