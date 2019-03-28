@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 public class AnimalController {
 
   private AnimalService animalService;
-  private ParentUserService userDetailsService;
   private ChatService chatService;
   private ParentUserService<ParentUser> userDetailsService;
 
