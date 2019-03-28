@@ -2,6 +2,7 @@ package com.greenfoxacademy.petpal.users.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.animal.models.Animal;
+import com.greenfoxacademy.petpal.chat.models.Chat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,15 +34,9 @@ public abstract class ParentUser {
   @Column
   private String imageUrl;
 
-
-
-
 /*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinColumn(name = "geo_code_id")
   private GeoCode geoCode;*/
-  /*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "geo_code_id")
-    private GeoCode geoCode;*/
   private String address;
 //  TODO address fields
 
@@ -58,4 +53,7 @@ public abstract class ParentUser {
   @JsonIgnore
   private Set<Animal> animalsUnderAdoptionByUser;
 
+  @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private Set<Chat> chats;
 }
