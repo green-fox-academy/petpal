@@ -15,50 +15,50 @@ import java.util.Set;
 
 public class GoogleUserServiceImpl extends ParentUserService<GoogleUser> {
 
-    @Autowired
-    private MainUserRepository userRepository;
+  @Autowired
+  private MainUserRepository userRepository;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+  @Autowired
+  private JwtTokenUtil jwtTokenUtil;
 
-    @Override
-    public String login(GoogleUser googleUser) {
-        userRepository.save(googleUser);
-        return jwtTokenUtil.generateToken(googleUser);
-    }
+  @Override
+  public String login(GoogleUser googleUser) {
+    userRepository.save(googleUser);
+    return jwtTokenUtil.generateToken(googleUser);
+  }
 
-    @Override
-    public GoogleUser register(GoogleUser googleUser) throws EmailTakenException, UnirestException {
-        return null;
-    }
+  @Override
+  public GoogleUser register(GoogleUser googleUser) throws EmailTakenException, UnirestException {
+    return null;
+  }
 
-    @Override
-    public Set<Animal> animalsLikedByUser(GoogleUser googleUser) {
-        return null;
-    }
+  @Override
+  public Set<Animal> animalsLikedByUser(GoogleUser googleUser) {
+    return null;
+  }
 
     @Override
     public Set<Animal> animalsUnderAdoptionByUser(GoogleUser googleUser) {
         return null;
     }
 
-    @Override
-    public void addAnimalToAnimalsLikedByUser(Animal animal, GoogleUser googleUser) {
+  @Override
+  public void addAnimalToAnimalsLikedByUser(Animal animal, GoogleUser googleUser) {
 
-    }
+  }
 
-    @Override
-    public void addAnimalToAnimalsToAdoptByUser(Animal animal, GoogleUser googleUser) {
+  @Override
+  public void addAnimalToAnimalsToAdoptByUser(Animal animal, GoogleUser googleUser) {
 
-    }
+  }
 
-    @Override
-    public void addAnimalToAnimalsOwnedByUser(Animal animal, GoogleUser googleUser) {
+  @Override
+  public void addAnimalToAnimalsOwnedByUser(Animal animal, GoogleUser googleUser) {
 
-    }
+  }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return null;
+  }
 }

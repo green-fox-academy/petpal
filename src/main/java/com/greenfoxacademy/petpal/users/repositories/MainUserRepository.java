@@ -8,8 +8,12 @@ import java.util.Optional;
 public interface MainUserRepository<T extends ParentUser> extends JpaRepository<T, Long> {
 
   Optional<T> findByName(String name);
+
+  @Override
   Optional<T> findById(Long id);
+
   Boolean existsByEmail(String email);
+
   //T save(T t);
   T findByEmail(String email);
 }

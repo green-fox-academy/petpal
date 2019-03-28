@@ -21,3 +21,6 @@ public class AnimalDTO {
   private Boolean vaccinated;
 
 }
+
+
+

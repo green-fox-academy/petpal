@@ -40,7 +40,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
 
   public T findByEmail(String email) throws Throwable {
     //TODO: set default message in the constructor of the exception class
-    if(mainUserRepository.findByEmail(email) == null){
+    if (mainUserRepository.findByEmail(email) == null) {
       throw new UsernameNotFoundException("There is no User with such email");
     }
     return (T) mainUserRepository.findByEmail(email);
@@ -51,8 +51,6 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return (T) mainUserRepository.findById(id)
             .orElseThrow(() -> new UserNotFoundException(("There is no User with such ID")));
   }
-
-
 
   public T saveUser(T t) {
     return (T) mainUserRepository.save(t);
@@ -70,14 +68,12 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return mainUserRepository.existsById(t.getId());
   }*/
 
-  public boolean isEmailInDB(T t){
+  public boolean isEmailInDB(T t) {
     return mainUserRepository.existsByEmail(t.getEmail());
   }
 
-
   public T getUserFromAuth(Authentication authentication) throws Throwable {
-    UserContext userContext = (UserContext) authentication.getPrincipal();
-    return findByEmail(userContext.getEmail());
+    return findByEmail((authentication.getName()));
   }
 
   public Set<Animal> findAllAdoptableAnimals(T t) {

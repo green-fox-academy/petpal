@@ -33,21 +33,21 @@ public class ImageStorageService {
   public String storeFile(MultipartFile file) throws FileStorageException {
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-      try {
-        if (fileName.contains("..")) {
-          throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-        }
-
-        if (ImageIO.read(file.getInputStream()) == null) {
-          throw new FileStorageException("Filme must be an image: " + fileName + ". Only BMP, GIF, JPG and PNG are accepted.");
-        }
-
-        Path targetLocation = this.fileStorageLocation.resolve(fileName);
-        Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
-        return fileName;
-      } catch (IOException ex) {
-        throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+    try {
+      if (fileName.contains("..")) {
+        throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
       }
+
+      if (ImageIO.read(file.getInputStream()) == null) {
+        throw new FileStorageException("Filme must be an image: " + fileName + ". Only BMP, GIF, JPG and PNG are accepted.");
+      }
+
+      Path targetLocation = this.fileStorageLocation.resolve(fileName);
+      Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+      return fileName;
+    } catch (IOException ex) {
+      throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
     }
   }
+}

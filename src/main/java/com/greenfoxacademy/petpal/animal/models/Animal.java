@@ -22,6 +22,7 @@ public abstract class Animal {
   private String type;
   private String gender;
   private Timestamp fromWhenAvailable;
+  //TODO: replace
   private String photoPath;
   private Boolean spayed;
   private Boolean vaccinated;
