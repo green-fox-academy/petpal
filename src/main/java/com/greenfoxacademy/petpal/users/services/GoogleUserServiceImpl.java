@@ -38,7 +38,7 @@ public class GoogleUserServiceImpl extends ParentUserService<GoogleUser> {
     }
 
     @Override
-    public Set<Animal> animalsToAdoptByUser(GoogleUser googleUser) {
+    public Set<Animal> animalsUnderAdoptionByUser(GoogleUser googleUser) {
         return null;
     }
 

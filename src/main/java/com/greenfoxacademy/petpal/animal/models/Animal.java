@@ -25,7 +25,7 @@ public abstract class Animal {
   private String photoPath;
   private Boolean spayed;
   private Boolean vaccinated;
-  private Boolean adopted;
+  private Boolean underAdoption;
 
   @ManyToMany
   @JoinTable(
@@ -34,7 +34,7 @@ public abstract class Animal {
                   name = "animal_id", referencedColumnName = "id"),
           inverseJoinColumns = @JoinColumn(
                   name = "parent_user_id", referencedColumnName = "id"))
-  private Set<ParentUser> parentUser;
+  private Set<ParentUser> parentUserLike;
 
   @ManyToOne
   @JoinColumn(name = "adopter_id", referencedColumnName = "id")

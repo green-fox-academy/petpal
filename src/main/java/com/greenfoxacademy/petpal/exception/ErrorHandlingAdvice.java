@@ -52,11 +52,18 @@ public class ErrorHandlingAdvice {
   ErrorMsg userIsNull(UsernameTakenException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
+
   @ResponseBody
-  @ExceptionHandler(AnimalAlreadyAdoptedException.class)
+  @ExceptionHandler(AnimalUnderAdoptionException.class)
   @ResponseStatus(HttpStatus.CONFLICT)
-  ErrorMsg animalAlreadyAdopted(AnimalAlreadyAdoptedException ex) {
+  ErrorMsg animalUnderAdoption(AnimalUnderAdoptionException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
 
+  @ResponseBody
+  @ExceptionHandler(ExceedMaxNumberOfAnimalsToAdoptException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  ErrorMsg tooManyAnimalsMarkedForAdoption(ExceedMaxNumberOfAnimalsToAdoptException ex) {
+    return new ErrorMsg("error", ex.getMessage());
+  }
 }

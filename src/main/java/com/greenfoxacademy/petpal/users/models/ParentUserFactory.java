@@ -1,8 +1,10 @@
 package com.greenfoxacademy.petpal.users.models;
 
-public class ParentUserFactory {
+import com.greenfoxacademy.petpal.Factory;
 
-  public static ParentUser create(UserType userType) {
+public class ParentUserFactory implements Factory<ParentUser, UserType> {
+
+  public ParentUser create(UserType userType) {
     return userType.createUser();
   }
 }

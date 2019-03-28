@@ -82,7 +82,7 @@ public class AnimalController {
   public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    return ResponseEntity.ok(parentUser.getOwnedAnimalsByUser().remove(animal));
+    return ResponseEntity.ok(parentUser.getAnimalsOwnedByUser().remove(animal));
   }
 
   @DeleteMapping("/pet/{id}/like")
@@ -96,7 +96,7 @@ public class AnimalController {
   public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
+    //return ResponseEntity.ok(privateUser.getAnimalsUnderAdoptionByUser().remove(animal));
     return null;
   }
 }

@@ -29,7 +29,7 @@ public class OrganisationServiceImpl extends ParentUserService<Organisation> {
   }
 
   @Override
-  public Set<Animal> animalsToAdoptByUser(Organisation organisation) {
+  public Set<Animal> animalsUnderAdoptionByUser(Organisation organisation) {
     return null;
   }
 
@@ -62,7 +62,7 @@ public class OrganisationServiceImpl extends ParentUserService<Organisation> {
     Set<Animal> animalsOwnedByUser = animalsOwnedByUser(organisation.getId());
     AnimalFactory animalFactory = new AnimalFactory();
     animalsOwnedByUser.add(animalFactory.create(AnimalType.valueOf(animal.getType())));
-    organisation.setOwnedAnimalsByUser(animalsOwnedByUser);
+    organisation.setAnimalsOwnedByUser(animalsOwnedByUser);
     saveUser(organisation);
   }
 

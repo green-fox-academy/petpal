@@ -13,16 +13,10 @@ public enum UserType {
   Google{
     public ParentUser createUser(){
       return new GoogleUser();
-  }},
-
-  Org {
-    public ParentUser createUser() {
-      return new Organisation();
-    }
+  }
   };
 
   public ParentUser createUser() {
     return null;
   }
-
 }

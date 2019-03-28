@@ -54,32 +54,32 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
 
   }
 
-  @Override
-  public Set<Animal> animalsLikedByUser(PrivateUser privateUser) {
-    return privateUser.getAnimalsLikedByUser();
-  }
-
-  @Override
-  public Set<Animal> animalsToAdoptByUser(PrivateUser privateUser) {
-    return privateUser.getAnimalsToAdoptByUser();
-  }
-
-  @Override
-  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) {
-    //TODO: implement the method, scroll down
-  }
-
-  @Override
-  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) {
-    //TODO: implement the method, scroll down
-
-  }
-
-  @Override
-  public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) {
-    //TODO: implement the method, scroll down
-
-  }
+//  @Override
+//  public Set<Animal> animalsLikedByUser(PrivateUser privateUser) {
+//    return privateUser.getAnimalsLikedByUser();
+//  }
+//
+//  @Override
+//  public Set<Animal> animalsUnderAdoptionByUser(PrivateUser privateUser) {
+//    return privateUser.getAnimalsUnderAdoptionByUser();
+//  }
+//
+//  @Override
+//  public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) {
+//    //TODO: implement the method, scroll down
+//  }
+//
+//  @Override
+//  public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) {
+//    //TODO: implement the method, scroll down
+//
+//  }
+//
+//  @Override
+//  public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) {
+//    //TODO: implement the method, scroll down
+//
+//  }
 
 
 
@@ -101,7 +101,7 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
   @Override
   public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
     if (animal.getAdopted()) {
-      throw new AnimalAlreadyAdoptedException("This pet has been already adopted.");
+      throw new AnimalUnderAdoptionException("This pet has been already adopted.");
     }
     Set<Animal> animalsLikedByUser = animalsLikedByUser(privateUser.getId());
     animalsLikedByUser.add(animal);
@@ -115,12 +115,12 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
 
   public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable {
     if (animal.getAdopted()) {
-      throw new AnimalAlreadyAdoptedException("This pet has been already adopted.");
+      throw new AnimalUnderAdoptionException("This pet has been already adopted.");
     }
-    Set<Animal> animalsToAdoptByUser = animalsToAdoptByUser(privateUser.getId());
+    Set<Animal> animalsUnderAdoptionByUser = animalsUnderAdoptionByUser(privateUser.getId());
     animal.setAdopted(true);
-    animalsToAdoptByUser.add(animal);
-    //privateUser.setAnimalsToAdoptByUser(animalsToAdoptByUser);
+    animalsUnderAdoptionByUser.add(animal);
+    //privateUser.setAnimalsUnderAdoptionByUser(animalsUnderAdoptionByUser);
     saveUser(privateUser);
   }
 
@@ -128,7 +128,7 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
   public void addAnimalToAnimalsOwnedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
     Set<Animal> animalsOwnedByUser = animalsOwnedByUser(privateUser.getId());
     animalsOwnedByUser.add(animal);
-    privateUser.setOwnedAnimalsByUser(animalsOwnedByUser);
+    privateUser.setAnimalsOwnedByUser(animalsOwnedByUser);
     saveUser(privateUser);
   }
   */
