@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,7 +34,7 @@ public class ParentUserControllerTest {
   public void register_missingParameters_returnsBadRequest() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint))
             .andExpect(status().isBadRequest());
-  }*/
+  }
 
   @Test
   public void register_missingEmail_returnsBadRequest() throws Exception {
@@ -109,5 +108,5 @@ public class ParentUserControllerTest {
             .content(user))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(content().json(response));
-  }
+  }*/
 }
