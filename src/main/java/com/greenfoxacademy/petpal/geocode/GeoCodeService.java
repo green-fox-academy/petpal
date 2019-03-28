@@ -1,6 +1,5 @@
 package com.greenfoxacademy.petpal.geocode;
 
-import com.greenfoxacademy.petpal.users.models.SuperUser;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;

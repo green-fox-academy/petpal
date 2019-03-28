@@ -1,7 +1,6 @@
 package com.greenfoxacademy.petpal.security.ajax;
 
 import com.greenfoxacademy.petpal.security.model.UserContext;
-import com.greenfoxacademy.petpal.users.models.SuperUser;
 import com.greenfoxacademy.petpal.users.services.MainUserService;
 import io.jsonwebtoken.lang.Assert;
 import org.springframework.beans.factory.annotation.Autowired;

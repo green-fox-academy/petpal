@@ -1,7 +1,6 @@
 package com.greenfoxacademy.petpal.users.services;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
-import com.greenfoxacademy.petpal.users.models.PrivateUser;
 
 import java.util.Set;
 

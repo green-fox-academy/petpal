@@ -1,15 +1,15 @@
 package com.greenfoxacademy.petpal.users.repositories;
 
-import com.greenfoxacademy.petpal.users.models.SuperUser;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface MainUserRepository<T extends SuperUser> extends JpaRepository<T, Long> {
+public interface MainUserRepository<T extends ParentUser> extends JpaRepository<T, Long> {
 
-  Optional<T> findByUsername(String username);
-
-  Boolean existsByUsername(String username);
-
-  T save(T t);
+  Optional<T> findByName(String name);
+  Optional<T> findById(Long id);
+  Boolean existsByEmail(String email);
+  //T save(T t);
+  T findByEmail(String email);
 }

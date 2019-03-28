@@ -4,7 +4,6 @@ import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
-import com.greenfoxacademy.petpal.users.models.SuperUser;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.security.core.Authentication;
 

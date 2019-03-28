@@ -6,7 +6,6 @@ import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.exception.UsernameTakenException;
-import com.greenfoxacademy.petpal.users.models.Organisation;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

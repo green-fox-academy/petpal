@@ -1,7 +1,6 @@
 package com.greenfoxacademy.petpal.geocode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.greenfoxacademy.petpal.users.models.SuperUser;
 import lombok.*;
 
 import javax.persistence.*;

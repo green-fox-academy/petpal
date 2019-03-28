@@ -1,11 +1,6 @@
 package com.greenfoxacademy.petpal.users.controllers;
 
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
-import com.greenfoxacademy.petpal.exception.UsernameTakenException;
-import com.greenfoxacademy.petpal.users.models.Organisation;
-import com.greenfoxacademy.petpal.users.models.PrivateUser;
-import com.greenfoxacademy.petpal.users.models.UserDTO;
-import com.greenfoxacademy.petpal.users.services.PrivateUserService;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

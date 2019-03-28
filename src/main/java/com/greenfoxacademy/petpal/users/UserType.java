@@ -1,9 +1,5 @@
 package com.greenfoxacademy.petpal.users;
 
-import com.greenfoxacademy.petpal.users.models.Organisation;
-import com.greenfoxacademy.petpal.users.models.PrivateUser;
-import com.greenfoxacademy.petpal.users.models.SuperUser;
-
 public enum UserType {
 
   Private {
