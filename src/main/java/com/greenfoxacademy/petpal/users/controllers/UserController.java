@@ -3,12 +3,10 @@ package com.greenfoxacademy.petpal.users.controllers;
 import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
 import com.greenfoxacademy.petpal.oauthSecurity.Token;
-import com.greenfoxacademy.petpal.users.models.Organisation;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.models.dtos.LoginUserDTO;
 import com.greenfoxacademy.petpal.users.models.dtos.RegisterUserDTO;
-import com.greenfoxacademy.petpal.users.models.dtos.UserDTO;
 import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.modelmapper.ModelMapper;
@@ -23,18 +21,19 @@ import javax.validation.Valid;
 @RestController
 public class UserController {
 
-  private ParentUserService parentUserService;
+  private ParentUserService userDetailsService;
   private ModelMapper modelMapper = new ModelMapper();
 
   @Autowired
   public UserController(ParentUserService userDetailsService) {
-    this.parentUserService = userDetailsService;
+    this.userDetailsService = userDetailsService;
   }
 
   @PostMapping("/register/user")
   public ResponseEntity registerUser(@Valid @RequestBody RegisterUserDTO registerUserDTO) throws UserIsNullException, EmailTakenException, UnirestException {
     PrivateUser privateUser = modelMapper.map(registerUserDTO, PrivateUser.class);
-    parentUserService.register(privateUser);
+    //TODO: remove raw type
+    userDetailsService.register(privateUser);
     return ResponseEntity.ok(registerUserDTO.getEmail());
   }
 
@@ -44,11 +43,16 @@ public class UserController {
     return ResponseEntity.ok(authentication.getPrincipal());
   }*/
 
-  @PostMapping("/register/organization")
-  public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) throws UserIsNullException, UnirestException, EmailTakenException {
-    parentUserService.register(organisation);
-    return ResponseEntity.ok().body(modelMapper.map(organisation, UserDTO.class));
-  }
+//  @PostMapping("/register/organization")
+//  public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) throws UserIsNullException, UnirestException, EmailTakenException {
+//    userDetailsService.register(organisation);
+//    return ResponseEntity.ok().body(modelMapper.map(organisation, UserDTO.class));
+//  }
+//  @PostMapping("/register/organization")
+//  public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) throws UserIsNullException, UnirestException, EmailTakenException {
+//    parentUserService.register(organisation);
+//    return ResponseEntity.ok().body(modelMapper.map(organisation, UserDTO.class));
+//  }
 
 /*  @PostMapping("/oauth2/authorize/google")
   public ResponseEntity loginGoogleUser(GoogleUser googleUser) throws UserNotFoundException {
@@ -57,17 +61,19 @@ public class UserController {
   }*/
 
   @PostMapping("/login/user")
+
   public ResponseEntity loginPrivateUser(@Valid @RequestBody LoginUserDTO loginUserDTO ) throws Throwable {
-    PrivateUser privateUser = (PrivateUser) parentUserService.findByEmail(loginUserDTO.getEmail());
-    Token token = new Token(parentUserService.login(privateUser));
+    PrivateUser privateUser = (PrivateUser) userDetailsService.findByEmail(loginUserDTO.getEmail());
+    Token token = new Token(userDetailsService.login(privateUser));
+    //TODO: remove raw type
     return ResponseEntity.ok().body(token);
   }
 
   @PutMapping("/user/{id}")
   public ResponseEntity changePassword(Authentication authentication, @RequestBody String password) throws Throwable {
-    ParentUser user = (ParentUser) parentUserService.getUserFromAuth(authentication);
+    ParentUser user = (ParentUser) userDetailsService.getUserFromAuth(authentication);
     //TODO: separate usertype, pw not applicable for GoogleU, changePW method should be implemented in service with pw hash
-
+    //TODO: I'm not sure if we need this (lyancsie)
     return ResponseEntity.ok().build();
   }
 
@@ -80,20 +86,26 @@ public class UserController {
 
   @GetMapping("/pets/liked")
   public ResponseEntity likedPets(Authentication authentication) throws Throwable {
-    ParentUser parentUser =  parentUserService.getUserFromAuth(authentication);
-    return ResponseEntity.ok(parentUserService.animalsLikedByUser(parentUser));
+
+    ParentUser parentUser =  userDetailsService.getUserFromAuth(authentication);
+    return ResponseEntity.ok(userDetailsService.animalsLikedByUser(parentUser));
+    //TODO: remove raw type
   }
 
   @GetMapping("/pets/adoptable")
   public ResponseEntity adoptedPets(Authentication authentication) throws Throwable {
-    ParentUser parentUser =  parentUserService.getUserFromAuth(authentication);
-    return ResponseEntity.ok(parentUserService.animalsToAdoptByUser(parentUser));
+    ParentUser parentUser =  userDetailsService.getUserFromAuth(authentication);
+    return ResponseEntity.ok(userDetailsService.animalsUnderAdoptionByUser(parentUser));
+
+    //TODO: remove raw type
+
   }
 
   @GetMapping("/pets/owned")
   public ResponseEntity ownedPets(Authentication authentication) throws Throwable {
-    ParentUser parentUser =  parentUserService.getUserFromAuth(authentication);
-    return ResponseEntity.ok(parentUserService.animalsOwnedByUser(parentUser));
+    ParentUser parentUser =  userDetailsService.getUserFromAuth(authentication);
+    return ResponseEntity.ok(userDetailsService.animalsOwnedByUser(parentUser));
+    //TODO: remove raw type
   }
-  //TODO: delete pet from all of the lists AND delete pet for good (4 endpoints)
+  //TODO: implement DELETE endpoints (deleting from the lists)
 }

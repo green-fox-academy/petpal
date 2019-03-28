@@ -8,7 +8,7 @@ import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.chat.services.ChatService;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
-import com.greenfoxacademy.petpal.exception.InvalidTypeException;
+import com.greenfoxacademy.petpal.exception.InvalidRaceException;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import org.modelmapper.ModelMapper;
@@ -46,31 +46,23 @@ public class AnimalController {
   public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     userDetailsService.addAnimalToAnimalsLikedByUser(animalService.findById(id), parentUser);
+    //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
-    userDetailsService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), parentUser);
     chatService.createChat(parentUser, animalService.findById(id).getOwner(), animalService.findById(id));
+//    userDetailsService.addAnimalToAnimalsUnderAdoptionByUser((animalService.findById(id), parentUser);
+    //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 
-  @PostMapping("/pet")
+  @PostMapping("/uploadPet")
   public ResponseEntity upload(@RequestBody AnimalDTO animalDTO, Authentication authentication) throws Throwable {
     ParentUser privateUser = userDetailsService.getUserFromAuth(authentication);
-    ModelMapper modelMapper = new ModelMapper();
-    Animal animal;
-    if (animalDTO.getType().equals("dog")) {
-      animal = modelMapper.map(animalDTO, Dog.class);
-    } else if (animalDTO.getType().equals("cat")) {
-      animal = modelMapper.map(animalDTO, Cat.class);
-    } else {
-      throw new InvalidTypeException("Invalid type");
-    }
-    animalService.save(animal);
-    userDetailsService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
+    userDetailsService.addAnimalToAnimalsOwnedByUser(animalService.uploadAnimal(animalDTO), privateUser);
     return ResponseEntity.ok().build();
   }
 
@@ -85,21 +77,25 @@ public class AnimalController {
   public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    return ResponseEntity.ok(parentUser.getOwnedAnimalsByUser().remove(animal));
+    return ResponseEntity.ok(parentUser.getAnimalsOwnedByUser().remove(animal));
+    // userDetailsService.SolMethodja(animal,parentUser);
+    //animalService.remove(animalService.findById(id));
   }
 
   @DeleteMapping("/pet/{id}/like")
   public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
+    //TODO: implement
     return ResponseEntity.ok(parentUser.getAnimalsLikedByUser().remove(animal));
   }
 
   @DeleteMapping("pet/{id}/adoptable")
-  public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
+  public ResponseEntity deleteFromAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
     //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
+    //TODO: implement
     return null;
   }
 }

@@ -19,14 +19,13 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class ParentUser {
 
-
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @NotBlank
   private String name;
   @Email
+  @NotBlank
   private String email;
   private String phoneNumber;
   @Column
@@ -40,15 +39,15 @@ public abstract class ParentUser {
 
   @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
   @JsonIgnore
-  private Set<Animal> ownedAnimalsByUser;
+  private Set<Animal> animalsOwnedByUser;
 
-  @ManyToMany(mappedBy = "parentUser", cascade = CascadeType.PERSIST)
+  @ManyToMany(mappedBy = "parentUserLike", cascade = CascadeType.PERSIST)
   @JsonIgnore
   private Set<Animal> animalsLikedByUser;
 
   @OneToMany(mappedBy = "parentUserAdopt", cascade = CascadeType.PERSIST)
   @JsonIgnore
-  private Set<Animal> animalsToAdoptByUser;
+  private Set<Animal> animalsUnderAdoptionByUser;
 
   @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
   @JsonIgnore
