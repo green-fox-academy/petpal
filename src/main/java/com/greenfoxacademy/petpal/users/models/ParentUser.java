@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -29,9 +30,9 @@ public abstract class ParentUser {
   @Column
   private String imageUrl;
 
-/*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  @JoinColumn(name = "geo_code_id")
-  private GeoCode geoCode;*/
+  /*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "geo_code_id")
+    private GeoCode geoCode;*/
   private String address;
 //  TODO address fields
 

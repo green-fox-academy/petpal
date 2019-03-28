@@ -28,16 +28,8 @@ public class ParentUserControllerTest {
   private String password = "password";
   private String email = "testuser@gmail.com";
   private String error = "error";
-  private String jsonObject;
-  private String result = "";
-
-  public void perform() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(jsonObject))
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(content().json(result));
-  }
+  private String user;
+  private String response = "";
 
   @Test
   public void register_missingParameters_returnsBadRequest() throws Exception {
@@ -47,36 +39,75 @@ public class ParentUserControllerTest {
 
   @Test
   public void register_missingEmail_returnsBadRequest() throws Exception {
-    jsonObject = new JSONObject()
+    user = new JSONObject()
             .put("name", name)
             .put("password", password)
-            .put("email", "")
             .toString();
 
-    result = new JSONObject()
+    response = new JSONObject()
             .put("status", error)
             .put("message", "Missing parameter(s): {email=must not be blank}")
             .toString();
 
     mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(jsonObject))
+            .content(user))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(content().json(result));
+            .andExpect(content().json(response));
   }
 
   @Test
-  public void registerWithNoPassword() throws Exception {
-    jsonObject = new JSONObject()
+  public void register_missingPassword_returnsBadRequest() throws Exception {
+    user = new JSONObject()
             .put("name", name)
             .put("email", email)
             .toString();
 
-    result = new JSONObject()
+    response = new JSONObject()
             .put("status", error)
             .put("message", "Missing parameter(s): {password=must not be blank}")
             .toString();
 
-    perform();
+    mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(user))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+            .andExpect(content().json(response));
+  }
+
+  @Test
+  public void login_missingEmail_returnsBadRequest() throws Exception {
+    user = new JSONObject()
+            .put("password", password)
+            .toString();
+
+    response = new JSONObject()
+            .put("status", error)
+            .put("message", "Missing parameter(s): {email=must not be blank}")
+            .toString();
+
+    mockMvc.perform(MockMvcRequestBuilders.post(Constants.loginEndpoint)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(user))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+            .andExpect(content().json(response));
+  }
+
+  @Test
+  public void login_missingPassword_returnsBadRequest() throws Exception {
+    user = new JSONObject()
+            .put("email", email)
+            .toString();
+
+    response = new JSONObject()
+            .put("status", error)
+            .put("message", "Missing parameter(s): {password=must not be blank}")
+            .toString();
+
+    mockMvc.perform(MockMvcRequestBuilders.post(Constants.loginEndpoint)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(user))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+            .andExpect(content().json(response));
   }
 }
