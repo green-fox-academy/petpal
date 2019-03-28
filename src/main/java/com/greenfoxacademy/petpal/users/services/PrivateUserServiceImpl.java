@@ -100,8 +100,8 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
 /*
   @Override
   public void addAnimalToAnimalsLikedByUser(Animal animal, PrivateUser privateUser) throws Throwable {
-    if (animal.getAdopted()) {
-      throw new AnimalAlreadyAdoptedException("This pet has been already adopted.");
+    if (animal.getUnderAdoption()) {
+      throw new AnimalAlreadyAdoptedException("This pet has been already underAdoption.");
     }
     Set<Animal> animalsLikedByUser = animalsLikedByUser(privateUser.getId());
     animalsLikedByUser.add(animal);
@@ -114,11 +114,11 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
   }
 
   public void addAnimalToAnimalsToAdoptByUser(Animal animal, PrivateUser privateUser) throws Throwable {
-    if (animal.getAdopted()) {
-      throw new AnimalAlreadyAdoptedException("This pet has been already adopted.");
+    if (animal.getUnderAdoption()) {
+      throw new AnimalAlreadyAdoptedException("This pet has been already underAdoption.");
     }
     Set<Animal> animalsToAdoptByUser = animalsToAdoptByUser(privateUser.getId());
-    animal.setAdopted(true);
+    animal.setUnderAdoption(true);
     animalsToAdoptByUser.add(animal);
     //privateUser.setAnimalsToAdoptByUser(animalsToAdoptByUser);
     saveUser(privateUser);

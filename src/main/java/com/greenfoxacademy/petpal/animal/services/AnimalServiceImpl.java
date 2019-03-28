@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
@@ -35,8 +36,8 @@ public class AnimalServiceImpl implements AnimalService {
   }
 
   @Override
-  public List<Animal> findAll() {
-    return animalRepository.findAll();
+  public Set<Animal> findAll() {
+    return animalRepository.findAllSet();
   }
 
   @Override
