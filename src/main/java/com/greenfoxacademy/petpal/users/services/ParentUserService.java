@@ -4,7 +4,6 @@ import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.*;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
-import com.greenfoxacademy.petpal.oauthSecurity.UserContext;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
