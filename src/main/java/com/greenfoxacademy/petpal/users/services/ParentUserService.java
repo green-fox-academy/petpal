@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,8 +49,9 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
             .orElseThrow(() -> new UserNotFoundException(("There is no User with such ID")));
   }
 
-  public T saveUser(T t) {
-    return (T) mainUserRepository.save(t);
+  public ParentUser saveUser(ParentUser t) {
+    System.out.println(t.getId());
+    return (ParentUser) mainUserRepository.save(t);
   }
 
   public void removeUser(T t) {
@@ -72,16 +74,16 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return findByEmail((authentication.getName()));
   }
 
-//  public Set<Animal> findAllAdoptableAnimals(T t) {
-//    Set<Animal> allAnimals = animalService.findAllSet();
-//    Set<Animal> adoptableAnimals = new HashSet<>();
-//    for (Animal animal : allAnimals) {
-//      if ((!isAnimalOwnedByUser(animal, t)) && (isAdoptable(animal))) {
-//        adoptableAnimals.add(animal);
-//      }
-//    }
-//    return adoptableAnimals;
-//  }
+  public Set<Animal> findAllAdoptableAnimals(T t) {
+    Set<Animal> allAnimals = animalService.findAll();
+    Set<Animal> adoptableAnimals = new HashSet<>();
+    for (Animal animal : allAnimals) {
+      if ((!isAnimalOwnedByUser(animal, t)) && (isAdoptable(animal))) {
+        adoptableAnimals.add(animal);
+      }
+    }
+    return adoptableAnimals;
+  }
 
   public Boolean isAnimalOwnedByUser(Animal animal, T t) {
     return animal.getOwner().equals(t);
@@ -108,7 +110,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return filteredSetAdoptedAnimals;
   }
 
-  public void addAnimalToAnimalsLikedByUser(Animal animal, T t) throws AnimalUnderAdoptionException {
+  public void addAnimalToAnimalsLikedByUser(Animal animal, T t) throws AnimalUnderAdoptionException, AnimalIsNullException {
     if (animal.getUnderAdoption()) {
       throw new AnimalUnderAdoptionException("This pet is under adoption at the moment.");
     }
@@ -116,11 +118,15 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     animalsLikedByUser.add(animal);
     t.setAnimalsLikedByUser(animalsLikedByUser);
 
+
     Set<ParentUser> allUsersLiked = animal.getParentUserLike();
     allUsersLiked.add(t);
     animal.setParentUserLike(allUsersLiked);
 
+    animalService.save(animal);
     saveUser(t);
+
+//    animalService.save(animal);
   }
 
   public void addAnimalToAnimalsUnderAdoptionByUser(Animal animal, T t) throws ExceedMaxNumberOfAnimalsToAdoptException {
@@ -171,13 +177,13 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     saveUser(t);
   }
 
-  public void removeAnimalFromAnimalsOwnedByUser(Animal animal, T t){
+  public void removeAnimalFromAnimalsOwnedByUser(Animal animal, T t) throws AnimalIdNotFoundException {
     Set<Animal> animalsOwnedByUser = t.getAnimalsOwnedByUser();
     animalsOwnedByUser.remove(animal);
     t.setAnimalsOwnedByUser(animalsOwnedByUser);
 
     animal.setOwner(null);
-//    animalService.remove(animal);
+    animalService.remove(animal);
 
     saveUser(t);
   }

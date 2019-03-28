@@ -5,6 +5,7 @@ import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.oauthSecurity.JwtTokenUtil;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -46,7 +47,7 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
       privateUser.setPassword(encoder.encode(privateUser.getPassword()));
       //   GeoCode geoCode = locationService.generateUserLocationFromAddress(privateUser);
       //  privateUser.setGeoCode(geoCode);
-      return saveUser(privateUser);
+      return (PrivateUser) saveUser(privateUser);
     }
     throw new EmailTakenException("Email address already taken, please choose an other one or sign in.");
   }
