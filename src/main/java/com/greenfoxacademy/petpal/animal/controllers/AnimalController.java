@@ -74,26 +74,25 @@ public class AnimalController {
   public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    return ResponseEntity.ok(parentUser.getAnimalsOwnedByUser().remove(animal));
-    // userDetailsService.SolMethodja(animal,parentUser);
-    //animalService.remove(animalService.findById(id));
+    userDetailsService.removeAnimalFromAnimalsOwnedByUser(animal, parentUser);
+    return ResponseEntity.ok().build();
+
   }
 
   @DeleteMapping("/pet/{id}/like")
   public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    //TODO: implement
-    return ResponseEntity.ok(parentUser.getAnimalsLikedByUser().remove(animal));
+    userDetailsService.removeAnimalFromAnimalsLikedByUser(animal, parentUser);
+    return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("pet/{id}/adoptable")
   public ResponseEntity deleteFromAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
-    //TODO: implement
-    return null;
+    userDetailsService.removeAnimalFromAnimalsUnderAdoptionByUser(animal, parentUser);
+    return ResponseEntity.ok().build();
   }
 }
 //TODO: reduce duplications
