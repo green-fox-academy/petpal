@@ -55,7 +55,7 @@ public class AnimalController {
     return ResponseEntity.ok().build();
   }
 
-  @PostMapping("/pet")
+  @PostMapping("/uploadPet")
   public ResponseEntity upload(@RequestBody AnimalDTO animalDTO, Authentication authentication) throws Throwable {
     ParentUser privateUser = userDetailsService.getUserFromAuth(authentication);
     userDetailsService.addAnimalToAnimalsOwnedByUser(animalService.uploadAnimal(animalDTO), privateUser);
@@ -74,6 +74,7 @@ public class AnimalController {
   public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
+
     return ResponseEntity.ok(parentUser.getOwnedAnimalsByUser().remove(animal));
   }
 
@@ -86,7 +87,7 @@ public class AnimalController {
   }
 
   @DeleteMapping("pet/{id}/adoptable")
-  public ResponseEntity deleteFromToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
+  public ResponseEntity deleteFromAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
     //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
