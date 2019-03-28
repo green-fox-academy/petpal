@@ -1,8 +1,7 @@
 package com.greenfoxacademy.petpal.animal.models;
 
-import com.greenfoxacademy.petpal.users.models.PrivateUser;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -15,7 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 public abstract class Animal {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -31,20 +29,20 @@ public abstract class Animal {
 
   @ManyToMany
   @JoinTable(
-          name = "private_users_liked_animals",
+          name = "parent_users_liked_animals",
           joinColumns = @JoinColumn(
                   name = "animal_id", referencedColumnName = "id"),
           inverseJoinColumns = @JoinColumn(
-                  name = "private_user_id", referencedColumnName = "id"))
-  private Set<PrivateUser> privateUser;
+                  name = "parent_user_id", referencedColumnName = "id"))
+  private Set<ParentUser> parentUser;
 
   @ManyToOne
   @JoinColumn(name = "adopter_id", referencedColumnName = "id")
-  private PrivateUser privateUserAdopt;
+  private ParentUser parentUserAdopt;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "owner_id", referencedColumnName = "id")
-  private PrivateUser owner;
+  private ParentUser owner;
 
   protected Long getAge() {
     return 0L;

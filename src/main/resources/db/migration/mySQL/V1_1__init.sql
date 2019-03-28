@@ -11,50 +11,50 @@ VALUES (1, 20, 20),
        (2, 30, 30),
        (3, 40, 40);
 
-CREATE TABLE `super_user`
+CREATE TABLE `parent_user`
 (
   `id`           bigint(20)   AUTO_INCREMENT,
   `user_type`    varchar(255),
-  `username`     varchar(255) DEFAULT NULL,
+  `name`         varchar(255) DEFAULT NULL,
   `password`     varchar(255),
   `email`        varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
-  address        varchar(255),
-  geo_code_id    bigint(20),
-  PRIMARY KEY (`id`),
-  CONSTRAINT geo_code_id FOREIGN KEY (`id`) REFERENCES `geo_code` (`id`)
+  `image_url`    varchar(255) DEFAULT NULL,
+  `address`      varchar(255),
+  PRIMARY KEY (`id`)
 
 );
 
 -- testUser1 password: pass1
 -- testUser2 password: pass2
 -- testUser3 password: pass3
-INSERT INTO super_user (id, username, password, email, phone_number, address, geo_code_id, user_type)
+
+INSERT INTO parent_user (id, name, password, email, phone_number, image_url, address, user_type)
 VALUES (1,
         'test1',
         '$2a$10$3A7YK9hDUpHN4plBoCphYOzk426CebJwnaFMk0kN4qEXoWUTiwejC',
         'test1@test.test',
         '5353',
+        'imageUrl',
         'Budapest, Szép u. 2, 1053',
-        1,
         'PrivateUser'),
        (2,
         'test2',
         '$2a$10$y1WkKt52SH8eDm6zvy63v.B0EstAaevqAgfo7plk8v9UuigsMcqxi',
         'test2@test.test',
         '5555',
+        'imageUrl',
         'Gitega, Burundi',
-        2,
         'PrivateUser'),
        (3,
         'test3',
         '$2a$10$N.4V.83hs.5X2bI0qY0Tme2PYceHtDf2Suzh0QHEcYVZxeS0YhJL6',
         'test3@test.test',
         null,
+        'imageUrl',
+        'google'
         '1042',
-        3,
         'PrivateUser');
-
 
 CREATE TABLE `animal`
 (
@@ -71,7 +71,7 @@ CREATE TABLE `animal`
   `spayed`              bit          DEFAULT 0,
   `vaccinated`          bit          DEFAULT 0,
   `adopted`             bit          DEFAULT 0,
-  CONSTRAINT super_user_id FOREIGN KEY (`id`) REFERENCES `super_user` (`id`),
+  CONSTRAINT parent_user_id FOREIGN KEY (`id`) REFERENCES `parent_user` (`id`),
   PRIMARY KEY (`id`)
 );
 
@@ -109,7 +109,7 @@ VALUES (1,
         '2019-05-04 03:00:00',
         false,
         true,
-        'dog.jpg',
+        'doggo.jpg',
         'Dog'),
        (3,
         1,
@@ -124,25 +124,22 @@ VALUES (1,
         'cat.jpg',
         'Cat');
 
-CREATE TABLE private_users_liked_animals
-  -- A PRIMARY KEY IS ALWAYS NEEDED
+
+CREATE TABLE parent_users_liked_animals
+  ##A PRIMARY KEY IS ALWAYS NEEDED
 (
-  id bigint(20) AUTO_INCREMENT,
-  animal_id       BIGINT NOT NULL,
-  private_user_id BIGINT NOT NULL,
-  CONSTRAINT private_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
-  CONSTRAINT private_users_liked_animals_private_user_id FOREIGN KEY (private_user_id) REFERENCES super_user (id),
+  id             BIGINT NOT NULL,
+  animal_id      BIGINT NOT NULL,
+  parent_user_id BIGINT NOT NULL,
+  CONSTRAINT parent_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
+  CONSTRAINT parent_users_liked_animals_parent_user_id FOREIGN KEY (parent_user_id) REFERENCES parent_user (id),
   PRIMARY KEY (id)
 );
 
-
-
-/*CREATE TABLE private_users_adopted_animals
-(
-  id        BIGINT NOT NULL,
-  animal_id BIGINT NOT NULL,
-  owner_id  BIGINT NOT NULL,
-  CONSTRAINT private_users_adopted_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),
-  CONSTRAINT private_users_adopted_animals_private_user_id FOREIGN KEY (owner_id) REFERENCES super_user (id),
-  PRIMARY KEY (id)
-);*/
+INSERT INTO parent_users_liked_animals (id, animal_id, parent_user_id)
+VALUES (1, 1, 1),
+       (2, 1, 2),
+       (3, 1, 3),
+       (4, 2, 2),
+       (5, 3, 1),
+       (6, 3, 3);

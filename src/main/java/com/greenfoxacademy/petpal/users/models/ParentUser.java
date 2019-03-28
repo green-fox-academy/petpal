@@ -2,11 +2,7 @@ package com.greenfoxacademy.petpal.users.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.animal.models.Animal;
-import com.greenfoxacademy.petpal.geocode.GeoCode;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,23 +15,26 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public abstract class SuperUser {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class ParentUser {
+
+
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @NotBlank
-  private String username;
-  @NotBlank
-  private String password;
+  private String name;
   @Email
   private String email;
   private String phoneNumber;
+  @Column
+  private String imageUrl;
 
-  @OneToOne(cascade = CascadeType.PERSIST)
+
+/*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinColumn(name = "geo_code_id")
-  private GeoCode geoCode;
+  private GeoCode geoCode;*/
   private String address;
 //  TODO address fields
 
@@ -43,8 +42,12 @@ public abstract class SuperUser {
   @JsonIgnore
   private Set<Animal> ownedAnimalsByUser;
 
-  public SuperUser(@NotBlank String username, @NotBlank String password) {
-    this.username = username;
-    this.password = password;
-  }
+  @ManyToMany(mappedBy = "parentUser", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private Set<Animal> animalsLikedByUser;
+
+  @OneToMany(mappedBy = "parentUserAdopt", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private Set<Animal> animalsToAdoptByUser;
+
 }

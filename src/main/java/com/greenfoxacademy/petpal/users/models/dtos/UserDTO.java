@@ -1,4 +1,5 @@
-package com.greenfoxacademy.petpal.users.models;
+package com.greenfoxacademy.petpal.users.models.dtos;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-
-  private String username;
+    private String email;
 }

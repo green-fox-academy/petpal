@@ -1,11 +1,15 @@
 package com.greenfoxacademy.petpal.users.controllers;
 
+import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserIsNullException;
-import com.greenfoxacademy.petpal.exception.UsernameTakenException;
+import com.greenfoxacademy.petpal.oauthSecurity.Token;
 import com.greenfoxacademy.petpal.users.models.Organisation;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
-import com.greenfoxacademy.petpal.users.models.UserDTO;
-import com.greenfoxacademy.petpal.users.services.PrivateUserService;
+import com.greenfoxacademy.petpal.users.models.dtos.LoginUserDTO;
+import com.greenfoxacademy.petpal.users.models.dtos.RegisterUserDTO;
+import com.greenfoxacademy.petpal.users.models.dtos.UserDTO;
+import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,44 +19,57 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
+@CrossOrigin
 @RestController
-//@CrossOrigin(origins = "https://petpalgf.herokuapp.com/", maxAge = 3600)
 public class UserController {
 
-  private PrivateUserService privateUserService;
-//  OrganisationService organisationService;
+  private ParentUserService parentUserService;
+  private ModelMapper modelMapper = new ModelMapper();
 
   @Autowired
-  public UserController(PrivateUserService privateUserService) {
-    this.privateUserService = privateUserService;
-//    this.organisationService = organisationService;
+  public UserController(ParentUserService userDetailsService) {
+    this.parentUserService = userDetailsService;
   }
 
-  @CrossOrigin
   @PostMapping("/register/user")
-  public ResponseEntity registerUser(@Valid @RequestBody PrivateUser privateUser) throws UserIsNullException, UsernameTakenException, UnirestException {
-    privateUserService.registerNewUser(privateUser);
-    ModelMapper modelMapper = new ModelMapper();
-    return ResponseEntity.ok(modelMapper.map(privateUser, UserDTO.class));
-
-      /*      ResponseEntity.ok().header("Access-Control-Allow-Origin", "*")
-            .header("Access-Control-Allow-Credentials", "true")
-            .header("Access-Control-Allow-Headers",
-                    "origin, content-type, accept, authorization")
-            .header("Access-Control-Allow-Methods",
-                    "GET, POST, PUT, DELETE, OPTIONS, HEAD").body(modelMapper.map(privateUser, UserDTO.class));*/
+  public ResponseEntity registerUser(@Valid @RequestBody RegisterUserDTO registerUserDTO) throws UserIsNullException, EmailTakenException, UnirestException {
+    PrivateUser privateUser = modelMapper.map(registerUserDTO, PrivateUser.class);
+    parentUserService.register(privateUser);
+    return ResponseEntity.ok(registerUserDTO.getEmail());
   }
+
+/*  @GetMapping("/testtoken")
+  public ResponseEntity testToken(Authentication authentication){
+    String token =
+    return ResponseEntity.ok(authentication.getPrincipal());
+  }*/
 
   @PostMapping("/register/organization")
-  public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) {
-    //organisationService.save(organisation);
-    return ResponseEntity.ok().body(organisation);
+  public ResponseEntity registerOrganisation(@Valid @RequestBody Organisation organisation) throws UserIsNullException, UnirestException, EmailTakenException {
+    parentUserService.register(organisation);
+    return ResponseEntity.ok().body(modelMapper.map(organisation, UserDTO.class));
+  }
+
+/*  @PostMapping("/oauth2/authorize/google")
+  public ResponseEntity loginGoogleUser(GoogleUser googleUser) throws UserNotFoundException {
+    String token = parentUserService.login(googleUser);
+    return ResponseEntity.ok().body(token);
+  }*/
+
+  @PostMapping("/login/user")
+  public ResponseEntity loginPrivateUser(@Valid @RequestBody LoginUserDTO loginUserDTO ) throws Throwable {
+    PrivateUser privateUser = (PrivateUser) parentUserService.findByEmail(loginUserDTO.getEmail());
+    Token token = new Token(parentUserService.login(privateUser));
+    return ResponseEntity.ok().body(token);
   }
 
   @PutMapping("/user/{id}")
-  public ResponseEntity changePrivateUser(@PathVariable Long id, PrivateUser privateUser) throws Throwable {
-    PrivateUser privateUserToChange = privateUserService.findById(id);
-    return ResponseEntity.ok(privateUserService.saveUser(privateUser));
+  public ResponseEntity changePassword(Authentication authentication, @RequestBody String password) throws Throwable {
+    ParentUser user = (ParentUser) parentUserService.getUserFromAuth(authentication);
+    //TODO: separate usertype, pw not applicable for GoogleU, changePW method should be implemented in service with pw hash
+
+    return ResponseEntity.ok().build();
   }
 
   /*@PutMapping("/organisation/{id}")
@@ -64,20 +81,20 @@ public class UserController {
 
   @GetMapping("/pets/liked")
   public ResponseEntity likedPets(Authentication authentication) throws Throwable {
-    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
-    return ResponseEntity.ok(privateUserService.animalsLikedByUser(privateUser.getId()));
+    ParentUser parentUser =  parentUserService.getUserFromAuth(authentication);
+    return ResponseEntity.ok(parentUserService.animalsLikedByUser(parentUser));
   }
 
   @GetMapping("/pets/adoptable")
   public ResponseEntity adoptedPets(Authentication authentication) throws Throwable {
-    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
-    return ResponseEntity.ok(privateUserService.animalsToAdoptByUser(privateUser.getId()));
+    ParentUser parentUser =  parentUserService.getUserFromAuth(authentication);
+    return ResponseEntity.ok(parentUserService.animalsToAdoptByUser(parentUser));
   }
 
   @GetMapping("/pets/owned")
   public ResponseEntity ownedPets(Authentication authentication) throws Throwable {
-    PrivateUser privateUser = privateUserService.getUserFromAuth(authentication).orElseThrow(Exception::new);
-    return ResponseEntity.ok(privateUserService.animalsOwnedByUser(privateUser.getId()));
+    ParentUser parentUser =  parentUserService.getUserFromAuth(authentication);
+    return ResponseEntity.ok(parentUserService.animalsOwnedByUser(parentUser));
   }
   //TODO: delete pet from all of the lists AND delete pet for good (4 endpoints)
 }

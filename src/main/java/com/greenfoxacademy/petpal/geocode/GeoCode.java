@@ -1,7 +1,7 @@
 package com.greenfoxacademy.petpal.geocode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.greenfoxacademy.petpal.users.models.SuperUser;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +20,7 @@ public class GeoCode {
   private Double lng;
   private Double lat;
 
-  @OneToOne(mappedBy = "geoCode", cascade = CascadeType.PERSIST)
+/*  @OneToOne(mappedBy = "geoCode", cascade = CascadeType.PERSIST)
   @JsonIgnore
-  private SuperUser superUser;
+  private ParentUser parentUser;*/
 }
