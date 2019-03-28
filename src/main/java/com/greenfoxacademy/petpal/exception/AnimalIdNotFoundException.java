@@ -1,7 +1,8 @@
 package com.greenfoxacademy.petpal.exception;
 
 public class AnimalIdNotFoundException extends Exception {
-  public AnimalIdNotFoundException(String message) {
-    super(message);
+
+  public AnimalIdNotFoundException() {
+    super("Animal not found");
   }
 }

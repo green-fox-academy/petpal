@@ -1,11 +1,9 @@
 package com.greenfoxacademy.petpal.users.services;
 
-import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.oauthSecurity.JwtTokenUtil;
-import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
@@ -36,7 +33,7 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
   @Override
   public String login(PrivateUser privateUser) throws UserNotFoundException {
     if (!isEmailInDB(privateUser)) {
-      throw new UserNotFoundException("No such user");
+      throw new UserNotFoundException();
     }
     return jwtTokenUtil.generateToken(privateUser);
   }

@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petpal.users.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import javax.validation.constraints.NotBlank;
 public class PrivateUser extends ParentUser {
 
   @NotBlank
+  @JsonIgnore
   private String password;
 
 }
