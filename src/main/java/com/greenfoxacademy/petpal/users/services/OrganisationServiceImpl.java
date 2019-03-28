@@ -1,6 +1,5 @@
 package com.greenfoxacademy.petpal.users.services;
 
-
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
@@ -9,10 +8,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-
 import java.util.Set;
 
 public class OrganisationServiceImpl extends ParentUserService<Organisation> {
+
   @Override
   public String login(Organisation organisation) throws UserNotFoundException {
     return null;

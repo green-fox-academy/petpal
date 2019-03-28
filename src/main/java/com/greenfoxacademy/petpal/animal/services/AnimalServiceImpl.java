@@ -22,7 +22,7 @@ public class AnimalServiceImpl implements AnimalService {
 
   @Override
   public Animal save(Animal animal) throws AnimalIsNullException {
-    checkIfAnimalIsNull(animal);
+    validateAnimal(animal);
     return animalRepository.save(animal);
   }
 
@@ -45,9 +45,16 @@ public class AnimalServiceImpl implements AnimalService {
             .orElseThrow(() -> new AnimalIdNotFoundException(("There is no Animal with such ID")));
   }
 
-  private void checkIfAnimalIsNull(Animal animal) throws AnimalIsNullException {
-    if (animal == null) {
+  @Override
+  public void validateAnimal(Animal animal) throws AnimalIsNullException {
+    if (animal == null || !isAnimalInDB(animal)) {
       throw new AnimalIsNullException("Animal must not be null");
     }
   }
+
+  @Override
+  public boolean isAnimalInDB(Animal animal) {
+    return animalRepository.existsById(animal.getId());
+  }
+
 }

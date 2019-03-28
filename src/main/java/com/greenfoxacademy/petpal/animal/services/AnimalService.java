@@ -15,4 +15,9 @@ public interface AnimalService {
   List<Animal> findAll();
 
   Animal findById(Long id) throws AnimalIdNotFoundException;
+
+  void validateAnimal(Animal animal) throws AnimalIsNullException;
+
+  boolean isAnimalInDB(Animal animal);
+
 }

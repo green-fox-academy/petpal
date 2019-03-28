@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
 @CrossOrigin
 @RestController
 public class UserController {
@@ -35,6 +34,7 @@ public class UserController {
   @PostMapping("/register/user")
   public ResponseEntity registerUser(@Valid @RequestBody RegisterUserDTO registerUserDTO) throws UserIsNullException, EmailTakenException, UnirestException {
     PrivateUser privateUser = modelMapper.map(registerUserDTO, PrivateUser.class);
+    //TODO: remove raw type
     userDetailsService.register(privateUser);
     return ResponseEntity.ok(registerUserDTO.getEmail());
   }
@@ -58,9 +58,11 @@ public class UserController {
   }*/
 
   @PostMapping("/login/user")
+
   public ResponseEntity loginPrivateUser(@Valid @RequestBody LoginUserDTO loginUserDTO ) throws Throwable {
     PrivateUser privateUser = (PrivateUser) userDetailsService.findByEmail(loginUserDTO.getEmail());
     Token token = new Token(userDetailsService.login(privateUser));
+    //TODO: remove raw type   
     return ResponseEntity.ok().body(token);
   }
 
@@ -68,7 +70,7 @@ public class UserController {
   public ResponseEntity changePassword(Authentication authentication, @RequestBody String password) throws Throwable {
     ParentUser user = (ParentUser) userDetailsService.getUserFromAuth(authentication);
     //TODO: separate usertype, pw not applicable for GoogleU, changePW method should be implemented in service with pw hash
-
+    //TODO: I'm not sure if we need this (lyancsie)
     return ResponseEntity.ok().build();
   }
 
@@ -81,13 +83,16 @@ public class UserController {
 
   @GetMapping("/pets/liked")
   public ResponseEntity likedPets(Authentication authentication) throws Throwable {
+
     ParentUser parentUser =  userDetailsService.getUserFromAuth(authentication);
     return ResponseEntity.ok(userDetailsService.animalsLikedByUser(parentUser));
+    //TODO: remove raw type
   }
 
   @GetMapping("/pets/adoptable")
   public ResponseEntity adoptedPets(Authentication authentication) throws Throwable {
     ParentUser parentUser =  userDetailsService.getUserFromAuth(authentication);
+    //TODO: remove raw type
     return ResponseEntity.ok(userDetailsService.animalsToAdoptByUser(parentUser));
   }
 
@@ -95,6 +100,7 @@ public class UserController {
   public ResponseEntity ownedPets(Authentication authentication) throws Throwable {
     ParentUser parentUser =  userDetailsService.getUserFromAuth(authentication);
     return ResponseEntity.ok(userDetailsService.animalsOwnedByUser(parentUser));
+    //TODO: remove raw type
   }
-  //TODO: delete pet from all of the lists AND delete pet for good (4 endpoints)
+  //TODO: implement DELETE endpoints (deleting from the lists)
 }
