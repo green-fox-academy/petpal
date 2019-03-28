@@ -54,9 +54,9 @@ public class AnimalServiceImpl implements AnimalService {
   public Animal uploadAnimal(AnimalDTO animalDTO) throws InvalidRaceException, AnimalIsNullException {
     ModelMapper modelMapper = new ModelMapper();
     Animal animal;
-    if (animalDTO.getAnimalRace().equals("Dog")) {
+    if (animalDTO.getType().equals("Dog")) {
       animal = modelMapper.map(animalDTO, Dog.class);
-    } else if (animalDTO.getAnimalRace().equals("Cat")) {
+    } else if (animalDTO.getType().equals("Cat")) {
       animal = modelMapper.map(animalDTO, Cat.class);
     } else {
       throw new InvalidRaceException("Invalid animalRace");
