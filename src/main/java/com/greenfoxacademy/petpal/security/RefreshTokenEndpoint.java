@@ -5,7 +5,6 @@ import com.greenfoxacademy.petpal.security.JWT.extractor.TokenExtractor;
 import com.greenfoxacademy.petpal.security.config.JwtSettings;
 import com.greenfoxacademy.petpal.security.config.WebSecurityConfig;
 import com.greenfoxacademy.petpal.security.model.*;
-import com.greenfoxacademy.petpal.users.services.MainUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
