@@ -73,16 +73,16 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return findByEmail((authentication.getName()));
   }
 
-  public Set<Animal> findAllAdoptableAnimals(T t) {
-    Set<Animal> allAnimals = animalService.findAllSet();
-    Set<Animal> adoptableAnimals = new HashSet<>();
-    for (Animal animal : allAnimals) {
-      if ((!isAnimalOwnedByUser(animal, t)) && (isAdoptable(animal))) {
-        adoptableAnimals.add(animal);
-      }
-    }
-    return adoptableAnimals;
-  }
+//  public Set<Animal> findAllAdoptableAnimals(T t) {
+//    Set<Animal> allAnimals = animalService.findAllSet();
+//    Set<Animal> adoptableAnimals = new HashSet<>();
+//    for (Animal animal : allAnimals) {
+//      if ((!isAnimalOwnedByUser(animal, t)) && (isAdoptable(animal))) {
+//        adoptableAnimals.add(animal);
+//      }
+//    }
+//    return adoptableAnimals;
+//  }
 
   public Boolean isAnimalOwnedByUser(Animal animal, T t) {
     return animal.getOwner().equals(t);
@@ -178,7 +178,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     t.setAnimalsOwnedByUser(animalsOwnedByUser);
 
     animal.setOwner(null);
-    animalService.remove(animal);
+//    animalService.remove(animal);
 
     saveUser(t);
   }
