@@ -5,6 +5,7 @@ import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.*;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
+import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,8 +49,9 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
             .orElseThrow(() -> new UserNotFoundException(("There is no User with such ID")));
   }
 
-  public T saveUser(T t) {
-    return (T) mainUserRepository.save(t);
+  public ParentUser saveUser(ParentUser t) {
+    System.out.println(t.getId());
+    return (ParentUser) mainUserRepository.save(t);
   }
 
   public void removeUser(T t) {
@@ -70,16 +74,16 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return findByEmail((authentication.getName()));
   }
 
-//  public Set<Animal> findAllAdoptableAnimals(T t) {
-//    Set<Animal> allAnimals = animalService.findAllSet();
-//    Set<Animal> adoptableAnimals = new HashSet<>();
-//    for (Animal animal : allAnimals) {
-//      if ((!isAnimalOwnedByUser(animal, t)) && (isAdoptable(animal))) {
-//        adoptableAnimals.add(animal);
-//      }
-//    }
-//    return adoptableAnimals;
-//  }
+  public Set<Animal> findAllAdoptableAnimals(T t) {
+    Set<Animal> allAnimals = animalService.findAll();
+    Set<Animal> adoptableAnimals = new HashSet<>();
+    for (Animal animal : allAnimals) {
+      if ((!isAnimalOwnedByUser(animal, t)) && (isAdoptable(animal))) {
+        adoptableAnimals.add(animal);
+      }
+    }
+    return adoptableAnimals;
+  }
 
   public Boolean isAnimalOwnedByUser(Animal animal, T t) {
     return animal.getOwner().equals(t);
@@ -89,7 +93,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return !animal.getUnderAdoption();
   }
 
-  public Set<Animal> animalsOwnedByUser(T t) {
+  public Set<Animal> animalsOwnedByUser(T t){
     return t.getAnimalsOwnedByUser();
   }
 
@@ -97,9 +101,9 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     return t.getAnimalsLikedByUser();
   }
 
-  public Set<Animal> animalsUnderAdoptionByUser(T t) {
+  public Set<Animal> animalsUnderAdoptionByUser(T t){
     Set<Animal> earlierAdoptedAnimals = t.getAnimalsUnderAdoptionByUser();
-    Set<Animal> filteredSetAdoptedAnimals = earlierAdoptedAnimals.stream()
+    Set<Animal> filteredSetAdoptedAnimals =  earlierAdoptedAnimals.stream()
             .filter(animal -> animal.getUnderAdoption())
             .collect(Collectors.toSet());
     t.setAnimalsUnderAdoptionByUser(filteredSetAdoptedAnimals);
@@ -114,12 +118,15 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     animalsLikedByUser.add(animal);
     t.setAnimalsLikedByUser(animalsLikedByUser);
 
+
     Set<ParentUser> allUsersLiked = animal.getParentUserLike();
     allUsersLiked.add(t);
     animal.setParentUserLike(allUsersLiked);
 
-    saveUser(t);
     animalService.save(animal);
+    saveUser(t);
+
+//    animalService.save(animal);
   }
 
   public void addAnimalToAnimalsUnderAdoptionByUser(Animal animal, T t) throws ExceedMaxNumberOfAnimalsToAdoptException {
@@ -147,7 +154,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     saveUser(t);
   }
 
-  public void removeAnimalFromAnimalsLikedByUser(Animal animal, T t) {
+  public void removeAnimalFromAnimalsLikedByUser(Animal animal, T t){
     Set<Animal> animalsLikedByUser = t.getAnimalsLikedByUser();
     animalsLikedByUser.remove(animal);
     t.setAnimalsLikedByUser(animalsLikedByUser);
@@ -159,7 +166,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     saveUser(t);
   }
 
-  public void removeAnimalFromAnimalsUnderAdoptionByUser(Animal animal, T t) {
+  public void removeAnimalFromAnimalsUnderAdoptionByUser(Animal animal, T t){
     Set<Animal> animalsUnderAdoptionByUser = t.getAnimalsUnderAdoptionByUser();
     animalsUnderAdoptionByUser.remove(animal);
     t.setAnimalsUnderAdoptionByUser(animalsUnderAdoptionByUser);
@@ -170,13 +177,13 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     saveUser(t);
   }
 
-  public void removeAnimalFromAnimalsOwnedByUser(Animal animal, T t) {
+  public void removeAnimalFromAnimalsOwnedByUser(Animal animal, T t) throws AnimalIdNotFoundException {
     Set<Animal> animalsOwnedByUser = t.getAnimalsOwnedByUser();
     animalsOwnedByUser.remove(animal);
     t.setAnimalsOwnedByUser(animalsOwnedByUser);
 
     animal.setOwner(null);
-//    animalService.remove(animal);
+    animalService.remove(animal);
 
     saveUser(t);
   }

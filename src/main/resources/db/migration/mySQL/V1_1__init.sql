@@ -22,7 +22,6 @@ CREATE TABLE `parent_user`
   `image_url`    varchar(255) DEFAULT NULL,
   `address`      varchar(255),
   PRIMARY KEY (`id`)
-
 );
 
 -- testUser1 password: pass1
@@ -128,7 +127,7 @@ VALUES (1,
 CREATE TABLE parent_users_liked_animals
   ##A PRIMARY KEY IS ALWAYS NEEDED
 (
-  id             BIGINT NOT NULL,
+  `id`                  bigint(20)   AUTO_INCREMENT,
   animal_id      BIGINT NOT NULL,
   parent_user_id BIGINT NOT NULL,
   CONSTRAINT parent_users_liked_animals_animal_id FOREIGN KEY (animal_id) REFERENCES animal (id),

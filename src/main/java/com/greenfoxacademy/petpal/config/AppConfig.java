@@ -1,24 +1,23 @@
-/*package com.greenfoxacademy.petpal.config;
+package com.greenfoxacademy.petpal.config;
 
-import com.greenfoxacademy.petpal.users.models.GoogleUser;
-import com.greenfoxacademy.petpal.users.models.ParentUser;
-import com.greenfoxacademy.petpal.users.models.PrivateUser;
+import com.greenfoxacademy.petpal.users.services.GoogleUserServiceImpl;
+import com.greenfoxacademy.petpal.users.services.ParentUserService;
+import com.greenfoxacademy.petpal.users.services.PrivateUserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 @Configuration
-@Primary
 public class AppConfig {
-
   @Bean
-  public ParentUser getParentUser(ParentUser parentUser) throws Exception {
-    if (parentUser instanceof PrivateUser) {
-      return new PrivateUser();
+  @Primary
+  public ParentUserService getParentUserService(ParentUserService userDetailsService) throws Exception {
+    if(userDetailsService instanceof PrivateUserServiceImpl){
+      return new PrivateUserServiceImpl();
     }
-    if (parentUser instanceof GoogleUser) {
-      return new GoogleUser();
+    if(userDetailsService instanceof GoogleUserServiceImpl){
+      return new GoogleUserServiceImpl();
     }
     throw new Exception("Bean instantiation not working properly");
   }
-}*/
+}
