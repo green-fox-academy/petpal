@@ -47,10 +47,15 @@ public class ErrorHandlingAdvice {
     return new ErrorMsg("error", ex.getMessage());
   }
 
-  @ExceptionHandler(AnimalAlreadyAdoptedException.class)
+  @ExceptionHandler(AnimalUnderAdoptionException.class)
   @ResponseStatus(HttpStatus.CONFLICT)
-  ErrorMsg animalAlreadyAdopted(AnimalAlreadyAdoptedException ex) {
+  ErrorMsg animalUnderAdoption(AnimalUnderAdoptionException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
 
+  @ExceptionHandler(ExceedMaxNumberOfAnimalsToAdoptException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  ErrorMsg tooManyAnimalsMarkedForAdoption(ExceedMaxNumberOfAnimalsToAdoptException ex) {
+    return new ErrorMsg("error", ex.getMessage());
+  }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+
 import java.util.Set;
 
 public class GoogleUserServiceImpl extends ParentUserService<GoogleUser> {
@@ -32,28 +33,8 @@ public class GoogleUserServiceImpl extends ParentUserService<GoogleUser> {
   }
 
   @Override
-  public Set<Animal> animalsLikedByUser(GoogleUser googleUser) {
+  public GoogleUser changeUserDetails(GoogleUser googleUser) {
     return null;
-  }
-
-  @Override
-  public Set<Animal> animalsToAdoptByUser(GoogleUser googleUser) {
-    return null;
-  }
-
-  @Override
-  public void addAnimalToAnimalsLikedByUser(Animal animal, GoogleUser googleUser) {
-
-  }
-
-  @Override
-  public void addAnimalToAnimalsToAdoptByUser(Animal animal, GoogleUser googleUser) {
-
-  }
-
-  @Override
-  public void addAnimalToAnimalsOwnedByUser(Animal animal, GoogleUser googleUser) {
-
   }
 
   @Override

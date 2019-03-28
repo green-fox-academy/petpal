@@ -50,7 +50,7 @@ public class AnimalController {
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
-    userDetailsService.addAnimalToAnimalsToAdoptByUser(animalService.findById(id), parentUser);
+//    userDetailsService.addAnimalToAnimalsUnderAdoptionByUser((animalService.findById(id), parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
@@ -74,9 +74,9 @@ public class AnimalController {
   public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
+    return ResponseEntity.ok(parentUser.getAnimalsOwnedByUser().remove(animal));
     userDetailsService.SolMethodja(animal,parentUser);
     animalService.remove(animalService.findById(id));
-    return ResponseEntity.ok(parentUser.getOwnedAnimalsByUser().remove(animal));
   }
 
   @DeleteMapping("/pet/{id}/like")

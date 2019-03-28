@@ -14,12 +14,6 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 public class GoogleUser extends ParentUser {
 
-/*    @ManyToMany(mappedBy = "parentUser", cascade = CascadeType.PERSIST)
-    @JsonIgnore
-    private Set<Animal> animalsLikedByUser;
 
-    @OneToMany(mappedBy = "parentUser", cascade = CascadeType.PERSIST)
-    @JsonIgnore
-    private Set<Animal> animalsToAdoptByUser;*/
 
 }

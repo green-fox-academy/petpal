@@ -24,11 +24,18 @@ public abstract class ParentUser {
   @NotBlank
   private String name;
   @Email
+  @NotBlank
   private String email;
   private String phoneNumber;
   @Column
   private String imageUrl;
 
+
+
+
+/*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @JoinColumn(name = "geo_code_id")
+  private GeoCode geoCode;*/
   /*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "geo_code_id")
     private GeoCode geoCode;*/
@@ -37,14 +44,14 @@ public abstract class ParentUser {
 
   @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
   @JsonIgnore
-  private Set<Animal> ownedAnimalsByUser;
+  private Set<Animal> animalsOwnedByUser;
 
-  @ManyToMany(mappedBy = "parentUser", cascade = CascadeType.PERSIST)
+  @ManyToMany(mappedBy = "parentUserLike", cascade = CascadeType.PERSIST)
   @JsonIgnore
   private Set<Animal> animalsLikedByUser;
 
   @OneToMany(mappedBy = "parentUserAdopt", cascade = CascadeType.PERSIST)
   @JsonIgnore
-  private Set<Animal> animalsToAdoptByUser;
+  private Set<Animal> animalsUnderAdoptionByUser;
 
 }
