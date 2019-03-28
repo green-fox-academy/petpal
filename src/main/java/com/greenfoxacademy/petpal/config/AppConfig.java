@@ -1,4 +1,5 @@
-package com.greenfoxacademy.petpal.config;
+/*package com.greenfoxacademy.petpal.config;
+
 import com.greenfoxacademy.petpal.users.services.GoogleUserServiceImpl;
 import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import com.greenfoxacademy.petpal.users.services.PrivateUserServiceImpl;
@@ -20,4 +21,4 @@ public class AppConfig {
     }
     throw new Exception("Bean instantiation not working properly");
   }
-}
+}*/

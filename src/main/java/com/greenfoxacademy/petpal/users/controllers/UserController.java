@@ -21,18 +21,17 @@ import javax.validation.Valid;
 @RestController
 public class UserController {
 
-  private ParentUserService<ParentUser> userDetailsService;
+  private ParentUserService userDetailsService;
   private ModelMapper modelMapper = new ModelMapper();
 
   @Autowired
-  public UserController(ParentUserService<ParentUser> userDetailsService) {
+  public UserController(ParentUserService userDetailsService) {
     this.userDetailsService = userDetailsService;
   }
 
   @PostMapping("/register/user")
   public ResponseEntity registerUser(@Valid @RequestBody RegisterUserDTO registerUserDTO) throws UserIsNullException, EmailTakenException, UnirestException {
     PrivateUser privateUser = modelMapper.map(registerUserDTO, PrivateUser.class);
-    //TODO: remove raw type
     userDetailsService.register(privateUser);
     return ResponseEntity.ok(registerUserDTO.getEmail());
   }
