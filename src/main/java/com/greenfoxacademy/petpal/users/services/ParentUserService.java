@@ -123,15 +123,16 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     allUsersLiked.add(t);
     animal.setParentUserLike(allUsersLiked);
 
-    animalService.save(animal);
     saveUser(t);
 
-//    animalService.save(animal);
   }
 
-  public void addAnimalToAnimalsUnderAdoptionByUser(Animal animal, T t) throws ExceedMaxNumberOfAnimalsToAdoptException {
+  public void addAnimalToAnimalsUnderAdoptionByUser(Animal animal, T t) throws ExceedMaxNumberOfAnimalsToAdoptException, OwnedAnimalCannotBeAdoptedException {
     if (animalsUnderAdoptionByUser(t).size() >= 3) {
       throw new ExceedMaxNumberOfAnimalsToAdoptException("You are not allowed to mark more than 3 animals for adoption");
+    }
+    if (isAnimalOwnedByUser(animal, t)) {
+      throw new OwnedAnimalCannotBeAdoptedException("You cannot adopt your own animal");
     }
     Set<Animal> animalsUnderAdoptionByUser = t.getAnimalsUnderAdoptionByUser();
     animalsUnderAdoptionByUser.add(animal);
@@ -146,7 +147,6 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
   public void addAnimalToAnimalsOwnedByUser(Animal animal, T t) throws AnimalIsNullException {
     Set<Animal> animalsOwnedByUser = t.getAnimalsOwnedByUser();
     animalsOwnedByUser.add(animal);
-    t.setAnimalsOwnedByUser(animalsOwnedByUser);
 
     animal.setOwner(t);
     animalService.save(animal);

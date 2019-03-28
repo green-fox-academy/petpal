@@ -58,4 +58,10 @@ public class ErrorHandlingAdvice {
   ErrorMsg tooManyAnimalsMarkedForAdoption(ExceedMaxNumberOfAnimalsToAdoptException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
+
+  @ExceptionHandler(OwnedAnimalCannotBeAdoptedException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  ErrorMsg ownedAnimalAdoptionTried(OwnedAnimalCannotBeAdoptedException ex) {
+    return new ErrorMsg("error", ex.getMessage());
+  }
 }

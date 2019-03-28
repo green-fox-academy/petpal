@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petpal.animal.services;
 
+import com.greenfoxacademy.petpal.animal.AnimalFactory;
 import com.greenfoxacademy.petpal.animal.AnimalType;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
@@ -53,11 +54,15 @@ public class AnimalServiceImpl implements AnimalService {
   @Override
   public Animal uploadAnimal(AnimalDTO animalDTO) throws InvalidRaceException, AnimalIsNullException {
     ModelMapper modelMapper = new ModelMapper();
-    Animal animal;
-    if (animalDTO.getType().equals("Dog")) {
-      animal = modelMapper.map(animalDTO, Dog.class);
-    } else if (animalDTO.getType().equals("Cat")) {
-      animal = modelMapper.map(animalDTO, Cat.class);
+
+    if ((animalDTO.getType().equalsIgnoreCase("dog")) || (animalDTO.getType().equalsIgnoreCase("cat"))) {
+//      Animal animal = AnimalFactory.create(AnimalType.valueOf(animalDTO.getType()));
+      Animal animal = modelMapper.map(animalDTO, Dog.class);
+      return animal;
+//    } else if (animalDTO.getType().equals("Cat")) {
+//      Animal animal = new Cat();
+//      animal = modelMapper.map(animalDTO, Cat.class);
+//      return save(animal);
     } else {
       throw new InvalidRaceException("Invalid animalRace");
     }
@@ -67,13 +72,12 @@ public class AnimalServiceImpl implements AnimalService {
 //        Class<Animal> cls = Class.forName(type.name());
 //        animal = modelMapper.map(animalDTO, Class.forName(type.name()));
 //      }
-    return save(animal);
   }
 
 
   @Override
   public void validateAnimal(Animal animal) throws AnimalIsNullException {
-    if (animal == null || !isAnimalInDB(animal)) {
+    if (animal == null) {
       throw new AnimalIsNullException("Animal must not be null");
     }
   }
