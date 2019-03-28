@@ -31,19 +31,19 @@ public class ErrorHandlingAdvice {
 
   @ExceptionHandler(AnimalIdNotFoundException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  ErrorMsg animalNotFound(EmailTakenException ex) {
+  ErrorMsg animalNotFound(AnimalIdNotFoundException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
 
   @ExceptionHandler(UserNotFoundException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  ErrorMsg userIdNotFound(EmailTakenException ex) {
+  ErrorMsg userIdNotFound(UserNotFoundException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
 
   @ExceptionHandler(UserIsNullException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  ErrorMsg userIsNull(EmailTakenException ex) {
+  ErrorMsg userIsNull(UserIsNullException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
 
@@ -62,6 +62,12 @@ public class ErrorHandlingAdvice {
   @ExceptionHandler(OwnedAnimalCannotBeAdoptedException.class)
   @ResponseStatus(HttpStatus.CONFLICT)
   ErrorMsg ownedAnimalAdoptionTried(OwnedAnimalCannotBeAdoptedException ex) {
+    return new ErrorMsg("error", ex.getMessage());
+  }
+
+  @ExceptionHandler(NotOwnedAnimalDeleteException.class)
+  @ResponseStatus(HttpStatus.CONFLICT)
+  ErrorMsg notOwnedAnimalDeleteTried(NotOwnedAnimalDeleteException ex) {
     return new ErrorMsg("error", ex.getMessage());
   }
 }

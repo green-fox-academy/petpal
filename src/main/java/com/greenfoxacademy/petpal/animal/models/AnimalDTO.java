@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class AnimalDTO {
 
-  private Long id;
   private String name;
 //  private Timestamp birthDate;
 ////  private String animalRace;
