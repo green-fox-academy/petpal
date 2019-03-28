@@ -25,7 +25,6 @@ public abstract class ParentUser {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @NotBlank
   private String name;
   @Email
   @NotBlank
@@ -34,9 +33,9 @@ public abstract class ParentUser {
   @Column
   private String imageUrl;
 
-/*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  @JoinColumn(name = "geo_code_id")
-  private GeoCode geoCode;*/
+  /*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinColumn(name = "geo_code_id")
+    private GeoCode geoCode;*/
   private String address;
 //  TODO address fields
 

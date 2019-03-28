@@ -57,16 +57,16 @@ public class AnimalController {
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
-    chatService.createChat(parentUser, animalService.findById(id).getOwner(), animalService.findById(id));
-//    userDetailsService.addAnimalToAnimalsUnderAdoptionByUser((animalService.findById(id), parentUser);
+//    chatService.createChat(parentUser, animalService.findById(id).getOwner(), animalService.findById(id));
+    userDetailsService.addAnimalToAnimalsUnderAdoptionByUser(animalService.findById(id), parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
   }
 
   @PostMapping("/uploadPet")
   public ResponseEntity upload(@RequestBody AnimalDTO animalDTO, Authentication authentication) throws Throwable {
-    ParentUser privateUser = userDetailsService.getUserFromAuth(authentication);
-    userDetailsService.addAnimalToAnimalsOwnedByUser(animalService.uploadAnimal(animalDTO), privateUser);
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
+    userDetailsService.addAnimalToAnimalsOwnedByUser(animalService.uploadAnimal(animalDTO), parentUser);
     return ResponseEntity.ok().build();
   }
 

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class AppConfig {
+
   @Bean
   @Primary
   public ParentUserService getParentUserService(ParentUserService userDetailsService) throws Exception {
