@@ -14,8 +14,8 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class Organisation extends ParentUser {
 
-    @NotBlank
-    @JsonIgnore
-    private String password;
+  @NotBlank
+  @JsonIgnore
+  private String password;
 
 }

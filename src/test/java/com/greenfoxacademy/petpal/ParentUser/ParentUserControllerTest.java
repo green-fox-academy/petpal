@@ -31,11 +31,11 @@ public class ParentUserControllerTest {
   private String user;
   private String response = "";
 
-  @Test
+ /* @Test
   public void register_missingParameters_returnsBadRequest() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint))
             .andExpect(status().isBadRequest());
-  }
+  }*/
 
   @Test
   public void register_missingEmail_returnsBadRequest() throws Exception {
