@@ -1,5 +1,7 @@
 package com.greenfoxacademy.petpal.animal.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.greenfoxacademy.petpal.chat.models.Chat;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,4 +49,8 @@ public abstract class Animal {
   protected Long getAge() {
     return 0L;
   }
+
+  @OneToOne(mappedBy = "animal", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private Chat chat;
 }
