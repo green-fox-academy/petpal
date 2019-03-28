@@ -61,7 +61,7 @@ public class OrganisationServiceImpl extends ParentUserService<Organisation> {
   public void addAnimalToAnimalsOwnedByUser(Animal animal, Organisation organisation) throws Throwable {
     Set<Animal> animalsOwnedByUser = animalsOwnedByUser(organisation.getId());
     AnimalFactory animalFactory = new AnimalFactory();
-    animalsOwnedByUser.add(animalFactory.create(AnimalType.valueOf(animal.getType())));
+    animalsOwnedByUser.add(animalFactory.create(AnimalType.valueOf(animal.getAnimalRace())));
     organisation.setOwnedAnimalsByUser(animalsOwnedByUser);
     saveUser(organisation);
   }

@@ -13,7 +13,8 @@ public class AnimalDTO {
 
   private String name;
   private Timestamp birthDate;
-  private String type;
+  private String animalRace;
+  private String animalType;
   private String gender;
   private Timestamp fromWhenAvailable;
   private String photoPath;

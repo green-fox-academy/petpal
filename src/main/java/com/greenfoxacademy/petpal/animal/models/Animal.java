@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "animal_type")
+@DiscriminatorColumn(name = "animal_race")
 @Getter
 @Setter
 public abstract class Animal {
@@ -19,7 +19,8 @@ public abstract class Animal {
   private Long id;
   private String name;
   private Timestamp birthDate;
-  private String type;
+  private String animalRace;
+  private String animalType;
   private String gender;
   private Timestamp fromWhenAvailable;
   private String photoPath;

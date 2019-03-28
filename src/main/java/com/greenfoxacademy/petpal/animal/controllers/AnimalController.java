@@ -58,12 +58,12 @@ public class AnimalController {
     ParentUser privateUser = userDetailsService.getUserFromAuth(authentication);
     ModelMapper modelMapper = new ModelMapper();
     Animal animal;
-    if (animalDTO.getType().equals("dog")) {
+    if (animalDTO.getAnimalRace().equals("dog")) {
       animal = modelMapper.map(animalDTO, Dog.class);
-    } else if (animalDTO.getType().equals("cat")) {
+    } else if (animalDTO.getAnimalRace().equals("cat")) {
       animal = modelMapper.map(animalDTO, Cat.class);
     } else {
-      throw new InvalidTypeException("Invalid type");
+      throw new InvalidTypeException("Invalid animalRace");
     }
     animalService.save(animal);
     userDetailsService.addAnimalToAnimalsOwnedByUser(animal, privateUser);
