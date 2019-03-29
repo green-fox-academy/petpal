@@ -1,7 +1,5 @@
 package com.greenfoxacademy.petpal.animal.services;
 
-import com.greenfoxacademy.petpal.animal.AnimalFactory;
-import com.greenfoxacademy.petpal.animal.AnimalType;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
 import com.greenfoxacademy.petpal.animal.models.Cat;
@@ -14,7 +12,6 @@ import com.greenfoxacademy.petpal.users.models.ParentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Set;
 
 @Service
@@ -37,11 +34,11 @@ public class AnimalServiceImpl implements AnimalService {
   public void remove(Animal animal) throws AnimalIdNotFoundException {
     if (animalRepository.existsById(animal.getId())) {
       animalRepository.deleteById(animal.getId());
-    } else
+    } else {
       throw new AnimalIdNotFoundException();
+    }
   }
 
-  // kérdés vissza adja e?
   @Override
   public Set<Animal> findAll() {
     return animalRepository.findAllSet();
@@ -54,23 +51,15 @@ public class AnimalServiceImpl implements AnimalService {
   }
 
   @Override
-  public Animal uploadAnimal(AnimalDTO animalDTO) throws InvalidRaceException, AnimalIsNullException {
+  public Animal uploadAnimal(AnimalDTO animalDTO) throws InvalidRaceException {
     ModelMapper modelMapper = new ModelMapper();
     if (animalDTO.getType().equalsIgnoreCase("dog")) {
-      Animal animal = modelMapper.map(animalDTO, Dog.class);
-      return animal;
+      return modelMapper.map(animalDTO, Dog.class);
     } else if (animalDTO.getType().equalsIgnoreCase("cat")) {
-      Animal animal = modelMapper.map(animalDTO, Cat.class);
-      return animal;
+      return modelMapper.map(animalDTO, Cat.class);
     } else {
       throw new InvalidRaceException();
     }
-    //TODO: reflection
-//    for (AnimalType type : AnimalType.values())
-//      if (animalDTO.getAnimalRace().equals(type.name())){
-//        Class<Animal> cls = Class.forName(type.name());
-//        animal = modelMapper.map(animalDTO, Class.forName(type.name()));
-//      }
   }
 
   @Override

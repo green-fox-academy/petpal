@@ -29,7 +29,6 @@ public abstract class Animal {
  // private String animalRace;
   private String gender;
   private Timestamp fromWhenAvailable;
-  //TODO: replace
   private String photoPath;
   private Boolean spayed;
   private Boolean vaccinated;
@@ -51,10 +50,6 @@ public abstract class Animal {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "owner_id", referencedColumnName = "id")
   private ParentUser owner;
-
-  protected Long getAge() {
-    return 0L;
-  }
 
   @OneToOne(mappedBy = "animal", cascade = CascadeType.PERSIST)
   @JsonIgnore
