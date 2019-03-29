@@ -8,7 +8,6 @@ import com.greenfoxacademy.petpal.animal.repositories.AnimalRepository;
 import com.greenfoxacademy.petpal.animal.services.AnimalServiceImpl;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import com.greenfoxacademy.petpal.exception.InvalidRaceException;
-import com.sun.jdi.InvalidTypeException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
