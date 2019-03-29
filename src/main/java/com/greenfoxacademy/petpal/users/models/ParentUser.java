@@ -3,6 +3,7 @@ package com.greenfoxacademy.petpal.users.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.chat.models.Chat;
+import com.greenfoxacademy.petpal.chat.models.ChatMessage;
 import lombok.*;
 
 import javax.persistence.*;
@@ -55,4 +56,8 @@ public abstract class ParentUser {
   @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
   @JsonIgnore
   private Set<Chat> chats;
+
+  @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private List<ChatMessage> messages;
 }
