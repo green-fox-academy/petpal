@@ -1,14 +1,14 @@
 package com.greenfoxacademy.petpal.animal.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AnimalDTO {
 
   private String name;
