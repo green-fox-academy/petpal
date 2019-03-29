@@ -3,7 +3,6 @@ package com.greenfoxacademy.petpal.users.services;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.*;
-import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -18,14 +17,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service(value = "userDetailsService")
-public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService {
+public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService{
+
+  private MainUserRepository<ParentUser> mainUserRepository;
+  private AnimalService animalService;
 
   @Autowired
-  private MainUserRepository<ParentUser> mainUserRepository;
-  @Autowired
-  private AnimalService animalService;
-  @Autowired
-  private GeoCodeService locationService;
+  public ParentUserService(MainUserRepository<ParentUser> mainUserRepository, AnimalService animalService) {
+    this.mainUserRepository = mainUserRepository;
+    this.animalService = animalService;
+  }
 
   public abstract String login(T t) throws UserNotFoundException;
 
@@ -55,14 +56,6 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
   public void removeUser(ParentUser parentUser) {
     mainUserRepository.delete(parentUser);
   }
-
-  public boolean isUserNull(T t) {
-    return t == null;
-  }
-
-/*  public boolean isUserInDB(T t){
-    return mainUserRepository.existsById(t.getId());
-  }*/
 
   public boolean isEmailInDB(T t) {
     return mainUserRepository.existsByEmail(t.getEmail());
@@ -191,4 +184,5 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
 
     saveUser(t);
   }
+
 }
