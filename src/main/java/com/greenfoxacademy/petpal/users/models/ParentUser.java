@@ -3,6 +3,7 @@ package com.greenfoxacademy.petpal.users.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.chat.models.Chat;
+import com.greenfoxacademy.petpal.chat.models.ChatMessage;
 import lombok.*;
 
 import javax.persistence.*;
@@ -53,7 +54,6 @@ public abstract class ParentUser implements Comparable {
   @JsonIgnore
   private Set<Chat> chats;
 
-
   @Override
   public int compareTo(Object o) {
     if (o == null) return -1;
@@ -64,4 +64,8 @@ public abstract class ParentUser implements Comparable {
       return -1;
     }
   }
+
+  @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
+  @JsonIgnore
+  private List<ChatMessage> messages;
 }

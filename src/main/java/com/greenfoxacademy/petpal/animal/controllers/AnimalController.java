@@ -19,15 +19,21 @@ import org.springframework.web.bind.annotation.*;
 public class AnimalController {
 
   private AnimalService animalService;
+
   private ChatService chatService;
+
   private ParentUserService userDetailsService;
 
   @Autowired
 
   public AnimalController(AnimalService animalService, ParentUserService userDetailsService, ChatService chatService) {
+
     this.animalService = animalService;
+
     this.userDetailsService = userDetailsService;
+
     this.chatService = chatService;
+
   }
 
   @GetMapping("/home/pets")
@@ -55,7 +61,7 @@ public class AnimalController {
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
-//    chatService.createChat(parentUser, animalService.findById(id).getOwner(), animalService.findById(id));
+    chatService.createChat(parentUser, animalService.findById(id).getOwner(), animalService.findById(id));
     userDetailsService.addAnimalToAnimalsUnderAdoptionByUser(animalService.findById(id), parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
