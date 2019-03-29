@@ -32,9 +32,6 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
   @Autowired
   private JwtTokenUtil jwtTokenUtil;
 
-  public PrivateUserServiceImpl(MainUserRepository<ParentUser> mainUserRepository, AnimalService animalService) {
-    super(mainUserRepository, animalService);
-  }
 
   @Override
   public String login(PrivateUser privateUser) throws UserNotFoundException {

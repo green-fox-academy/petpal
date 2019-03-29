@@ -7,6 +7,7 @@ import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.models.dtos.LoginUserDTO;
 import com.greenfoxacademy.petpal.users.models.dtos.RegisterUserDTO;
+import com.greenfoxacademy.petpal.users.models.dtos.UserDTO;
 import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.modelmapper.ModelMapper;
@@ -32,8 +33,9 @@ public class UserController {
   @PostMapping("/register/user")
   public ResponseEntity registerUser(@Valid @RequestBody RegisterUserDTO registerUserDTO) throws UserIsNullException, EmailTakenException, UnirestException {
     PrivateUser privateUser = modelMapper.map(registerUserDTO, PrivateUser.class);
+    UserDTO userDTO = modelMapper.map(registerUserDTO, UserDTO.class);
     userDetailsService.register(privateUser);
-    return ResponseEntity.ok(registerUserDTO.getEmail());
+    return ResponseEntity.ok(userDTO);
   }
 
 /*  @GetMapping("/testtoken")

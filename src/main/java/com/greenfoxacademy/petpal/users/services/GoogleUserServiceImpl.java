@@ -5,9 +5,11 @@ import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.oauthSecurity.JwtTokenUtil;
 import com.greenfoxacademy.petpal.users.models.GoogleUser;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
+import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -18,10 +20,6 @@ public class GoogleUserServiceImpl extends ParentUserService<GoogleUser> {
 
   @Autowired
   private JwtTokenUtil jwtTokenUtil;
-
-  public GoogleUserServiceImpl(MainUserRepository<ParentUser> mainUserRepository, AnimalService animalService) {
-    super(mainUserRepository, animalService);
-  }
 
   @Override
   public String login(GoogleUser googleUser) {
@@ -41,6 +39,8 @@ public class GoogleUserServiceImpl extends ParentUserService<GoogleUser> {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    return null;
+    GoogleUser user = (GoogleUser) userRepository.findByEmail(username);
+    return new User(user.getEmail(), null, null);
   }
+
 }

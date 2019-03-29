@@ -22,7 +22,7 @@ public class UserServiceTest {
 
   @Mock
   MainUserRepository userRepository;
-  
+
   @Mock
   AnimalServiceImpl animalService;
   private PrivateUserServiceImpl userService;
@@ -40,7 +40,7 @@ public class UserServiceTest {
   @Before
   public void init(){
     MockitoAnnotations.initMocks(this);
-    userService = new PrivateUserServiceImpl(userRepository, animalService);
+    userService = new PrivateUserServiceImpl();
     email = "email";
     password = "password";
     name = "name";

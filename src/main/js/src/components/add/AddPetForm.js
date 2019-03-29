@@ -9,8 +9,6 @@ const AddPetForm = ({ onSubmit, onChange, currentPhoto, animMessage, onBlur }) =
       <select name="animtype">
         <option value="dog">dog</option>
         <option value="cat">cat</option>
-        <option value="hamster">hamster</option>
-        <option value="pingvin">pinguin</option>
       </select>
       <select name="animgender">
         <option value="male">male</option>

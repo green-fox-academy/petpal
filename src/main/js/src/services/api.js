@@ -15,13 +15,17 @@ export const listAnimals = token => uniFetch('/home/pets', 'GET', token);
 
 export const googleLoginRequest = () => uniFetch('/oauth2/authorize/google', 'GET');
 
-// export const listLikedAnimals= token => uniFetch('/pets/liked', 'GET', token);
+export const listLikedAnimals = token => uniFetch('/pets/liked', 'GET', token);
 
-// export const listOwnedAnimals= token => uniFetch('/pets/owned', 'GET', token);
+export const listOwnedAnimals = token => uniFetch('/pets/owned', 'GET', token);
 
-// export const listAdoptedAnimals= token => uniFetch('/pets/adoptable', 'GET', token);
+export const listAdoptedAnimals = token => uniFetch('/pets/underadoption', 'GET', token);
 
-export const listLikedAnimals = token => ({
+export const likeAnimal = (token, id) => uniFetch(`/pet/${id}/like`, 'POST', token);
+
+export const adoptAnimal = (token, id) => uniFetch(`/pet/${id}/toAdopt`, 'POST', token);
+
+/*export const listLikedAnimals = token => ({
   likedAnimals: [
     { id: 1, name: 'pistike', photoPath: 'dog.jpg', gender: 'female', type: 'dog' },
     { id: 2, name: 'sanyika', photoPath: 'cat.jpg', gender: 'male', type: 'cat' },
@@ -40,8 +44,8 @@ export const listLikedAnimals = token => ({
     { id: 15, name: 'sanyika', photoPath: 'cat.jpg', gender: 'male', type: 'cat' },
     { id: 16, name: 'sanyika', photoPath: 'cat.jpg', gender: 'male', type: 'cat' },
   ],
-});
-
+});*/
+/*
 export const listOwnedAnimals = token => ({
   ownedAnimals: [
     { id: 1, name: 'pistike', photoPath: 'dog.jpg', gender: 'female', type: 'dog' },
@@ -57,7 +61,7 @@ export const listAdoptedAnimals = token => ({
     { id: 4, name: 'sanyika', photoPath: 'cat.jpg', gender: 'male', type: 'cat' },
   ],
 });
-
+*/
 export const listChatsOfUser = token => ({
   ownChats: [
     {

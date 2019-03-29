@@ -10,6 +10,7 @@ const initState = {
 export default (state = initState, action) => {
   switch (action.type) {
     case SELECT_CURRENT_FORM:
+    console.log("masik cica");
       return { ...state, selectedForm: action.payload };
     case TOGGLE_HAMB_ICON:
       return { ...state, isHamburgerToggled: action.payload };
