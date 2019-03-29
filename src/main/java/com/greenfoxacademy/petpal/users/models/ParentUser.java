@@ -20,7 +20,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class ParentUser {
+public abstract class ParentUser implements Comparable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,4 +55,16 @@ public abstract class ParentUser {
   @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
   @JsonIgnore
   private Set<Chat> chats;
+
+
+  @Override
+  public int compareTo(Object o) {
+    if (o == null) return -1;
+    try{
+      ParentUser temp = (ParentUser) o;
+      return email.compareTo(temp.email);
+    } catch (ClassCastException ex){
+      return -1;
+    }
+  }
 }

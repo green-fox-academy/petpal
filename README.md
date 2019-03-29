@@ -6,11 +6,11 @@ Contributors:
 
 Project: PetPal is an application for wannabe-owners to make connection with shelters and private users to adopt different kinds of pets.
 
-Techologies used:
+Technologies used:
 <br>
 | React | Redux | HTML5 | SCSS | SAGA |
 <br>
-| Dart  | BLoC | Flutter | 
+| Dart  | BLoC | Flutter | CircleCI
 <br>
 | Java | Spring Boot | JPA | Hibernate | 
 <br>
