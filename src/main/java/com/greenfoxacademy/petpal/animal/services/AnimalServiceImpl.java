@@ -8,6 +8,7 @@ import com.greenfoxacademy.petpal.animal.repositories.AnimalRepository;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
 import com.greenfoxacademy.petpal.exception.InvalidRaceException;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,4 +75,22 @@ public class AnimalServiceImpl implements AnimalService {
     return animalRepository.existsById(animal.getId());
   }
 
+  //TODO: Need refactor, and working logic
+  @Override
+  public Animal updateAnimalDetails(Long id, ParentUser parentUser, AnimalDTO animalDTO) throws AnimalIdNotFoundException, InvalidRaceException {
+    ModelMapper modelMapper = new ModelMapper();
+    Animal animalToChange = findById(id);
+    if (animalToChange.getOwner().equals(parentUser)) {
+      if (animalDTO.getType().equalsIgnoreCase("dog")) {
+        Animal animal = modelMapper.map(animalDTO, Dog.class);
+        return animal;
+      } else if (animalDTO.getType().equalsIgnoreCase("cat")) {
+        Animal animal = modelMapper.map(animalDTO, Cat.class);
+        return animal;
+      } else {
+        throw new InvalidRaceException();
+      }
+    }
+    return null;
+  }
 }

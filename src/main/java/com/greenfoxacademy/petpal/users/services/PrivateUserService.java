@@ -1,9 +1,11 @@
 package com.greenfoxacademy.petpal.users.services;
 
+import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.EmailTakenException;
 import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.oauthSecurity.JwtTokenUtil;
+import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
 import com.greenfoxacademy.petpal.users.repositories.ParentUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -29,6 +31,10 @@ public class PrivateUserService extends ParentUserService<PrivateUser> {
   private ParentUserRepository parentUserRepository;
   @Autowired
   private JwtTokenUtil jwtTokenUtil;
+
+  public PrivateUserServiceImpl(MainUserRepository<ParentUser> mainUserRepository, AnimalService animalService) {
+    super(mainUserRepository, animalService);
+  }
 
   @Override
   public String login(PrivateUser privateUser) throws UserNotFoundException {

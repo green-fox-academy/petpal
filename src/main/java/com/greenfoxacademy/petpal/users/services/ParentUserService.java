@@ -3,9 +3,8 @@ package com.greenfoxacademy.petpal.users.services;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.*;
-import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
-import com.greenfoxacademy.petpal.users.repositories.ParentUserRepository;
+import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,14 +17,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service(value = "userDetailsService")
-public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService {
+public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService{
+
+  private MainUserRepository<ParentUser> mainUserRepository;
+  private AnimalService animalService;
 
   @Autowired
-  private ParentUserRepository<ParentUser> parentUserRepository;
-  @Autowired
-  private AnimalService animalService;
-  @Autowired
-  private GeoCodeService locationService;
+  public ParentUserService(MainUserRepository<ParentUser> mainUserRepository, AnimalService animalService) {
+    this.mainUserRepository = mainUserRepository;
+    this.animalService = animalService;
+  }
 
   public abstract String login(T t) throws UserNotFoundException;
 
@@ -35,37 +36,29 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
 
   public ParentUser findByEmail(String email) throws Throwable {
     //TODO: set default message in the constructor of the exception class
-    if (parentUserRepository.findByEmail(email) == null) {
+    if (mainUserRepository.findByEmail(email) == null) {
       throw new UsernameNotFoundException("There is no User with such email");
     }
-    return parentUserRepository.findByEmail(email);
+    return mainUserRepository.findByEmail(email);
   }
 
   public ParentUser findById(Long id) throws Throwable {
     //TODO: set default message in the constructor of the exception class
-    return parentUserRepository.findById(id)
+    return mainUserRepository.findById(id)
             .orElseThrow(UserNotFoundException::new);
   }
 
   public ParentUser saveUser(ParentUser t) {
     System.out.println(t.getId());
-    return (ParentUser) parentUserRepository.save(t);
+    return (ParentUser) mainUserRepository.save(t);
   }
 
   public void removeUser(ParentUser parentUser) {
-    parentUserRepository.delete(parentUser);
+    mainUserRepository.delete(parentUser);
   }
-
-  public boolean isUserNull(T t) {
-    return t == null;
-  }
-
-/*  public boolean isUserInDB(T t){
-    return mainUserRepository.existsById(t.getId());
-  }*/
 
   public boolean isEmailInDB(T t) {
-    return parentUserRepository.existsByEmail(t.getEmail());
+    return mainUserRepository.existsByEmail(t.getEmail());
   }
 
   public ParentUser getUserFromAuth(Authentication authentication) throws Throwable {
@@ -163,9 +156,8 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
       animal.setParentUserLike(allUsersLiked);
 
       saveUser(t);
-    } else {
+    } else
       throw new AnimalIdNotFoundException();
-    }
   }
 
   public void removeAnimalFromAnimalsUnderAdoptionByUser(Animal animal, T t) {
@@ -192,4 +184,5 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
 
     saveUser(t);
   }
+
 }
