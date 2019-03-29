@@ -23,8 +23,6 @@ public class UserServiceTest {
   @Mock
   MainUserRepository userRepository;
 
-  @Mock
-  AnimalServiceImpl animalService;
   private PrivateUserServiceImpl userService;
   private String email;
   private String password;
@@ -62,32 +60,7 @@ public class UserServiceTest {
     privateUser2.setAnimalsLikedByUser(likedAnimalSet);
     privateUser.setAnimalsUnderAdoptionByUser(adoptAnimalSet);
   }
-  @Test
-  public void findByEmail_returnsUser() throws Throwable {
-    Mockito.when(userRepository.findByEmail(email)).thenReturn(privateUser);
-    assertEquals(userService.findByEmail(email),privateUser);
-  }
-
-  @Test
-  public void findById_returnsUser() throws Throwable {
-    Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(privateUser));
-    assertEquals(userService.findById(id),privateUser);
-
-  }
-
-  @Test
-  public void saveUser_returnsUser() {
-    Mockito.when(userRepository.save(privateUser)).thenReturn(privateUser);
-    assertEquals(userService.saveUser(privateUser),privateUser);
-  }
-
-  @Test
-  public void isEmailInDB_returnsUser() {
-    Mockito.when(userRepository.existsByEmail(email)).thenReturn(true);
-    assertEquals(userService.isEmailInDB(privateUser), true);
-
-  }
-
+  
   @Test
   public void isAnimalOwnedByUser_returnsFalse() {
     assertEquals(userService.isAnimalOwnedByUser(animal,privateUser), false);
