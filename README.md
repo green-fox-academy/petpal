@@ -22,7 +22,7 @@ Technologies used:
 
 ![Mobile ui](https://user-images.githubusercontent.com/42215450/55217679-620ce280-5200-11e9-8143-2b5305d7003d.png)
 <br>
-![Mobile app](https://github.com/ChrisFrill/petpal
+![Mobile app](https://github.com/ChrisFrill/petpal)
 
 
 
