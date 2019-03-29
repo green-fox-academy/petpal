@@ -10,6 +10,7 @@ import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -34,28 +35,43 @@ public class ChatService {
   }
 
   public void saveChat(ChatMessage chatMessage, Long id, ParentUser parentUser) throws ChatIdNotFoundException {
+    System.out.println(chatMessage.getMessage());
     Chat chat = findById(id);
     List<ChatMessage> messages = chat.getMessages();
     messages.add(chatMessage);
     chat.setMessages(messages);
     chatMessage.setAuthor(parentUser);
+    chatMessage.setChat(chat);
     messageService.saveMessage(chatMessage);
-    chatRepository.save(chat);
   }
 
   public void createChat(ParentUser firstUser, ParentUser secondUser, Animal animal) {
     Chat chat = new Chat();
+
     Set<ParentUser> users = new HashSet<>();
     users.add(firstUser);
     users.add(secondUser);
     chat.setUsers(users);
     chat.setAnimal(animal);
+
     Set<Chat> firstUserChat = firstUser.getChats();
     firstUserChat.add(chat);
+
     Set<Chat> secondUserChat = secondUser.getChats();
     secondUserChat.add(chat);
     firstUser.setChats(firstUserChat);
     secondUser.setChats(secondUserChat);
+
+    ChatMessage message = new ChatMessage();
+    message.setAuthor(secondUser);
+    message.setChat(chat);
+    message.setMessage("Hi! Let's start the conversation!");
+
+    List<ChatMessage> messages = new ArrayList<>();
+    messages.add(message);
+    chat.setMessages(messages);
+    firstUser.setMessages(messages);
+
     chatRepository.save(chat);
     parentUserService.saveUser(firstUser);
     parentUserService.saveUser(secondUser);
