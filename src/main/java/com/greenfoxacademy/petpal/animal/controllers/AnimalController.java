@@ -74,7 +74,7 @@ public class AnimalController {
     //Get animal from frontend WITH ID
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     animalService.updateAnimalDetails(id,parentUser,animalDTO);
-    return ResponseEntity.ok().body(animalService.save(animal));
+    return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/pet/{id}/owned")

@@ -74,6 +74,7 @@ public class AnimalServiceImpl implements AnimalService {
     return animalRepository.existsById(animal.getId());
   }
 
+  //TODO: Need refactor, and working logic
   @Override
   public Animal updateAnimalDetails(Long id, ParentUser parentUser, AnimalDTO animalDTO) throws AnimalIdNotFoundException, InvalidRaceException {
     ModelMapper modelMapper = new ModelMapper();
