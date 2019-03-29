@@ -8,10 +8,7 @@ import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ChatController {
@@ -32,12 +29,13 @@ public class ChatController {
   }
 
   @GetMapping(value = "/chats/{chatId}")
-  public ResponseEntity getChat(@PathVariable Long chatId) throws ChatIdNotFoundException {
-    return ResponseEntity.ok(chatService.findById(chatId));
+  public ResponseEntity getChat(@PathVariable String chatId) throws ChatIdNotFoundException {
+    return ResponseEntity.ok(chatService.findById(Long.parseLong(chatId)));
   }
 
   @PostMapping(value = "/chats/{chatId}")
-  public ResponseEntity sendMessage(@PathVariable Long chatId, ChatMessage chatMessage, Authentication authentication) throws Throwable {
+  public ResponseEntity sendMessage(@PathVariable Long chatId, @RequestBody ChatMessage chatMessage, Authentication authentication) throws Throwable {
+    System.out.println(chatMessage.getMessage());
     ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
     chatService.saveChat(chatMessage, chatId, parentUser);
     return ResponseEntity.ok(chatService.findById(chatId));

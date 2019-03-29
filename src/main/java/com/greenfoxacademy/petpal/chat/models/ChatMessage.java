@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petpal.chat.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class ChatMessage {
   @JoinColumn(name = "author_id", referencedColumnName = "id")
   private ParentUser author;
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "chat_id", referencedColumnName = "id")
   private Chat chat;
