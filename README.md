@@ -10,13 +10,15 @@ Technologies used:
 <br>
 | React | Redux | HTML5 | SCSS | SAGA |
 <br>
-| Dart  | BLoC | Flutter | CircleCI
+| Dart  | BLoC | Flutter |
 <br>
 | Java | Spring Boot | JPA | Hibernate | 
 <br>
 | MySQL | Flyway | Oauth2 | Spring Security | 
 <br>
 | Git | Heroku | Reflection API | Google API |
+<br>
+| JUnit | MockMVC | Mockito | CircleCI |
 
 ![Mobile ui](https://user-images.githubusercontent.com/42215450/55217679-620ce280-5200-11e9-8143-2b5305d7003d.png)
 
