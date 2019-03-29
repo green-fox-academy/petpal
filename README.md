@@ -4,7 +4,7 @@ Titanium Guppies | FedEx Project
 Contributors: 
 [bleaksmile](https://github.com/bleaksmile) | [ChrisFrill](https://github.com/chrisfrill) | [danizsin](https://github.com/danizsin) | [lyancsie](https://github.com/lyancsie) | [pitner33](https://github.com/pitner33) | [refike](https://github.com/refike) 
 
-Project: PetPal is an application for wannabe-owners to make connection with the shelters and private users to adopt different kinds of pets.
+Project: PetPal is an application for wannabe-owners to make connection with shelters and private users to adopt different kinds of pets.
 
 Techologies used:
 <br>
