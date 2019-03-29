@@ -48,10 +48,10 @@ export function* listLikedAnimalsRequest() {
   const token = localStorage.getItem('accesstoken');
   try {
     const response = yield call(API.listLikedAnimals, token);
-    if (response.likedAnimals) {
+    if (Array.isArray(response)) {
       yield put({
         type: actions.LIST_LIKED_ANIMALS_SUCCEEDED,
-        payload: response.likedAnimals,
+        payload: response,
       });
     } else {
       yield put({
@@ -70,10 +70,10 @@ export function* listOwnedAnimalsRequest() {
   const token = localStorage.getItem('accesstoken');
   try {
     const response = yield call(API.listOwnedAnimals, token);
-    if (response.ownedAnimals) {
+    if (Array.isArray(response)) {
       yield put({
         type: actions.LIST_OWNED_ANIMALS_SUCCEEDED,
-        payload: response.ownedAnimals,
+        payload: response,
       });
     } else {
       yield put({
@@ -92,10 +92,10 @@ export function* listAdoptedAnimalsRequest() {
   const token = localStorage.getItem('accesstoken');
   try {
     const response = yield call(API.listAdoptedAnimals, token);
-    if (response.adoptableAnimals) {
+    if (Array.isArray(response)) {
       yield put({
         type: actions.LIST_ADOPTED_ANIMALS_SUCCEEDED,
-        payload: response.adoptableAnimals,
+        payload: response,
       });
     } else {
       yield put({

@@ -29,7 +29,6 @@ const GoogleAuth = (props) => {
       history.push('/');
     }
   }, []);*/
-  return <div>HALLLOO</div>;
 };
 
 const mapDispatchToProps = {

@@ -19,14 +19,10 @@ import java.util.stream.Collectors;
 @Service(value = "userDetailsService")
 public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService{
 
-  private MainUserRepository<ParentUser> mainUserRepository;
-  private AnimalService animalService;
-
   @Autowired
-  public ParentUserService(MainUserRepository<ParentUser> mainUserRepository, AnimalService animalService) {
-    this.mainUserRepository = mainUserRepository;
-    this.animalService = animalService;
-  }
+  private MainUserRepository<ParentUser> mainUserRepository;
+  @Autowired
+  private AnimalService animalService;
 
   public abstract String login(T t) throws UserNotFoundException;
 
