@@ -19,15 +19,21 @@ import org.springframework.web.bind.annotation.*;
 public class AnimalController {
 
   private AnimalService animalService;
+
   private ChatService chatService;
+
   private ParentUserService userDetailsService;
 
   @Autowired
 
-  public AnimalController(AnimalService animalService, ChatService chatService, ParentUserService<ParentUser> userDetailsService) {
+  public AnimalController(AnimalService animalService, ParentUserService userDetailsService, ChatService chatService) {
+
     this.animalService = animalService;
-    this.chatService = chatService;
+
     this.userDetailsService = userDetailsService;
+
+    this.chatService = chatService;
+
   }
 
   @GetMapping("/home/pets")
