@@ -1,5 +1,6 @@
 package com.greenfoxacademy.petpal.animal.models;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
 public class AnimalDTO {
 
   private String name;
