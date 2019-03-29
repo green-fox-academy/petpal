@@ -11,6 +11,7 @@ import com.greenfoxacademy.petpal.users.services.ParentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -68,10 +69,12 @@ public class AnimalController {
   }
 
   @PutMapping("/pet/{id}")
-  public ResponseEntity change(@PathVariable Long id, Authentication authentication, Animal animal) throws AnimalIdNotFoundException, AnimalIsNullException {
+  public ResponseEntity change(@PathVariable Long id, Authentication authentication, AnimalDTO animalDTO) throws Throwable {
     //TODO: modify an animal's details
     //Get animal from frontend WITH ID
-    return ResponseEntity.ok().body(animalService.save(animal));
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
+    animalService.updateAnimalDetails(id,parentUser,animalDTO);
+    return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/pet/{id}/owned")
