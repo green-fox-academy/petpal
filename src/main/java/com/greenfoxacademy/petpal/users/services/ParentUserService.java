@@ -3,7 +3,6 @@ package com.greenfoxacademy.petpal.users.services;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.*;
-import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -18,14 +17,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service(value = "userDetailsService")
-public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService {
+public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService{
+
+  private MainUserRepository<ParentUser> mainUserRepository;
+  private AnimalService animalService;
 
   @Autowired
-  private MainUserRepository<ParentUser> mainUserRepository;
-  @Autowired
-  private AnimalService animalService;
-  @Autowired
-  private GeoCodeService locationService;
+  public ParentUserService(MainUserRepository<ParentUser> mainUserRepository, AnimalService animalService) {
+    this.mainUserRepository = mainUserRepository;
+    this.animalService = animalService;
+  }
 
   public abstract String login(T t) throws UserNotFoundException;
 
@@ -55,14 +56,6 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
   public void removeUser(ParentUser parentUser) {
     mainUserRepository.delete(parentUser);
   }
-
-  public boolean isUserNull(T t) {
-    return t == null;
-  }
-
-/*  public boolean isUserInDB(T t){
-    return mainUserRepository.existsById(t.getId());
-  }*/
 
   public boolean isEmailInDB(T t) {
     return mainUserRepository.existsByEmail(t.getEmail());
@@ -129,7 +122,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
       throw new ExceedMaxNumberOfAnimalsToAdoptException();
     }
     if (isAnimalOwnedByUser(animal, t)) {
-      throw new OwnedAnimalCannotBeAdoptedException("You cannot adopt your own animal");
+      throw new OwnedAnimalCannotBeAdoptedException();
     }
     Set<Animal> animalsUnderAdoptionByUser = t.getAnimalsUnderAdoptionByUser();
     animalsUnderAdoptionByUser.add(animal);
@@ -151,16 +144,20 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     saveUser(t);
   }
 
-  public void removeAnimalFromAnimalsLikedByUser(Animal animal, T t) {
+  public void removeAnimalFromAnimalsLikedByUser(Animal animal, T t) throws AnimalIdNotFoundException {
+
     Set<Animal> animalsLikedByUser = t.getAnimalsLikedByUser();
-    animalsLikedByUser.remove(animal);
-    t.setAnimalsLikedByUser(animalsLikedByUser);
+    if (animalsLikedByUser.contains(animal)) {
+      animalsLikedByUser.remove(animal);
+      t.setAnimalsLikedByUser(animalsLikedByUser);
 
-    Set<ParentUser> allUsersLiked = animal.getParentUserLike();
-    allUsersLiked.remove(t);
-    animal.setParentUserLike(allUsersLiked);
+      Set<ParentUser> allUsersLiked = animal.getParentUserLike();
+      allUsersLiked.remove(t);
+      animal.setParentUserLike(allUsersLiked);
 
-    saveUser(t);
+      saveUser(t);
+    } else
+      throw new AnimalIdNotFoundException();
   }
 
   public void removeAnimalFromAnimalsUnderAdoptionByUser(Animal animal, T t) {
@@ -174,7 +171,10 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
     saveUser(t);
   }
 
-  public void removeAnimalFromAnimalsOwnedByUser(Animal animal, T t) throws AnimalIdNotFoundException {
+  public void removeAnimalFromAnimalsOwnedByUser(Animal animal, T t) throws AnimalIdNotFoundException, NotOwnedAnimalDeleteException {
+    if (!isAnimalOwnedByUser(animal, t)) {
+      throw new NotOwnedAnimalDeleteException();
+    }
     Set<Animal> animalsOwnedByUser = t.getAnimalsOwnedByUser();
     animalsOwnedByUser.remove(animal);
     t.setAnimalsOwnedByUser(animalsOwnedByUser);
@@ -184,4 +184,5 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
 
     saveUser(t);
   }
+
 }

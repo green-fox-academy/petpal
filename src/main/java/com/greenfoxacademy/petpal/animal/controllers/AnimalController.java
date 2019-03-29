@@ -2,19 +2,16 @@ package com.greenfoxacademy.petpal.animal.controllers;
 
 import com.greenfoxacademy.petpal.animal.models.Animal;
 import com.greenfoxacademy.petpal.animal.models.AnimalDTO;
-import com.greenfoxacademy.petpal.animal.models.Cat;
-import com.greenfoxacademy.petpal.animal.models.Dog;
 import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.chat.services.ChatService;
 import com.greenfoxacademy.petpal.exception.AnimalIdNotFoundException;
 import com.greenfoxacademy.petpal.exception.AnimalIsNullException;
-import com.greenfoxacademy.petpal.exception.InvalidRaceException;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.services.ParentUserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -23,9 +20,10 @@ public class AnimalController {
 
   private AnimalService animalService;
   private ChatService chatService;
-  private ParentUserService<ParentUser> userDetailsService;
+  private ParentUserService userDetailsService;
 
   @Autowired
+
   public AnimalController(AnimalService animalService, ChatService chatService, ParentUserService<ParentUser> userDetailsService) {
     this.animalService = animalService;
     this.chatService = chatService;
@@ -44,7 +42,7 @@ public class AnimalController {
   }
 
   @PostMapping("/pet/{id}/like")
-  public ResponseEntity like(@PathVariable Long id, Authentication authentication) throws Throwable {
+  public ResponseEntity addToLike(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
     System.out.println(parentUser.getId());
@@ -71,36 +69,37 @@ public class AnimalController {
   }
 
   @PutMapping("/pet/{id}")
-  public ResponseEntity change(@PathVariable Long id, Authentication authentication, Animal animal) throws AnimalIdNotFoundException, AnimalIsNullException {
+  public ResponseEntity change(@PathVariable Long id, Authentication authentication, AnimalDTO animalDTO) throws Throwable {
     //TODO: modify an animal's details
     //Get animal from frontend WITH ID
-    return ResponseEntity.ok().body(animalService.save(animal));
+    ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
+    animalService.updateAnimalDetails(id,parentUser,animalDTO);
+    return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/pet/{id}/owned")
   public ResponseEntity deleteFromOwned(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    return ResponseEntity.ok(parentUser.getAnimalsOwnedByUser().remove(animal));
-    // userDetailsService.SolMethodja(animal,parentUser);
-    //animalService.remove(animalService.findById(id));
+    userDetailsService.removeAnimalFromAnimalsOwnedByUser(animal, parentUser);
+    return ResponseEntity.ok().build();
+
   }
 
   @DeleteMapping("/pet/{id}/like")
   public ResponseEntity deleteFromLiked(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    //TODO: implement
-    return ResponseEntity.ok(parentUser.getAnimalsLikedByUser().remove(animal));
+    userDetailsService.removeAnimalFromAnimalsLikedByUser(animal, parentUser);
+    return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("pet/{id}/adoptable")
   public ResponseEntity deleteFromAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
     Animal animal = animalService.findById(id);
-    //return ResponseEntity.ok(privateUser.getAnimalsToAdoptByUser().remove(animal));
-    //TODO: implement
-    return null;
+    userDetailsService.removeAnimalFromAnimalsUnderAdoptionByUser(animal, parentUser);
+    return ResponseEntity.ok().build();
   }
 }
 //TODO: reduce duplications
