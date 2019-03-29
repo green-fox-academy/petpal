@@ -10,7 +10,7 @@ Technologies used:
 <br>
 | React | Redux | HTML5 | SCSS | SAGA |
 <br>
-| Dart  | BLoC | Flutter | 
+| Dart  | BLoC | Flutter | CircleCI
 <br>
 | Java | Spring Boot | JPA | Hibernate | 
 <br>
