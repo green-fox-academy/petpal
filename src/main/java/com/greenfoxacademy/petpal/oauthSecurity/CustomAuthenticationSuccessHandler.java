@@ -1,9 +1,7 @@
 package com.greenfoxacademy.petpal.oauthSecurity;
 
-
-
 import com.greenfoxacademy.petpal.users.models.ParentUser;
-import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
+import com.greenfoxacademy.petpal.users.repositories.ParentUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
@@ -19,12 +17,11 @@ import java.util.Map;
 
 import static com.greenfoxacademy.petpal.oauthSecurity.Constants.homeUrl;
 
-
 @Component
 public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
   @Autowired
-  private MainUserRepository userRepository;
+  private ParentUserRepository userRepository;
 
   @Autowired
   private JwtTokenUtil jwtTokenUtil;

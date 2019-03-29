@@ -163,8 +163,9 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
       animal.setParentUserLike(allUsersLiked);
 
       saveUser(t);
-    } else
+    } else {
       throw new AnimalIdNotFoundException();
+    }
   }
 
   public void removeAnimalFromAnimalsUnderAdoptionByUser(Animal animal, T t) {

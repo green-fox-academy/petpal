@@ -3,7 +3,7 @@ package com.greenfoxacademy.petpal.oauthSecurity;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
 import com.greenfoxacademy.petpal.users.models.ParentUserFactory;
 import com.greenfoxacademy.petpal.users.models.UserType;
-import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
+import com.greenfoxacademy.petpal.users.repositories.ParentUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class CustomOidcUserService extends OidcUserService {
 
   @Autowired
-  private MainUserRepository userRepository;
+  private ParentUserRepository userRepository;
 
   @Override
   public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
