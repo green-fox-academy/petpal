@@ -26,11 +26,10 @@ public class AnimalController {
   private ParentUserService<ParentUser> userDetailsService;
 
   @Autowired
-
-  public AnimalController(AnimalService animalService, ParentUserService<ParentUser> userDetailsService) {
+  public AnimalController(AnimalService animalService, ChatService chatService, ParentUserService<ParentUser> userDetailsService) {
     this.animalService = animalService;
-    this.userDetailsService = userDetailsService;
     this.chatService = chatService;
+    this.userDetailsService = userDetailsService;
   }
 
   @GetMapping("/home/pets")
@@ -58,7 +57,7 @@ public class AnimalController {
   @PostMapping("/pet/{id}/toAdopt")
   public ResponseEntity addToAdopt(@PathVariable Long id, Authentication authentication) throws Throwable {
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
-//    chatService.createChat(parentUser, animalService.findById(id).getOwner(), animalService.findById(id));
+    chatService.createChat(parentUser, animalService.findById(id).getOwner(), animalService.findById(id));
     userDetailsService.addAnimalToAnimalsUnderAdoptionByUser(animalService.findById(id), parentUser);
     //TODO: fix raw type error
     return ResponseEntity.ok().build();
