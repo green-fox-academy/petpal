@@ -36,8 +36,8 @@ public abstract class ParentUser {
   /*  @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "geo_code_id")
     private GeoCode geoCode;*/
+
   private String address;
-//  TODO address fields
 
   @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
   @JsonIgnore
