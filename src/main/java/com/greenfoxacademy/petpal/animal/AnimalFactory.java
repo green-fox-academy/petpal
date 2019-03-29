@@ -1,6 +1,4 @@
 package com.greenfoxacademy.petpal.animal;
-
-import com.greenfoxacademy.petpal.Factory;
 import com.greenfoxacademy.petpal.animal.models.Animal;
 
 public class AnimalFactory  {
