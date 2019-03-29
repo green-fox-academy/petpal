@@ -5,7 +5,7 @@ import com.greenfoxacademy.petpal.animal.services.AnimalService;
 import com.greenfoxacademy.petpal.exception.*;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.users.models.ParentUser;
-import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
+import com.greenfoxacademy.petpal.users.repositories.ParentUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public abstract class ParentUserService<T extends ParentUser> implements UserDetailsService {
 
   @Autowired
-  private MainUserRepository<ParentUser> mainUserRepository;
+  private ParentUserRepository<ParentUser> parentUserRepository;
   @Autowired
   private AnimalService animalService;
   @Autowired
@@ -35,25 +35,25 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
 
   public ParentUser findByEmail(String email) throws Throwable {
     //TODO: set default message in the constructor of the exception class
-    if (mainUserRepository.findByEmail(email) == null) {
+    if (parentUserRepository.findByEmail(email) == null) {
       throw new UsernameNotFoundException("There is no User with such email");
     }
-    return mainUserRepository.findByEmail(email);
+    return parentUserRepository.findByEmail(email);
   }
 
   public ParentUser findById(Long id) throws Throwable {
     //TODO: set default message in the constructor of the exception class
-    return mainUserRepository.findById(id)
+    return parentUserRepository.findById(id)
             .orElseThrow(UserNotFoundException::new);
   }
 
   public ParentUser saveUser(ParentUser t) {
     System.out.println(t.getId());
-    return (ParentUser) mainUserRepository.save(t);
+    return (ParentUser) parentUserRepository.save(t);
   }
 
   public void removeUser(ParentUser parentUser) {
-    mainUserRepository.delete(parentUser);
+    parentUserRepository.delete(parentUser);
   }
 
   public boolean isUserNull(T t) {
@@ -65,7 +65,7 @@ public abstract class ParentUserService<T extends ParentUser> implements UserDet
   }*/
 
   public boolean isEmailInDB(T t) {
-    return mainUserRepository.existsByEmail(t.getEmail());
+    return parentUserRepository.existsByEmail(t.getEmail());
   }
 
   public ParentUser getUserFromAuth(Authentication authentication) throws Throwable {

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class GoogleUserServiceImpl extends ParentUserService<GoogleUser> {
+public class GoogleUserService extends ParentUserService<GoogleUser> {
 
   @Autowired
   private MainUserRepository userRepository;

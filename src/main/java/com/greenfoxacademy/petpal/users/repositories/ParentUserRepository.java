@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface MainUserRepository<T extends ParentUser> extends JpaRepository<T, Long> {
+public interface ParentUserRepository<T extends ParentUser> extends JpaRepository<T, Long> {
 
   Optional<T> findByName(String name);
 

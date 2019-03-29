@@ -5,7 +5,7 @@ import com.greenfoxacademy.petpal.exception.UserNotFoundException;
 import com.greenfoxacademy.petpal.geocode.GeoCodeService;
 import com.greenfoxacademy.petpal.oauthSecurity.JwtTokenUtil;
 import com.greenfoxacademy.petpal.users.models.PrivateUser;
-import com.greenfoxacademy.petpal.users.repositories.MainUserRepository;
+import com.greenfoxacademy.petpal.users.repositories.ParentUserRepository;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,14 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
+public class PrivateUserService extends ParentUserService<PrivateUser> {
 
   @Autowired
   private BCryptPasswordEncoder encoder;
   @Autowired
   private GeoCodeService locationService;
   @Autowired
-  private MainUserRepository mainUserRepository;
+  private ParentUserRepository parentUserRepository;
   @Autowired
   private JwtTokenUtil jwtTokenUtil;
 
@@ -60,7 +60,7 @@ public class PrivateUserServiceImpl extends ParentUserService<PrivateUser> {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    PrivateUser user = (PrivateUser) mainUserRepository.findByEmail(username);
+    PrivateUser user = (PrivateUser) parentUserRepository.findByEmail(username);
     if (user == null) {
       throw new UsernameNotFoundException("Invalid username or password.");
     }
