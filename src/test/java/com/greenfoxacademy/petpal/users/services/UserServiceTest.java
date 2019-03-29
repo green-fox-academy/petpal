@@ -60,7 +60,7 @@ public class UserServiceTest {
     privateUser2.setAnimalsLikedByUser(likedAnimalSet);
     privateUser.setAnimalsUnderAdoptionByUser(adoptAnimalSet);
   }
-  
+
   @Test
   public void isAnimalOwnedByUser_returnsFalse() {
     assertEquals(userService.isAnimalOwnedByUser(animal,privateUser), false);

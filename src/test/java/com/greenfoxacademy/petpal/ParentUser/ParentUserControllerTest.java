@@ -76,22 +76,6 @@ public class ParentUserControllerTest {
   }
 
   @Test
-  public void register_successful() throws Exception {
-    user = new JSONObject()
-            .put("name", name)
-            .put("email", email)
-            .put("password", password)
-            .toString();
-    when(userDetailsService.register(any(PrivateUser.class))).thenReturn(privateUser);
-    mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(user))
-            .andExpect(status().isOk())
-            .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN))
-            .andExpect(content().string(email));
-  }
-
-  @Test
   public void register_missingParameters_returnsBadRequest() throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.post(Constants.registerEndpoint))
             .andExpect(status().isBadRequest());
