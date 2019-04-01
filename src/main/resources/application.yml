@@ -27,8 +27,8 @@ spring:
       client:
         registration:
           google:
-            clientId: 22573920447-06l4jrtm9u1poo486qfdqi1n7cbj5mht.apps.googleusercontent.com
-            clientSecret: 6E1iTJo_X303wlqXMYGCPe1c
-            redirect-uri: http://localhost:8080/oauth2/callback/google
+            clientId: ${GOOGLE_CLIENTID}
+            clientSecret: ${GOOGLE_CLIENTSECRET}
+            redirect-uri: ${GOOGLE_REDIRECT}
 image:
   upload-dir: .assets/images
