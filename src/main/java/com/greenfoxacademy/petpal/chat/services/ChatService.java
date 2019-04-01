@@ -34,14 +34,16 @@ public class ChatService {
             .orElseThrow(ChatIdNotFoundException::new);
   }
 
-  public void saveChat(ChatMessage chatMessage, Long id, ParentUser parentUser) throws ChatIdNotFoundException {
-    System.out.println(chatMessage.getMessage());
+  public void saveChatMessage(ChatMessage chatMessage, Long id, ParentUser parentUser) throws ChatIdNotFoundException {
     Chat chat = findById(id);
+
     List<ChatMessage> messages = chat.getMessages();
     messages.add(chatMessage);
     chat.setMessages(messages);
+
     chatMessage.setAuthor(parentUser);
     chatMessage.setChat(chat);
+
     messageService.saveMessage(chatMessage);
   }
 
@@ -59,6 +61,7 @@ public class ChatService {
 
     Set<Chat> secondUserChat = secondUser.getChats();
     secondUserChat.add(chat);
+    
     firstUser.setChats(firstUserChat);
     secondUser.setChats(secondUserChat);
 
