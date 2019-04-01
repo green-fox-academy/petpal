@@ -1,4 +1,9 @@
- :cat: :dog: :mouse: :koala: :pig: :wolf: :baby_chick: :penguin: :fish: 
+ # :cat: :dog: :mouse: :koala: :pig: :wolf: :baby_chick: :penguin: :fish: :hamster: :chicken: :octopus: :rabbit: :bird:
+
+
+<p align="center">
+   <img src="readmepics/petpal.JPG">
+</p>
 
 # PetPal
 FedEx Project | Hackhaton Project 
@@ -40,9 +45,11 @@ Environment variables
 _________________________________________________________________
 
 
-![Mobile ui](https://user-images.githubusercontent.com/42215450/55217679-620ce280-5200-11e9-8143-2b5305d7003d.png)
+![alt text](readmepics/screenshot.png)
+
 <br>
-![Mobile app](https://github.com/ChrisFrill/petpal)
+
+[Mobile app](https://github.com/ChrisFrill/petpal)
 
 
 
