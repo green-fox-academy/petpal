@@ -33,7 +33,8 @@ public class ChatService {
     return chatRepository.findById(id)
             .orElseThrow(ChatIdNotFoundException::new);
   }
-
+  
+  //TODO: Refactor
   public void saveChatMessage(ChatMessage chatMessage, Long id, ParentUser parentUser) throws ChatIdNotFoundException {
     Chat chat = findById(id);
 
@@ -47,6 +48,7 @@ public class ChatService {
     messageService.saveMessage(chatMessage);
   }
 
+  //TODO: Refactor
   public void createChat(ParentUser firstUser, ParentUser secondUser, Animal animal) {
     Chat chat = new Chat();
 
