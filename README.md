@@ -37,7 +37,7 @@ Environment variables
 |HIBERNATE_DIALECT | org.hibernate.dialect.MySQL57Dialect|
 |PETPAL_TOKEN_SIGNING_KEY | *a signing key specified by you* |
 |HOME_URL | https://petpalgf.herokuapp.com/googleauth |
-|GOOGLE_API_KEY | AIzaSyCPcfqgf7iuZQuD8meWVgf8pqZnPtGuCKU |
+|GOOGLE_API_KEY | *provided only for dedicated users* |
 |GOOGLE_CLIENTID | 22573920447-06l4jrtm9u1poo486qfdqi1n7cbj5mht.apps.googleusercontent.com |
 |GOOGLE_CLIENTSECRET | 6E1iTJo_X303wlqXMYGCPe1c |
 |GOOGLE_REDIRECT | https://petpalgf.herokuapp.com//oauth2/callback/google |
