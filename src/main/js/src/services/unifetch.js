@@ -1,4 +1,5 @@
-const host = 'http://localhost:8080';
+// const host = 'http://localhost:8080';
+const host = 'https://petpalgf.herokuapp.com';
 
 export default (url, method, token, data) => {
   const options = {
