@@ -23,21 +23,20 @@ public class ChatController {
   }
 
   @GetMapping(value = "/chats")
-  public ResponseEntity getChats(Authentication authentication) throws Throwable {
+  public ResponseEntity getUserChats(Authentication authentication) throws Throwable {
     ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
     return ResponseEntity.ok(parentUser.getChats());
   }
 
   @GetMapping(value = "/chats/{chatId}")
-  public ResponseEntity getChat(@PathVariable String chatId) throws ChatIdNotFoundException {
+  public ResponseEntity getPrivateChat(@PathVariable String chatId) throws ChatIdNotFoundException {
     return ResponseEntity.ok(chatService.findById(Long.parseLong(chatId)));
   }
 
   @PostMapping(value = "/chats/{chatId}")
   public ResponseEntity sendMessage(@PathVariable Long chatId, @RequestBody ChatMessage chatMessage, Authentication authentication) throws Throwable {
-    System.out.println(chatMessage.getMessage());
     ParentUser parentUser = parentUserService.getUserFromAuth(authentication);
-    chatService.saveChat(chatMessage, chatId, parentUser);
+    chatService.saveChatMessage(chatMessage, chatId, parentUser);
     return ResponseEntity.ok(chatService.findById(chatId));
   }
 }
