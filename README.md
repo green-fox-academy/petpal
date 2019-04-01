@@ -20,6 +20,24 @@ Technologies used:
 <br>
 | JUnit | MockMVC | Mockito | CircleCI |
 
+Environment variables 
+
+| Key | Value |
+| --- | ----- | 
+|DATASOURCE_URL | jdbc:mysql://localhost/yourDBname |
+|DATASOURCE_USERNAME | *your local mysql username* |
+|DATASOURCE_PASSWORD | *your local mysql password* |
+|HIBERNATE_DIALECT | org.hibernate.dialect.MySQL57Dialect|
+|PETPAL_TOKEN_SIGNING_KEY | *a signing key specified by you* |
+|HOME_URL | https://petpalgf.herokuapp.com/googleauth |
+|GOOGLE_API_KEY | AIzaSyCPcfqgf7iuZQuD8meWVgf8pqZnPtGuCKU |
+|GOOGLE_CLIENTID | 22573920447-06l4jrtm9u1poo486qfdqi1n7cbj5mht.apps.googleusercontent.com |
+|GOOGLE_CLIENTSECRET | 6E1iTJo_X303wlqXMYGCPe1c |
+|GOOGLE_REDIRECT | https://petpalgf.herokuapp.com//oauth2/callback/google |
+
+_________________________________________________________________
+
+
 ![Mobile ui](https://user-images.githubusercontent.com/42215450/55217679-620ce280-5200-11e9-8143-2b5305d7003d.png)
 <br>
 ![Mobile app](https://github.com/ChrisFrill/petpal)
