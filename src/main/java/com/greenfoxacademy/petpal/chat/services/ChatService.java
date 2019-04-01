@@ -33,18 +33,22 @@ public class ChatService {
     return chatRepository.findById(id)
             .orElseThrow(ChatIdNotFoundException::new);
   }
-
-  public void saveChat(ChatMessage chatMessage, Long id, ParentUser parentUser) throws ChatIdNotFoundException {
-    System.out.println(chatMessage.getMessage());
+  
+  //TODO: Refactor
+  public void saveChatMessage(ChatMessage chatMessage, Long id, ParentUser parentUser) throws ChatIdNotFoundException {
     Chat chat = findById(id);
+
     List<ChatMessage> messages = chat.getMessages();
     messages.add(chatMessage);
     chat.setMessages(messages);
+
     chatMessage.setAuthor(parentUser);
     chatMessage.setChat(chat);
+
     messageService.saveMessage(chatMessage);
   }
 
+  //TODO: Refactor
   public void createChat(ParentUser firstUser, ParentUser secondUser, Animal animal) {
     Chat chat = new Chat();
 
@@ -59,6 +63,7 @@ public class ChatService {
 
     Set<Chat> secondUserChat = secondUser.getChats();
     secondUserChat.add(chat);
+    
     firstUser.setChats(firstUserChat);
     secondUser.setChats(secondUserChat);
 
