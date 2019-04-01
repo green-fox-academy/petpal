@@ -79,7 +79,7 @@ public class AnimalController {
     //TODO: modify an animal's details
     //Get animal from frontend WITH ID
     ParentUser parentUser = userDetailsService.getUserFromAuth(authentication);
-    animalService.updateAnimalDetails(id,parentUser,animalDTO);
+    animalService.updateAnimalDetails(id, parentUser, animalDTO);
     return ResponseEntity.ok().build();
   }
 
