@@ -93,5 +93,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Appl
         return new BCryptPasswordEncoder();
     }
 
-
 }
