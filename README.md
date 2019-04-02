@@ -54,7 +54,7 @@ _________________________________________________________________
 <br>
 Pet Finder
 <br>
-<img src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/finder.gif" data-canonical-src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/finder.gifg" width="300"/>
+<img src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/petfinder.gif" data-canonical-src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/petfinder.gifg" width="300"/>
 
 <br>
 Chat
