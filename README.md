@@ -59,5 +59,10 @@ Pet Finder
 <br>
 Chat
 <br>
+<img src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/chat.gif" data-canonical-src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/chat.gifg" width="300"/>
+
+<br>
+Image upload
+<br>
 <img src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/image_upload.gif" data-canonical-src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/image_upload.gifg" width="300"/>
 
