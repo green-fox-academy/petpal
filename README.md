@@ -48,9 +48,20 @@ _________________________________________________________________
 ![alt text](readmepics/screenshot.png)
 
 <br>
+# [Mobile App](https://github.com/ChrisFrill/petpal)
+<br>
+Pet Finder
+<br>
+<img src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/finder.gif" data-canonical-src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/finder.gifg" width="300"/>
 
-[Mobile app](https://github.com/ChrisFrill/petpal)
+<br>
+Chat
+<br>
+<img src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/image_upload.gif" data-canonical-src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/image_upload.gifg" width="300"/>
 
-
+<br>
+Pet Finder
+<br>
+<img src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/finder.gif" data-canonical-src="https://raw.githubusercontent.com/green-fox-academy/petpal/develop/readmepics/finder.gifg" width="300"/>
 
 
