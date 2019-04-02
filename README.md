@@ -48,7 +48,9 @@ _________________________________________________________________
 ![alt text](readmepics/screenshot.png)
 
 <br>
+
 # [Mobile App](https://github.com/ChrisFrill/petpal)
+
 <br>
 Pet Finder
 <br>
